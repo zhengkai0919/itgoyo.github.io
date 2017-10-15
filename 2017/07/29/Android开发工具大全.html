@@ -7,20 +7,40 @@
     
 
     
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?true"></script>
-<!-- End Baidu Tongji -->
 
 
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
 
 
     <meta charset="utf-8">
     
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/29/Android开发工具大全.html">
     
     
     <title>Android开发工具大全 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Android">
@@ -40,7 +60,9 @@
 <meta name="twitter:description" content="AndroidDevTools Android Dev Tools官网地址：www.androiddevtools.cn 收集整理Android开发所需的Android SDK、开发中用到的工具、Android开发教程、Android设计规范，免费的设计素材等。 欢迎大家推荐自己在Android开发过程中用的好用的工具、学习开发教程、用到设计素材，欢迎Star、Fork 😄。 Android T">
 <meta name="twitter:image" content="https://badges.gitter.im/Join%20Chat.svg">
     
-    <link rel="shortcut icon" href="/">
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
     <link rel="stylesheet" href="/css/style.css?v=1.5.2">
     <script>window.lazyScripts=[]</script>
 
@@ -60,26 +82,89 @@ var _hmt = _hmt || [];
     <div id="loading" class="active"></div>
 
     <aside id="menu" style="
-    width: 300px;" >
+    width: 300px;"class="hide" >
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/)">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand" style="
           width: 300px;">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/">
+          <img src="/img/kotlin_250x250.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">itgoyo</h5>
-          <a href="mailto:undefined" class="mail">
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col" style="
         width: 300px;">
       <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
         
 
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
@@ -102,6 +187,20 @@ var _hmt = _hmt || [];
         </a>
         <div class="flex-col header-title ellipsis">Android开发工具大全</div>
         
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
         
     </div>
 </header>
@@ -129,6 +228,13 @@ var _hmt = _hmt || [];
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#AndroidDevTools"><span class="post-toc-number">1.</span> <span class="post-toc-text">AndroidDevTools</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android-Tools"><span class="post-toc-number">2.</span> <span class="post-toc-text">Android Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-SDK在线更新镜像服务器"><span class="post-toc-number">2.0.0.1.</span> <span class="post-toc-text">Android SDK在线更新镜像服务器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Studio"><span class="post-toc-number">2.0.0.2.</span> <span class="post-toc-text">Android Studio</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Tools"><span class="post-toc-number">2.0.0.3.</span> <span class="post-toc-text">SDK Tools</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Platform-Tools"><span class="post-toc-number">2.0.0.4.</span> <span class="post-toc-text">SDK Platform-Tools</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Build-Tools"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">Build-Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK"><span class="post-toc-number">2.0.1.1.</span> <span class="post-toc-text">SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-System-images"><span class="post-toc-number">2.0.1.2.</span> <span class="post-toc-text">SDK System images</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GoogleMap-APIs-SDK"><span class="post-toc-number">2.0.1.3.</span> <span class="post-toc-text">GoogleMap APIs SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Glass-SDK"><span class="post-toc-number">2.0.1.4.</span> <span class="post-toc-text">Google Glass SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-TV-Addon"><span class="post-toc-number">2.0.1.5.</span> <span class="post-toc-text">Google TV Addon</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-SDK-Extras"><span class="post-toc-number">2.0.1.6.</span> <span class="post-toc-text">Android SDK Extras</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Support-Library"><span class="post-toc-number">2.0.1.7.</span> <span class="post-toc-text">Support Library</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Samples"><span class="post-toc-number">2.0.1.8.</span> <span class="post-toc-text">SDK Samples</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NDK"><span class="post-toc-number">2.0.1.9.</span> <span class="post-toc-text">NDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-L-Preview-System-Image"><span class="post-toc-number">2.0.1.10.</span> <span class="post-toc-text">Android L Preview System Image</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JDK"><span class="post-toc-number">2.0.1.11.</span> <span class="post-toc-text">JDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ADT-Bundle"><span class="post-toc-number">2.0.1.12.</span> <span class="post-toc-text">ADT Bundle</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ADT-Plugin"><span class="post-toc-number">2.0.1.13.</span> <span class="post-toc-text">ADT Plugin</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle"><span class="post-toc-number">2.0.1.14.</span> <span class="post-toc-text">Gradle</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Gradle-Plugin-DSL-在线文档"><span class="post-toc-number">2.0.1.15.</span> <span class="post-toc-text">Android Gradle Plugin DSL 在线文档</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle-Dependencies-Configuration-Generator（需要梯子）"><span class="post-toc-number">2.0.1.16.</span> <span class="post-toc-text">Gradle Dependencies Configuration Generator（需要梯子）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#版本控制工具"><span class="post-toc-number">2.0.1.17.</span> <span class="post-toc-text">版本控制工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Git"><span class="post-toc-number">2.0.1.17.1.</span> <span class="post-toc-text">Git</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#SVN-Plugin-For-Eclipse"><span class="post-toc-number">2.0.1.17.2.</span> <span class="post-toc-text">SVN Plugin For Eclipse</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#反编译工具"><span class="post-toc-number">2.0.1.18.</span> <span class="post-toc-text">反编译工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安全工具"><span class="post-toc-number">2.0.1.19.</span> <span class="post-toc-text">安全工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态代码分析工具"><span class="post-toc-number">2.0.1.20.</span> <span class="post-toc-text">静态代码分析工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#搜索工具"><span class="post-toc-number">2.0.1.21.</span> <span class="post-toc-text">搜索工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Debug调试工具"><span class="post-toc-number">2.0.1.22.</span> <span class="post-toc-text">Debug调试工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Api测试工具"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">Api测试工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Eclipse-Android-Studio-IDEA插件"><span class="post-toc-number">2.0.2.1.</span> <span class="post-toc-text">Eclipse/Android Studio/IDEA插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Eclipse"><span class="post-toc-number">2.0.2.1.1.</span> <span class="post-toc-text">Eclipse</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Android-Studio-IDEA"><span class="post-toc-number">2.0.2.1.2.</span> <span class="post-toc-text">Android Studio/IDEA</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android资源-Themes-Style生成工具"><span class="post-toc-number">2.0.2.2.</span> <span class="post-toc-text">Android资源/Themes/Style生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android资源分析工具"><span class="post-toc-number">2.0.2.3.</span> <span class="post-toc-text">Android资源分析工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Layout-Parser工具"><span class="post-toc-number">2.0.2.4.</span> <span class="post-toc-text">Android Layout Parser工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Content-Provider代码生成工具"><span class="post-toc-number">2.0.2.5.</span> <span class="post-toc-text">Android Content Provider代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Fragment-Code-Generator代码生成工具"><span class="post-toc-number">2.0.2.6.</span> <span class="post-toc-text">Android Fragment Code Generator代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码生成工具"><span class="post-toc-number">2.0.2.7.</span> <span class="post-toc-text">代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Native开发工具"><span class="post-toc-number">2.0.2.8.</span> <span class="post-toc-text">Android Native开发工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android测试工具"><span class="post-toc-number">2.0.2.9.</span> <span class="post-toc-text">Android测试工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android多渠道打包工具"><span class="post-toc-number">2.0.2.10.</span> <span class="post-toc-text">Android多渠道打包工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Bug日志收集工具"><span class="post-toc-number">2.0.2.11.</span> <span class="post-toc-text">Android Bug日志收集工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他语言开发Android应用工具"><span class="post-toc-number">2.0.2.12.</span> <span class="post-toc-text">其他语言开发Android应用工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#传感器模拟工具"><span class="post-toc-number">2.0.2.13.</span> <span class="post-toc-text">传感器模拟工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android串口开发工具"><span class="post-toc-number">2.0.2.14.</span> <span class="post-toc-text">Android串口开发工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图片尺寸处理工具"><span class="post-toc-number">2.0.2.15.</span> <span class="post-toc-text">图片尺寸处理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图片压缩工具"><span class="post-toc-number">2.0.2.16.</span> <span class="post-toc-text">图片压缩工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#资源清理工具"><span class="post-toc-number">2.0.2.17.</span> <span class="post-toc-text">资源清理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#px和dp转换-计算工具"><span class="post-toc-number">2.0.2.18.</span> <span class="post-toc-text">px和dp转换/计算工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-To-iOS"><span class="post-toc-number">2.0.2.19.</span> <span class="post-toc-text">Java To iOS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JSON-XML转换为POJO-Class工具"><span class="post-toc-number">2.0.2.20.</span> <span class="post-toc-text">JSON/XML转换为POJO Class工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-DAO-Generate工具"><span class="post-toc-number">2.0.2.21.</span> <span class="post-toc-text">Java DAO Generate工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Chrome插件"><span class="post-toc-number">2.0.2.22.</span> <span class="post-toc-text">Chrome插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Android插件"><span class="post-toc-number">2.0.2.22.1.</span> <span class="post-toc-text">Android插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#JSON-XML格式化插件"><span class="post-toc-number">2.0.2.22.2.</span> <span class="post-toc-text">JSON/XML格式化插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Encode-Decode插件"><span class="post-toc-number">2.0.2.22.3.</span> <span class="post-toc-text">Encode/Decode插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Git-1"><span class="post-toc-number">2.0.2.22.4.</span> <span class="post-toc-text">Git</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Guides"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Guides</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Java编程风格指南中文版"><span class="post-toc-number">2.1.0.1.</span> <span class="post-toc-text">Google Java编程风格指南中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Developers-国内镜像站"><span class="post-toc-number">2.1.0.2.</span> <span class="post-toc-text">Android Developers 国内镜像站</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Api中文版"><span class="post-toc-number">2.1.0.3.</span> <span class="post-toc-text">Android Api中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Proguard混淆配置指南"><span class="post-toc-number">2.1.0.4.</span> <span class="post-toc-text">Android Proguard混淆配置指南</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle插件使用指南中文版"><span class="post-toc-number">2.1.0.5.</span> <span class="post-toc-text">Gradle插件使用指南中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle-User-Guide"><span class="post-toc-number">2.1.0.6.</span> <span class="post-toc-text">Gradle User Guide</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tutorials"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Tutorials</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android学习之路"><span class="post-toc-number">2.2.0.1.</span> <span class="post-toc-text">Android学习之路</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Android官方培训课程中文版"><span class="post-toc-number">2.2.0.2.</span> <span class="post-toc-text">Google Android官方培训课程中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Developing-Android-Apps"><span class="post-toc-number">2.2.0.3.</span> <span class="post-toc-text">Developing Android Apps</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-Design-Patterns-Samples-in-Java"><span class="post-toc-number">2.2.0.4.</span> <span class="post-toc-text">Java Design Patterns Samples in Java.</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Design"><span class="post-toc-number">3.</span> <span class="post-toc-text">Design</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Design-Tools"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Design Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Photoshop插件"><span class="post-toc-number">3.1.0.1.</span> <span class="post-toc-text">Photoshop插件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#矢量图设计工具"><span class="post-toc-number">3.1.0.2.</span> <span class="post-toc-text">矢量图设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#切图工具"><span class="post-toc-number">3.1.0.3.</span> <span class="post-toc-text">切图工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计稿尺寸标注工具"><span class="post-toc-number">3.1.0.4.</span> <span class="post-toc-text">设计稿尺寸标注工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原型设计工具"><span class="post-toc-number">3.1.0.5.</span> <span class="post-toc-text">原型设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#交互设计工具"><span class="post-toc-number">3.1.0.6.</span> <span class="post-toc-text">交互设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#UI效果预览工具"><span class="post-toc-number">3.1.0.7.</span> <span class="post-toc-text">UI效果预览工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配色工具"><span class="post-toc-number">3.1.0.8.</span> <span class="post-toc-text">配色工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计稿版本控制工具"><span class="post-toc-number">3.1.0.9.</span> <span class="post-toc-text">设计稿版本控制工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图标处理工具"><span class="post-toc-number">3.1.0.10.</span> <span class="post-toc-text">图标处理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在线Icon库"><span class="post-toc-number">3.1.0.11.</span> <span class="post-toc-text">在线Icon库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#取色工具"><span class="post-toc-number">3.1.0.12.</span> <span class="post-toc-text">取色工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#不透明度16进制值"><span class="post-toc-number">3.1.0.13.</span> <span class="post-toc-text">不透明度16进制值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#手机To电脑同步预览工具"><span class="post-toc-number">3.1.0.14.</span> <span class="post-toc-text">手机To电脑同步预览工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gif图片录制工具"><span class="post-toc-number">3.1.0.15.</span> <span class="post-toc-text">Gif图片录制工具</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UI-Programming-Language"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">UI Programming Language</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tutorials-1"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Tutorials</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Games"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">Games</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Guides-1"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">Guides</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android设计指南非官方简体中文版"><span class="post-toc-number">3.5.0.1.</span> <span class="post-toc-text">Android设计指南非官方简体中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Cheatsheet-for-Graphic-Designers"><span class="post-toc-number">3.5.0.2.</span> <span class="post-toc-text">Android Cheatsheet for Graphic Designers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Material-Design-中文版"><span class="post-toc-number">3.5.0.3.</span> <span class="post-toc-text">Google Material Design 中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Designer’s-Guide-To-dpi"><span class="post-toc-number">3.5.0.4.</span> <span class="post-toc-text">Designer’s Guide To dpi</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Email-Design-Guide"><span class="post-toc-number">3.5.0.5.</span> <span class="post-toc-text">Email Design Guide</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Free-Design-Resources"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">Free Design Resources</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Books"><span class="post-toc-number">4.</span> <span class="post-toc-text">Books</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Disclaimer"><span class="post-toc-number">5.</span> <span class="post-toc-text">Disclaimer</span></a></li></ol>
+        </nav>
+    </aside>
+    
 <article id="post-Android开发工具大全"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -143,6 +249,10 @@ var _hmt = _hmt || [];
 
 
             
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
 
             
 
@@ -3098,18 +3208,26 @@ var _hmt = _hmt || [];
         <blockquote class="post-copyright">
     <div class="content">
         
+<span class="post-time">
+    Last updated: <time datetime="2017-07-29T06:44:14.000Z" itemprop="dateUpdated">2017-07-29 14:44:14</time>
+</span><br>
+
 
         
     </div>
     <footer>
         <a href="https://github.com/itgoyo">
-            <img src="/" alt="itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
             itgoyo
         </a>
     </footer>
 </blockquote>
 
         
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
 
 
         <div class="post-footer">
@@ -3118,6 +3236,51 @@ var _hmt = _hmt || [];
 
 
             
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android开发工具大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
 
 
         </div>
@@ -3167,10 +3330,54 @@ var _hmt = _hmt || [];
 
 
 
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <!-- <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script> -->
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'itgoyo',
+            repo: 'itgoyo',
+            oauth: {
+                client_id: '464e7c112346fd6daabb',
+                client_secret: '3f78aa47b168a9788b888238a610dff1ac6e51ac',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
 
 
 
 </article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
 
 
 
@@ -3180,10 +3387,19 @@ var _hmt = _hmt || [];
 
     <div class="bottom">
   
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
 
         <p>
             <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
-              <a href="" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
         </p>
         <p>
         感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
@@ -3200,19 +3416,89 @@ var _hmt = _hmt || [];
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android开发工具大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3awYrjMBAE0Pz/T2euA8FOlVoKPjyflmBsPQ+otdX9esXX+9+V/3L1nM/7739Pnjy68PDw8AZLz1/5udwrxj3s/v4NnwAPDw/vGC/ZxO9fn+zJ+e7drufydzw8PLzH8H7DzgsJHh4e3pN5ScFo44b8GI2Hh4f3HF7+6GQTX/tMSSE5mLXg4eHhHegiPeffR/p7eHh4eOOu+v2Gm7/4/gltdFusFg8PD+8AL99w18CTo/muwBcPDw/vNG9eHvLxqSSovY8hovYYHh4e3lZesqB2+06o7adZLBt4eHh4x3htS6k9Oq8VjzZQHlU8PDw8vJg3GQK4/2XtCJ6PUm3o++Hh4eENeG2IkB+p2wW1za2iAYaHh4d3gNe27dfGs/IltgflKKXGw8PD28rLD8c5oA2Ik/vrIAMPDw9vKy/f+tea+gk7J+VPwMPDwzvNaxv8k8Z/exwfvQUPDw/vAK/dP+cxQbvR5w2zDeUBDw8PL+CtRav5kbptnrXDBEVJwMPDw9vEyw+vk6GBZBqqHTWow1w8PDy8rbx8ETmvDWrXWmhrww14eHh4E9779pq0/Nv4YPHb54dpPDw8vGO8Iv0to961gapR6cLDw8P7IS/Z7ttjbrvE5O1f3oiHh4d3gLfWyM9bZZMi9A6uOqXGw8PD28prI4a1GGJXzFHciYeHh/cTXr4p5xFDO6o1+TN8KQx4eHh4x3iT7fhdXq9N12WYi4eHh7eJt7aIeStrHtFGYQQeHh7eAd68PT+JgFvG2nADHh4e3gleWwxObM35GpJBh+JgjYeHhzfg5Y2unLoW484DETw8PLxn8pLXT0KKJP6IChIeHh7ew3j5IOlaXLs20ICHh4f3G14bBOTB66SQtMMNl4UBDw8Pbyuv/Q9/HuDuHTjYNSiGh4eHN+D9Acf0c6j2GojJAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: , REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
 
 </script>
 
 <script src="/js/main.min.js?v=1.5.2"></script>
 
 
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
 
 
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

@@ -7,20 +7,40 @@
     
 
     
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?true"></script>
-<!-- End Baidu Tongji -->
 
 
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
 
 
     <meta charset="utf-8">
     
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/page/3/">
     
     
     <title>KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
@@ -34,7 +54,9 @@
 <meta name="twitter:title" content="KotlinAndroid">
 <meta name="twitter:description" content="talk is cheap,show me the girl.">
     
-    <link rel="shortcut icon" href="/">
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
     <link rel="stylesheet" href="/css/style.css?v=1.5.2">
     <script>window.lazyScripts=[]</script>
 
@@ -59,21 +81,84 @@ var _hmt = _hmt || [];
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/)">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand" style="
           width: 300px;">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/">
+          <img src="/img/kotlin_250x250.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">itgoyo</h5>
-          <a href="mailto:undefined" class="mail">
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col" style="
         width: 300px;">
       <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
         
 
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
@@ -96,6 +181,20 @@ var _hmt = _hmt || [];
         </a>
         <div class="flex-col header-title ellipsis">KotlinAndroid</div>
         
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
         
     </div>
 </header>
@@ -155,11 +254,27 @@ var _hmt = _hmt || [];
 博客
 社区
 开源项目学习
-...
+Android 开发者杂志周刊
+Awesome 系列
+动画系列
+Material Design 设计
+素材
+开源库收集
+设计模式
+实践篇
+Git 教程
+文档
+其它资料收集
+知乎上的讨论
+贡献者
+License
+
+=============================================================
+书籍...
     
 
         <a href="/2017/07/22/Android进阶资料大全.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -204,11 +319,15 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        一、区别String ：字符串常量StringBuff...
+        一、区别String ：字符串常量StringBuffer ：字符串变量StringBuilder ：字符串变量
+二、速度StringBuilder &gt; StringBuffer &gt; String
+分析原因：
+ String类是不可变类，任何对String的改变都 会引发新的String对象的生成；
+ String类型进行改变的时候其实都等同于生成了一个新的 String 对象，...
     
 
         <a href="/2017/07/06/String、StringBuffer、StringBuilder的区别.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -254,11 +373,12 @@ var _hmt = _hmt || [];
 
     
         
-项目地址：https://github.com/Je...
+项目地址：https://github.com/JetBrains/kotlin
+简介：Kotlin是一种在Java虚拟机上运行的静态类型编程语言，它也可以被编译成为JavaScript源代码。它主要是由俄罗斯圣彼得堡的JetBrains开发团队所发展出来的编程语言，其名称来自于圣彼得堡附近的科特林岛。[2]2012年1月，著名期刊《Dr. Dobb’s Journal（英语：Dr. Do...
     
 
         <a href="/2017/06/23/Kotlin.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -303,11 +423,11 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        我们很高兴宣布Kotlin 1.1.2正式发布了，这也...
+        我们很高兴宣布Kotlin 1.1.2正式发布了，这也是Kotlin 1.1的第二次 Bug 修复和工具更新。此次更新不仅提升了编译器和 IntelliJ IDEA 插件的性能，同时也在工具中增加了新的特性，当然还有各方面的问题修复。 此外，Kotlin 1.1.2也提升了与Android Gradle插件版本2.4.0-alpha的兼容性。本次发布版本的所有更新可在更新日志中查看。在这里要...
     
 
         <a href="/2017/04/25/Kotlin 1.1.2 is out.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -352,11 +472,11 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Kotlin 1.1 版本发布在社区反响很好。为了演示...
+        Kotlin 1.1 版本发布在社区反响很好。为了演示 Kotlin 1.1 的新功能，JetBrains 提供了一个在线活动。所有感兴趣的人都可以观看 Andrey Breslav 的在线直播演示，并在 Q&amp;A 环节获得他们关心的问题的答案。这激发了许多当地社区组织见面会：超过 30 个用户组在 21 个国家举办了线下活动。你可以在这里找到完整的活动列表 Kotlin社区网页 。活...
     
 
         <a href="/2017/04/06/Kotlin 1.1 Event Report.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -409,7 +529,7 @@ var _hmt = _hmt || [];
     
 
         <a href="/2017/04/05/Kotlin 1.1 is also for Android Developers.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -454,11 +574,11 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        我们将于2017年3月23日进行Kotlin 1.1活...
+        我们将于2017年3月23日进行Kotlin 1.1活动 线上直播。您可以通过JetBrains TV观看Andrey Breslav的演讲，了解Kotlin 1.1的关键特性，包括协程(coroutines)，JavaScript后端等。您也可以使用#kotlinqa在twitter上提出问题，我们将在3月23日直播中的Q&amp;A环节进行解答。为适应不同的时区我们共准备了2个直播流，详...
     
 
         <a href="/2017/03/21/Kotlin 1.1 Event in Your City.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -503,11 +623,11 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        我们很高兴地宣布Kotlin 1.0.x系列的最后一个...
+        我们很高兴地宣布Kotlin 1.0.x系列的最后一个更新，Kotlin 1.0.7已经发布了。需要重点关注的是该补丁针对Gradle和annotation processing进行修复，此前无法升级到1.1版本的用户现在可以正常使用了。完整的修复列表可以在更新日志查看。要在Maven或Gradle版本中更新版本，只需在构建脚本中更改Kotlin版本号。命令行编译器会在Github发行页面中...
     
 
         <a href="/2017/03/15/Kotlin 1.0.7 is out.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -552,11 +672,15 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        今天我们发布了针对 Kotlin 1.1 的第一个bu...
+        今天我们发布了针对 Kotlin 1.1 的第一个bug修复更新。此更新的重点是解决导致错误代码生成的回归；我们希望尽可能快地修复此问题。详细内容请查看更新日志 。重点更新如下：
+
+默认情况下，已启用Gradle增量编译。如果需要，您仍然可以按照文档描述禁用此功能。
+Kotlin插件现已可以通过Gradle插件依赖添加使用。详情可参阅相关文档。
+禁用使用带有接收器的函数类型作为JavaScr...
     
 
         <a href="/2017/03/14/Kotlin 1.1.1 is out.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -601,11 +725,17 @@ var _hmt = _hmt || [];
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        Kotlin 1.1除了为您的项目带来新特性之外，还是...
+        Kotlin 1.1除了为您的项目带来新特性之外，还是您与当地社区进行线下交流学习、了解Kotlin的未来与发展的绝好机会。您可以组织社区的小伙伴们，一起参与Jetbrains团队在3月23日举办的Kotlin直播活动。为了适应不同时区，我们准备了两个直播流，分别是欧洲中部时间[CET]下午5点/7点(太平洋夏季时间[PDT]上午9点/11点)。  
+告诉我们，我们将在博客上公布。
+
+
+
+
+...
     
 
         <a href="/2017/03/06/Kotlin 1.1 Event.html" class="post-more waves-effect waves-button">
-            
+            阅读全文...
         </a>
     </div>
     
@@ -635,10 +765,19 @@ var _hmt = _hmt || [];
 
     <div class="bottom">
   
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
 
         <p>
             <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
-              <a href="" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
         </p>
         <p>
         感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
@@ -655,19 +794,89 @@ var _hmt = _hmt || [];
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/page/3/&title=KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/page/3/&title=KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/page/3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=KotlinAndroid&url=https://github.com/itgoyo/page/3/&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/page/3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aS44CMQwFQO5/aUZixUjT4dn50CNVVghBunpjxc95POL1fK33z1ffvH+f77l44eLiTnOfwzXmjqH5i+V74uLinuT2ildec672zA24uLj35FaLUVIucXFx/zt3TExY1bKIi4v7XW5SaJKVl63tvRouLu4EtxeYrv28Pd/FxcVdNJXIy1ASiPSe+GsfXFzcI9yrgjJuRZLf53FqOZDFxcU9ws23qEYkvesXheYHFxd3A3d+5Dn+Vx6IRIUSFxf3OHfmklavBaqObXBxcc9wk62rVzGSh+W/j+Y/uLi4S7n51nnk0Ytcy8ULFxd3G3dVqzMzbsHFxb0btxpS5G3MfJD6x3NxcXGPcKcGnMMDTd5QJdEJLi7uSW4eic6MTpMYJTps4eLiHuHmTUh+3Km2TOUrILi4uJu5z3jNXNVKShguLu7duDOBZk6vtlW4uLjf5VbLWXJY6ZW2ZgaDi4u7lFstKL1ZZ3Vkm7dJuLi4+7h525OXv+qLFQ5DuLi4B7nV5qd3dSOpoB/ouLi4N+NWRyO9f314PVxc3Btz51ug3igXFxf3JDdvY6qhZy94XRCL4OLirjlXdBuSoM70hjq4uLjHuT+Pl0P6BmLZ9AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: , REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
 
 </script>
 
 <script src="/js/main.min.js?v=1.5.2"></script>
 
 
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
 
 
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

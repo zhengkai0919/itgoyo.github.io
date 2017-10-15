@@ -7,20 +7,40 @@
     
 
     
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?true"></script>
-<!-- End Baidu Tongji -->
 
 
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
 
 
     <meta charset="utf-8">
     
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/TabLayout源码解析.html">
     
     
     <title>TabLayout源码解析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="Android">
@@ -41,7 +61,9 @@
 <meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 TabLayout 源码解析1. 功能介绍1.1 TabLayoutTabs跟随Actionbar在Android 3.0进入大家的视线，是一个很经典的设计。它也是Material Design 规范中提及的Com">
 <meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
     
-    <link rel="shortcut icon" href="/">
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
     <link rel="stylesheet" href="/css/style.css?v=1.5.2">
     <script>window.lazyScripts=[]</script>
 
@@ -61,26 +83,89 @@ var _hmt = _hmt || [];
     <div id="loading" class="active"></div>
 
     <aside id="menu" style="
-    width: 300px;" >
+    width: 300px;"class="hide" >
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/)">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand" style="
           width: 300px;">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/">
+          <img src="/img/kotlin_250x250.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">itgoyo</h5>
-          <a href="mailto:undefined" class="mail">
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
         </hgroup>
       </div>
     </div>
     <div class="scroll-wrap flex-col" style="
         width: 300px;">
       <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
         
 
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
@@ -103,6 +188,20 @@ var _hmt = _hmt || [];
         </a>
         <div class="flex-col header-title ellipsis">TabLayout源码解析</div>
         
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
         
     </div>
 </header>
@@ -130,6 +229,13 @@ var _hmt = _hmt || [];
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TabLayout-源码解析"><span class="post-toc-number">1.</span> <span class="post-toc-text">TabLayout 源码解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-功能介绍"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 功能介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-TabLayout"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">1.1 TabLayout</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-TabLayout使用"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">1.2 TabLayout使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-1-TabLayout单独使用"><span class="post-toc-number">1.1.2.1.</span> <span class="post-toc-text">1.2.1 TabLayout单独使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-2-与ViewPager搭配使用"><span class="post-toc-number">1.1.2.2.</span> <span class="post-toc-text">1.2.2 与ViewPager搭配使用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-总体设计"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. 总体设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-详细设计"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3. 详细设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-1-类关系图"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">3.1 类关系图</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-分析"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">3.2 分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2-1-TabLayout子View唯一性保证"><span class="post-toc-number">1.3.2.1.</span> <span class="post-toc-text">3.2.1 TabLayout子View唯一性保证</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2-2-与ViewPager搭配使用"><span class="post-toc-number">1.3.2.2.</span> <span class="post-toc-text">3.2.2 与ViewPager搭配使用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2-3-ViewPager与TabLayout的Tab及indicaotr协同滚动"><span class="post-toc-number">1.3.2.3.</span> <span class="post-toc-text">3.2.3 ViewPager与TabLayout的Tab及indicaotr协同滚动</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-2-3-1-TabLayout的Indicator协同滚动"><span class="post-toc-number">1.3.2.3.1.</span> <span class="post-toc-text">3.2.3.1 TabLayout的Indicator协同滚动</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-2-3-2-TabLayout的TabView协同滚动"><span class="post-toc-number">1.3.2.3.2.</span> <span class="post-toc-text">3.2.3.2 TabLayout的TabView协同滚动</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-2-4-Tab选中状态"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">3.2.4 Tab选中状态</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-开源项目中的使用"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">4. 开源项目中的使用</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 <article id="post-TabLayout源码解析"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -144,6 +250,10 @@ var _hmt = _hmt || [];
 
 
             
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
 
             
 
@@ -221,18 +331,26 @@ var _hmt = _hmt || [];
         <blockquote class="post-copyright">
     <div class="content">
         
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T12:06:32.000Z" itemprop="dateUpdated">2017-07-26 20:06:32</time>
+</span><br>
+
 
         
     </div>
     <footer>
         <a href="https://github.com/itgoyo">
-            <img src="/" alt="itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
             itgoyo
         </a>
     </footer>
 </blockquote>
 
         
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
 
 
         <div class="post-footer">
@@ -241,6 +359,51 @@ var _hmt = _hmt || [];
 
 
             
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&title=《TabLayout源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&title=《TabLayout源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《TabLayout源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
 
 
         </div>
@@ -290,10 +453,54 @@ var _hmt = _hmt || [];
 
 
 
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="//unpkg.com/gitment/style/default.css">
+    <!-- <script src="//unpkg.com/gitment/dist/gitment.browser.js"></script> -->
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+        var gitment = new Gitment({
+            owner: 'itgoyo',
+            repo: 'itgoyo',
+            oauth: {
+                client_id: '464e7c112346fd6daabb',
+                client_secret: '3f78aa47b168a9788b888238a610dff1ac6e51ac',
+            },
+        })
+        gitment.render('comments')
+    </script>
+</section>
+
 
 
 
 </article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
 
 
 
@@ -303,10 +510,19 @@ var _hmt = _hmt || [];
 
     <div class="bottom">
   
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
 
         <p>
             <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
-              <a href="" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
         </p>
         <p>
         感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
@@ -323,19 +539,89 @@ var _hmt = _hmt || [];
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&title=《TabLayout源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&title=《TabLayout源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《TabLayout源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/TabLayout源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aQW7jMBAEwPz/01kgl13AkdI9JG0vUjwFgiypeCCZnvn4iMfn1/j378crj/c/Xr+///7t9/csDTw8PLzRp1+Nq3uu2PdTcA9u33v/zXh4eHineflmkLwmWe6TSbm/M9ly8PDw8F7LOzEp7cEaDw8P77fx7p/z328MeHh4v4yXH47bY3R+JRkHsxY8PDy8mDcrgL327+P1PTw8PLxRVb09Ct8HEHkDwa6Bh4eHd4KXtwXk7VB5XJu0Ecx2gaIrAQ8PD6/krUQP+ce17Vb5NvPD4RsPDw/vMC8pLLXTsdKwNZvoy/8Y8PDw8Dbx2mggOUavIGdtW1FbAx4eHt4mXl7yzxfofJtpMVGL1axrDA8PDy/mzY680T5TBr557NsGE3h4eHh7eW0JarZY55FuHvtGv8XDw8M7wGubn3Yt6OuxbzHpeHh4eFt57caw8vpZ1Lu0OeHh4eEd4OWF/ySKbQtUe2PiaHvAw8PDW+bli/Iudhs3RCWuJGvBw8PD28rLF/F2id9VJGtbr/Dw8PDO8ZKHzloBZgFEWzCLvhwPDw/v6bxdgLzwn2weRUsWHh4e3lbero/Ij9RtK0AbSeDh4eGd5s0+PS9c5Ut8+5Y2OMbDw8Pby2tjiPYTVw7reesAHh4e3vvw8he3x+L8aSvFMDw8PLy9vNmjT8S4eeMCHh4e3vvw2oU4PzrnjDx6GDYN4OHh4S3z8iJTHsu2wW4OyMc3v8LDw8PbxPssR12qj4/as43qhyfj4eHhHeDNdpKVwCLZfpLjdRIu4+Hh4Z3jtSHp+pbQtnm1B3Q8PDy85/BON1TNAtl2BytSFjw8PLyn8PIjcl42y6eybTjAw8PDex/e8DXx9Vnge3k/Hh4e3jFeG0Zs6FYIwog8h8bDw8N7Jm/949oJWqnURZvB3rnHw8PD+zv+AAP3GDydBXQ3AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: , REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
 
 </script>
 
 <script src="/js/main.min.js?v=1.5.2"></script>
 
 
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
 
 
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
