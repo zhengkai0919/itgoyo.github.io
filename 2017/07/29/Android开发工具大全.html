@@ -1,0 +1,3490 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/29/Android开发工具大全.html">
+    
+    
+    <title>Android开发工具大全 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="AndroidDevTools Android Dev Tools官网地址：www.androiddevtools.cn 收集整理Android开发所需的Android SDK、开发中用到的工具、Android开发教程、Android设计规范，免费的设计素材等。 欢迎大家推荐自己在Android开发过程中用的好用的工具、学习开发教程、用到设计素材，欢迎Star、Fork 😄。 Android T">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发工具大全">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/29/Android开发工具大全.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="AndroidDevTools Android Dev Tools官网地址：www.androiddevtools.cn 收集整理Android开发所需的Android SDK、开发中用到的工具、Android开发教程、Android设计规范，免费的设计素材等。 欢迎大家推荐自己在Android开发过程中用的好用的工具、学习开发教程、用到设计素材，欢迎Star、Fork 😄。 Android T">
+<meta property="og:image" content="https://badges.gitter.im/Join%20Chat.svg">
+<meta property="og:image" content="http://omvbl46i3.bkt.clouddn.com/17-7-29/26741829.jpg">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-29T06:44:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发工具大全">
+<meta name="twitter:description" content="AndroidDevTools Android Dev Tools官网地址：www.androiddevtools.cn 收集整理Android开发所需的Android SDK、开发中用到的工具、Android开发教程、Android设计规范，免费的设计素材等。 欢迎大家推荐自己在Android开发过程中用的好用的工具、学习开发教程、用到设计素材，欢迎Star、Fork 😄。 Android T">
+<meta name="twitter:image" content="https://badges.gitter.im/Join%20Chat.svg">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android开发工具大全</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android开发工具大全</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-29T06:35:32.000Z" itemprop="datePublished" class="page-time">
+  2017-07-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发工具/">开发工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#AndroidDevTools"><span class="post-toc-number">1.</span> <span class="post-toc-text">AndroidDevTools</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Android-Tools"><span class="post-toc-number">2.</span> <span class="post-toc-text">Android Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-SDK在线更新镜像服务器"><span class="post-toc-number">2.0.0.1.</span> <span class="post-toc-text">Android SDK在线更新镜像服务器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Studio"><span class="post-toc-number">2.0.0.2.</span> <span class="post-toc-text">Android Studio</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Tools"><span class="post-toc-number">2.0.0.3.</span> <span class="post-toc-text">SDK Tools</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Platform-Tools"><span class="post-toc-number">2.0.0.4.</span> <span class="post-toc-text">SDK Platform-Tools</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Build-Tools"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">Build-Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK"><span class="post-toc-number">2.0.1.1.</span> <span class="post-toc-text">SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-System-images"><span class="post-toc-number">2.0.1.2.</span> <span class="post-toc-text">SDK System images</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#GoogleMap-APIs-SDK"><span class="post-toc-number">2.0.1.3.</span> <span class="post-toc-text">GoogleMap APIs SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Glass-SDK"><span class="post-toc-number">2.0.1.4.</span> <span class="post-toc-text">Google Glass SDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-TV-Addon"><span class="post-toc-number">2.0.1.5.</span> <span class="post-toc-text">Google TV Addon</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-SDK-Extras"><span class="post-toc-number">2.0.1.6.</span> <span class="post-toc-text">Android SDK Extras</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Support-Library"><span class="post-toc-number">2.0.1.7.</span> <span class="post-toc-text">Support Library</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#SDK-Samples"><span class="post-toc-number">2.0.1.8.</span> <span class="post-toc-text">SDK Samples</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#NDK"><span class="post-toc-number">2.0.1.9.</span> <span class="post-toc-text">NDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-L-Preview-System-Image"><span class="post-toc-number">2.0.1.10.</span> <span class="post-toc-text">Android L Preview System Image</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JDK"><span class="post-toc-number">2.0.1.11.</span> <span class="post-toc-text">JDK</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ADT-Bundle"><span class="post-toc-number">2.0.1.12.</span> <span class="post-toc-text">ADT Bundle</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ADT-Plugin"><span class="post-toc-number">2.0.1.13.</span> <span class="post-toc-text">ADT Plugin</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle"><span class="post-toc-number">2.0.1.14.</span> <span class="post-toc-text">Gradle</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Gradle-Plugin-DSL-在线文档"><span class="post-toc-number">2.0.1.15.</span> <span class="post-toc-text">Android Gradle Plugin DSL 在线文档</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle-Dependencies-Configuration-Generator（需要梯子）"><span class="post-toc-number">2.0.1.16.</span> <span class="post-toc-text">Gradle Dependencies Configuration Generator（需要梯子）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#版本控制工具"><span class="post-toc-number">2.0.1.17.</span> <span class="post-toc-text">版本控制工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Git"><span class="post-toc-number">2.0.1.17.1.</span> <span class="post-toc-text">Git</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#SVN-Plugin-For-Eclipse"><span class="post-toc-number">2.0.1.17.2.</span> <span class="post-toc-text">SVN Plugin For Eclipse</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#反编译工具"><span class="post-toc-number">2.0.1.18.</span> <span class="post-toc-text">反编译工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安全工具"><span class="post-toc-number">2.0.1.19.</span> <span class="post-toc-text">安全工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态代码分析工具"><span class="post-toc-number">2.0.1.20.</span> <span class="post-toc-text">静态代码分析工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#搜索工具"><span class="post-toc-number">2.0.1.21.</span> <span class="post-toc-text">搜索工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Debug调试工具"><span class="post-toc-number">2.0.1.22.</span> <span class="post-toc-text">Debug调试工具</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Api测试工具"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">Api测试工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Eclipse-Android-Studio-IDEA插件"><span class="post-toc-number">2.0.2.1.</span> <span class="post-toc-text">Eclipse/Android Studio/IDEA插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Eclipse"><span class="post-toc-number">2.0.2.1.1.</span> <span class="post-toc-text">Eclipse</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Android-Studio-IDEA"><span class="post-toc-number">2.0.2.1.2.</span> <span class="post-toc-text">Android Studio/IDEA</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android资源-Themes-Style生成工具"><span class="post-toc-number">2.0.2.2.</span> <span class="post-toc-text">Android资源/Themes/Style生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android资源分析工具"><span class="post-toc-number">2.0.2.3.</span> <span class="post-toc-text">Android资源分析工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Layout-Parser工具"><span class="post-toc-number">2.0.2.4.</span> <span class="post-toc-text">Android Layout Parser工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Content-Provider代码生成工具"><span class="post-toc-number">2.0.2.5.</span> <span class="post-toc-text">Android Content Provider代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Fragment-Code-Generator代码生成工具"><span class="post-toc-number">2.0.2.6.</span> <span class="post-toc-text">Android Fragment Code Generator代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码生成工具"><span class="post-toc-number">2.0.2.7.</span> <span class="post-toc-text">代码生成工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Native开发工具"><span class="post-toc-number">2.0.2.8.</span> <span class="post-toc-text">Android Native开发工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android测试工具"><span class="post-toc-number">2.0.2.9.</span> <span class="post-toc-text">Android测试工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android多渠道打包工具"><span class="post-toc-number">2.0.2.10.</span> <span class="post-toc-text">Android多渠道打包工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Bug日志收集工具"><span class="post-toc-number">2.0.2.11.</span> <span class="post-toc-text">Android Bug日志收集工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#其他语言开发Android应用工具"><span class="post-toc-number">2.0.2.12.</span> <span class="post-toc-text">其他语言开发Android应用工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#传感器模拟工具"><span class="post-toc-number">2.0.2.13.</span> <span class="post-toc-text">传感器模拟工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android串口开发工具"><span class="post-toc-number">2.0.2.14.</span> <span class="post-toc-text">Android串口开发工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图片尺寸处理工具"><span class="post-toc-number">2.0.2.15.</span> <span class="post-toc-text">图片尺寸处理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图片压缩工具"><span class="post-toc-number">2.0.2.16.</span> <span class="post-toc-text">图片压缩工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#资源清理工具"><span class="post-toc-number">2.0.2.17.</span> <span class="post-toc-text">资源清理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#px和dp转换-计算工具"><span class="post-toc-number">2.0.2.18.</span> <span class="post-toc-text">px和dp转换/计算工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-To-iOS"><span class="post-toc-number">2.0.2.19.</span> <span class="post-toc-text">Java To iOS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#JSON-XML转换为POJO-Class工具"><span class="post-toc-number">2.0.2.20.</span> <span class="post-toc-text">JSON/XML转换为POJO Class工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-DAO-Generate工具"><span class="post-toc-number">2.0.2.21.</span> <span class="post-toc-text">Java DAO Generate工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Chrome插件"><span class="post-toc-number">2.0.2.22.</span> <span class="post-toc-text">Chrome插件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Android插件"><span class="post-toc-number">2.0.2.22.1.</span> <span class="post-toc-text">Android插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#JSON-XML格式化插件"><span class="post-toc-number">2.0.2.22.2.</span> <span class="post-toc-text">JSON/XML格式化插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Encode-Decode插件"><span class="post-toc-number">2.0.2.22.3.</span> <span class="post-toc-text">Encode/Decode插件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Git-1"><span class="post-toc-number">2.0.2.22.4.</span> <span class="post-toc-text">Git</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Guides"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Guides</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Java编程风格指南中文版"><span class="post-toc-number">2.1.0.1.</span> <span class="post-toc-text">Google Java编程风格指南中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Developers-国内镜像站"><span class="post-toc-number">2.1.0.2.</span> <span class="post-toc-text">Android Developers 国内镜像站</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Api中文版"><span class="post-toc-number">2.1.0.3.</span> <span class="post-toc-text">Android Api中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Proguard混淆配置指南"><span class="post-toc-number">2.1.0.4.</span> <span class="post-toc-text">Android Proguard混淆配置指南</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle插件使用指南中文版"><span class="post-toc-number">2.1.0.5.</span> <span class="post-toc-text">Gradle插件使用指南中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gradle-User-Guide"><span class="post-toc-number">2.1.0.6.</span> <span class="post-toc-text">Gradle User Guide</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tutorials"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Tutorials</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android学习之路"><span class="post-toc-number">2.2.0.1.</span> <span class="post-toc-text">Android学习之路</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Android官方培训课程中文版"><span class="post-toc-number">2.2.0.2.</span> <span class="post-toc-text">Google Android官方培训课程中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Developing-Android-Apps"><span class="post-toc-number">2.2.0.3.</span> <span class="post-toc-text">Developing Android Apps</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Java-Design-Patterns-Samples-in-Java"><span class="post-toc-number">2.2.0.4.</span> <span class="post-toc-text">Java Design Patterns Samples in Java.</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Design"><span class="post-toc-number">3.</span> <span class="post-toc-text">Design</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Design-Tools"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Design Tools</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Photoshop插件"><span class="post-toc-number">3.1.0.1.</span> <span class="post-toc-text">Photoshop插件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#矢量图设计工具"><span class="post-toc-number">3.1.0.2.</span> <span class="post-toc-text">矢量图设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#切图工具"><span class="post-toc-number">3.1.0.3.</span> <span class="post-toc-text">切图工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计稿尺寸标注工具"><span class="post-toc-number">3.1.0.4.</span> <span class="post-toc-text">设计稿尺寸标注工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#原型设计工具"><span class="post-toc-number">3.1.0.5.</span> <span class="post-toc-text">原型设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#交互设计工具"><span class="post-toc-number">3.1.0.6.</span> <span class="post-toc-text">交互设计工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#UI效果预览工具"><span class="post-toc-number">3.1.0.7.</span> <span class="post-toc-text">UI效果预览工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配色工具"><span class="post-toc-number">3.1.0.8.</span> <span class="post-toc-text">配色工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计稿版本控制工具"><span class="post-toc-number">3.1.0.9.</span> <span class="post-toc-text">设计稿版本控制工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#图标处理工具"><span class="post-toc-number">3.1.0.10.</span> <span class="post-toc-text">图标处理工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在线Icon库"><span class="post-toc-number">3.1.0.11.</span> <span class="post-toc-text">在线Icon库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#取色工具"><span class="post-toc-number">3.1.0.12.</span> <span class="post-toc-text">取色工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#不透明度16进制值"><span class="post-toc-number">3.1.0.13.</span> <span class="post-toc-text">不透明度16进制值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#手机To电脑同步预览工具"><span class="post-toc-number">3.1.0.14.</span> <span class="post-toc-text">手机To电脑同步预览工具</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Gif图片录制工具"><span class="post-toc-number">3.1.0.15.</span> <span class="post-toc-text">Gif图片录制工具</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UI-Programming-Language"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">UI Programming Language</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tutorials-1"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Tutorials</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Games"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">Games</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Guides-1"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">Guides</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android设计指南非官方简体中文版"><span class="post-toc-number">3.5.0.1.</span> <span class="post-toc-text">Android设计指南非官方简体中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Android-Cheatsheet-for-Graphic-Designers"><span class="post-toc-number">3.5.0.2.</span> <span class="post-toc-text">Android Cheatsheet for Graphic Designers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Google-Material-Design-中文版"><span class="post-toc-number">3.5.0.3.</span> <span class="post-toc-text">Google Material Design 中文版</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Designer’s-Guide-To-dpi"><span class="post-toc-number">3.5.0.4.</span> <span class="post-toc-text">Designer’s Guide To dpi</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Email-Design-Guide"><span class="post-toc-number">3.5.0.5.</span> <span class="post-toc-text">Email Design Guide</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Free-Design-Resources"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">Free Design Resources</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Books"><span class="post-toc-number">4.</span> <span class="post-toc-text">Books</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Disclaimer"><span class="post-toc-number">5.</span> <span class="post-toc-text">Disclaimer</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Android开发工具大全"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android开发工具大全</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-29 14:35:32" datetime="2017-07-29T06:35:32.000Z"  itemprop="datePublished">2017-07-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/开发工具/">开发工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="AndroidDevTools"><a href="#AndroidDevTools" class="headerlink" title="AndroidDevTools"></a>AndroidDevTools</h1><p><img src="https://badges.gitter.im/Join%20Chat.svg" alt=""></p>
+<p><strong>Android Dev Tools官网地址：<a href="http://www.androiddevtools.cn" target="_blank" rel="external">www.androiddevtools.cn</a></strong></p>
+<p>收集整理Android开发所需的Android SDK、开发中用到的工具、Android开发教程、Android设计规范，免费的设计素材等。</p>
+<p>欢迎大家推荐自己在Android开发过程中用的好用的工具、学习开发教程、用到设计素材，欢迎Star、Fork 😄。</p>
+<h1 id="Android-Tools"><a href="#Android-Tools" class="headerlink" title="Android Tools"></a>Android Tools</h1><hr>
+<h4 id="Android-SDK在线更新镜像服务器"><a href="#Android-SDK在线更新镜像服务器" class="headerlink" title="Android SDK在线更新镜像服务器"></a>Android SDK在线更新镜像服务器</h4><ol>
+<li><p>中国科学院开源协会镜像站地址:</p>
+<ul>
+<li><p>IPV4/IPV6: <code>mirrors.opencas.cn</code> 端口：80</p>
+</li>
+<li><p>IPV4/IPV6: <code>mirrors.opencas.org</code> 端口：80</p>
+</li>
+<li><p>IPV4/IPV6: <code>mirrors.opencas.ac.cn</code> 端口：80</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>上海GDG镜像服务器地址:</p>
+<ul>
+<li><code>sdk.gdgshanghai.com</code>  端口：8000</li>
+</ul>
+</li>
+<li><p>北京化工大学镜像服务器地址:</p>
+<ul>
+<li><p>IPv4: <code>ubuntu.buct.edu.cn/</code> 端口：80</p>
+</li>
+<li><p>IPv4: <code>ubuntu.buct.cn/</code>   端口：80</p>
+</li>
+<li><p>IPv6: <code>ubuntu.buct6.edu.cn/</code>  端口：80</p>
+</li>
+</ul>
+</li>
+<li><p>大连东软信息学院镜像服务器地址:</p>
+<ul>
+<li><code>mirrors.neusoft.edu.cn</code> 端口：80</li>
+</ul>
+</li>
+<li><p>腾讯Bugly 镜像:</p>
+<ul>
+<li><p><code>android-mirror.bugly.qq.com</code> 端口：8080</p>
+<p>腾讯镜像使用方法: <a href="http://android-mirror.bugly.qq.com:8080/include/usage.html" target="_blank" rel="external">http://android-mirror.bugly.qq.com:8080/include/usage.html</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>使用方法</strong>：</p>
+<ol>
+<li><p>启动 Android SDK Manager ，打开主界面，依次选择『<strong>Tools</strong>』、『<strong>Options…</strong>』，弹出『<strong>Android SDK Manager - Settings</strong>』窗口；</p>
+</li>
+<li><p>在『<strong>Android SDK Manager - Settings</strong>』窗口中，在『<strong>HTTP Proxy Server」和「HTTP Proxy Port</strong>』输入框内填入上面镜像服务器地址(<strong>不包含http://</strong>，如下图)和端口，并且选中『<strong>Force https://… sources to be fetched using http://…</strong>』复选框。设置完成后单击『<strong>Close</strong>』按钮关闭『<strong>Android SDK Manager - Settings</strong>』窗口返回到主界面；</p>
+</li>
+<li><p>依次选择『<strong>Packages</strong>』、『<strong>Reload</strong>』。</p>
+</li>
+</ol>
+<p><img src="http://omvbl46i3.bkt.clouddn.com/17-7-29/26741829.jpg" alt=""></p>
+<h4 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h4><blockquote style="color: gray"><br>                        <strong style="color: red">注意:</strong>以下 Android Studio 下载链接全是 <code>dl.google.com</code> 开头的官方下载，无需tizi，<strong style="color: red">建议用浏览器直接从官方原始链接下载，不要用迅雷下载、不要用迅雷下载、不要用迅雷下载</strong>，重要的事情说三遍，避免类似<a href="https://www.zhihu.com/question/35721299" target="_blank" rel="external">XCodeGhost</a>的事件！！！<br>                    </blockquote>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+<th style="text-align:left">SHA-1校验码</th>
+<th style="text-align:center">官方SHA-1校验码截图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2.1.3 正式版</td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/install/2.1.3.0/android-studio-bundle-143.3101438-windows.exe" target="_blank" rel="external">下载 (推荐)</a> <br> <a href="https://dl.google.com/dl/android/studio/ide-zips/2.1.3.0/android-studio-ide-143.3101438-windows.zip" target="_blank" rel="external">下载 (不含SDK Tools)</a> <br> <a href="https://dl.google.com/dl/android/studio/install/2.1.3.0/android-studio-ide-143.3101438-windows.exe" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/install/2.1.3.0/android-studio-ide-143.3101438-mac.dmg" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.1.3.0/android-studio-ide-143.3101438-linux.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:left">Win: 10d319c772b80f3cb0cde952451af8429ea1b68b <br> 43f84de7e61f37880a126c3d567b7fa6cb90c90e <br> 8ad212c55c7f4dc7ab490e4b7e77ec48001ae224 <br> Mac: 06166759b0e1e1ee91a147dcf5227d897a184277 <br> Linux: 8729e6f2f1fa58f04df9f8d1caac2f5be9dfc549</td>
+<td style="text-align:center"><a href="http://ww2.sinaimg.cn/large/8a41f469gw1f6ve98yjtxj21kw16baos.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+<tr>
+<td style="text-align:center">2.2 Beta</td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.7/android-studio-ide-145.3128856-windows.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.7/android-studio-ide-145.3128856-mac.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.7/android-studio-ide-145.3128856-linux.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:left">Win: 7d2c9861e90dc985b1e6ba78ebd8497b610a8620 <br> Mac:050a443ffee51922eabddbcd260c845a8e06e4a9 <br> Linux: bafb5d7029d2678e8274e24da1c7ce0a00f3a644</td>
+<td style="text-align:center"><a href="http://ww1.sinaimg.cn/large/8a41f469gw1f6ve698vw9j21ih1304jw.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+<tr>
+<td style="text-align:center">2.2 Preview7</td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.6/android-studio-ide-145.3111935-windows.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.6/android-studio-ide-145.3111935-mac.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.2.0.6/android-studio-ide-145.3111935-linux.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:left">Win: e6ea4c9d9bf4ae46dbea82e3cc5638fd93194c33 <br> Mac: 56327a0f97d999a6b7a15f3e9e513aa42881c989 <br> Linux: b85c4e27401f7f18af19e39e453cca8575041dbb</td>
+<td style="text-align:center"><a href="http://ww2.sinaimg.cn/large/8a41f469gw1f6ve98yjtxj21kw16baos.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+<tr>
+<td style="text-align:center">2.1.2 正式版</td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/install/2.1.2.0/android-studio-bundle-143.2915827-windows.exe" target="_blank" rel="external">下载(推荐)</a> <br> <a href="https://dl.google.com/dl/android/studio/ide-zips/2.1.2.0/android-studio-ide-143.2915827-windows.zip" target="_blank" rel="external">下载(不含SDK Tools)</a> <br> <a href="https://dl.google.com/dl/android/studio/install/2.1.2.0/android-studio-ide-143.2915827-windows.exe" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/install/2.1.2.0/android-studio-ide-143.2915827-mac.dmg" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://dl.google.com/dl/android/studio/ide-zips/2.1.2.0/android-studio-ide-143.2915827-linux.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:left">Win: 10d319c772b80f3cb0cde952451af8429ea1b68b <br> 43f84de7e61f37880a126c3d567b7fa6cb90c90e <br> 8ad212c55c7f4dc7ab490e4b7e77ec48001ae224 <br> Mac: <br> Linux:</td>
+<td style="text-align:center"><a href="http://ww4.sinaimg.cn/large/8a41f469gw1f6ve8k9nkij21kw15316t.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="SDK-Tools"><a href="#SDK-Tools" class="headerlink" title="SDK Tools"></a>SDK Tools</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:left">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+<th style="text-align:left">SHA-1校验码</th>
+<th style="text-align:center">官方SHA-1校验码截图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">24.4.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i5xug3j" target="_blank" rel="external">installer_r24.4.1-windows.exe</a> <a href="http://pan.baidu.com/s/1kVjIPCV" target="_blank" rel="external">android-sdk_r24.4.1-windows.zip</a></td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1nuWN7V7" target="_blank" rel="external">android-sdk_r24.4.1-macosx.zip</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o8iqMQQ" target="_blank" rel="external">android-sdk_r24.4.1-linux.tgz</a></td>
+<td style="text-align:left">Win:f9b59d72413649d31e633207e31f456443e7ea0b <br>66b6a6433053c152b22bf8cab19c0f3fef4eba49 <br> Mac: 85a9cccb0b1f9e6f1f616335c5f07107553840cd<br> Linux: 725bb360f0f7d04eaccff5a2d57abdd49061326d</td>
+<td style="text-align:center"><a href="http://ww2.sinaimg.cn/large/8a41f469jw1f2ng43mgnhj21kw0fmwhi.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+<tr>
+<td style="text-align:left">24.3.4</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQppdPC" target="_blank" rel="external">installer_r24.3.4-windows.exe</a> <a href="http://pan.baidu.com/s/1mg08f2K" target="_blank" rel="external">android-sdk_r24.3.4-windows.zip</a></td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDlTqBB" target="_blank" rel="external">android-sdk_r24.3.4-macosx.zip</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdsALt5" target="_blank" rel="external">android-sdk_r24.3.4-linux.tgz</a></td>
+<td style="text-align:left">Win: 094dd45f98a31f839feae898b48f23704f2878dd <br> 4a8718fb4a2bf2128d34b92f23ddd79fc65839e7 <br> Mac: 128f10fba668ea490cc94a08e505a48a608879b9 <br> Linux: fb293d7bca42e05580be56b1adc22055d46603dd</td>
+<td style="text-align:center"><a href="http://ww1.sinaimg.cn/large/8a41f469gw1ewbnhql68uj21k20jkjw4.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="SDK-Platform-Tools"><a href="#SDK-Platform-Tools" class="headerlink" title="SDK Platform-Tools"></a>SDK Platform-Tools</h4><p>这是 adb, fastboot 等工具包。把解压出来的 <code>platform-tools</code> 文件夹放在 android sdk 根目录下，并把 <code>adb</code>所在的目录添加到系统 <code>PATH</code> 路径里，即可在命令行里直接访问了 adb, fastboot 等工具。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:left">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">platform-tools-r22</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1sj4ZfTb" target="_blank" rel="external">platform-tools_r22-windows.zip</a></td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1jG3l6Ea" target="_blank" rel="external">platform-tools_r22-mac.zip</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0GUTxA" target="_blank" rel="external">platform-tools_r22-linux.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left">platform-tools-r21</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdF1fkZ" target="_blank" rel="external">platform-tools_r21-windows.zip</a></td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDu6xC9" target="_blank" rel="external">platform-tools_r21-mac.zip</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDAL25j" target="_blank" rel="external">platform-tools_r21-linux.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left">platform-tools-r20</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntHqLZj" target="_blank" rel="external">platform-tools_r20-windows.zip</a></td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1gdy6fzP" target="_blank" rel="external">platform-tools_r20-mac.zip</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/173KQi" target="_blank" rel="external">platform-tools_r20-linux.zip</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Build-Tools"><a href="#Build-Tools" class="headerlink" title="Build-Tools"></a>Build-Tools</h3><p>这是Android开发所需的Build-Tools，下载并解压后，将解压出的整个文件夹复制或者移动到 <code>your sdk 路径/build-tools</code> 文件夹即可。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">22.0.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3kqFHV" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGquuqU" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDdDne5" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:center">21.1.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqH1pZY" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hq1mml2" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">21.1.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgzFXW0" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i367FTz" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">21.1.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJ3DCGN" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqIfeCW" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">21.0.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTDpnt9" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDCf9TZ" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">21.0.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQreI6A" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQCd5YE" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">21.0.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3y0mKd" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3oWM01" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">20.0.0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0AfIOK" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19.1.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nttAyhV" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nt2vM21" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19.0.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qWCzdwC" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hq7VIgG" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19.0.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntl0Qnf" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1xY7PO" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19.0.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJ1BJrt" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o65bAwa" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">19.0.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6I8NBs" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0dBDvE" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h4><p>这是Android开发所需的sdk，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/platforms</code>文件夹，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">android 5.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i33Puo1" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6v7E2I" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6v7E2I" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android L Rev3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1u8dhc" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jG1duN8" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jG1duN8" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android L</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3tDDvZ" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntHmhYx" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntHmhYx" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.4W</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eYPGE" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nt5GKWh" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nt5GKWh" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.4.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQf8ZgI" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c03XoL6" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c03XoL6" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o65bfV8" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bn1tNm3" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bn1tNm3" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.2.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgICw9E" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJJSlfl" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJJSlfl" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.1.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nt3bpI5" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTA6V8z" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTA6V8z" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJoegpd" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGzdDxc" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGzdDxc" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0H6Ld2" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqwzPTa" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqwzPTa" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGLvX6A" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qWqH9Q8" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qWqH9Q8" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJ0naTP" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jG62PSy" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jG62PSy" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0hi7Ck" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bn2Duub" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bn2Duub" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 2.3.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ngubc" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGge2bk" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGge2bk" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 2.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qW8YzY8" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntmJVmD" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntmJVmD" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="SDK-System-images"><a href="#SDK-System-images" class="headerlink" title="SDK System images"></a>SDK System images</h4><p>这是在创建模拟器时需要的system image，也就是在创建模拟器时<code>CPU/ABI</code>项需要选择的，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/system-images</code>文件夹下即可， 如果没有<code>system-images</code>目录就先创建此文件夹，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">android 5.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntwpDQL" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1D7glC" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1D7glC" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android L</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqIcqhA" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntFQlRV" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntFQlRV" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.4W</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgJVZfE" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1GmAE6" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1GmAE6" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.4.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3Jwhed" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qW0QWdm" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qW0QWdm" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1guLaQ" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJPp6dX" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJPp6dX" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.2.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJO99hD" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTyZo27" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTyZo27" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.1.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1nMr4E" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kT2xdxd" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kT2xdxd" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i3Fsx6H" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdnCh2b" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdnCh2b" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJzIXZl" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqoWcNM" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqoWcNM" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="GoogleMap-APIs-SDK"><a href="#GoogleMap-APIs-SDK" class="headerlink" title="GoogleMap APIs SDK"></a>GoogleMap APIs SDK</h4><p>这是GoogleMap APIs SDK，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/add-ons</code>文件夹下，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">android 4.4.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bno0mFt" target="_blank" rel="external">下载ARM版</a> <a href="http://pan.baidu.com/s/1jGgKyZc" target="_blank" rel="external">下载x86版</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bngsIkB" target="_blank" rel="external">下载ARM版</a> <a href="http://pan.baidu.com/s/1eQDwCpG" target="_blank" rel="external">下载x86版</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bngsIkB" target="_blank" rel="external">下载ARM版</a> <a href="http://pan.baidu.com/s/1eQDwCpG" target="_blank" rel="external">下载x86版</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bnb9at5" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdJ0mqR" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdJ0mqR" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.2.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGl4hZw" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDmurr7" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDmurr7" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.1.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntK9Urf" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgIAcpa" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgIAcpa" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bnEiHiB" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqBWAIo" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqBWAIo" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gd68WtP" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqBWAIo" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqBWAIo" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6Dgtse" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdf49Jt" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gdf49Jt" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.1</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6Dgtse" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGBS4rO" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGBS4rO" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 3.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0CKIFA" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0iY68w" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0iY68w" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 2.3.3</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqHwsHA" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDvhHOt" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDvhHOt" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 2.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qWJNPyk" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQEc8SU" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQEc8SU" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Google-Glass-SDK"><a href="#Google-Glass-SDK" class="headerlink" title="Google Glass SDK"></a>Google Glass SDK</h4><p>这是GDK，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/add-ons</code>文件夹下，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">android 4.4.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1fENeu" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQpGaA2" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQpGaA2" target="_blank" rel="external">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">android 4.0.3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqikzUs" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Google-TV-Addon"><a href="#Google-TV-Addon" class="headerlink" title="Google TV Addon"></a>Google TV Addon</h4><p>这是Google TV Addon，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/add-ons</code>文件夹，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">android 3.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1qWLPFfm" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQFy1KA" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQFy1KA" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<p>####Android Framework Source Code<br>这是Android Framework Source Code，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/sources</code>文件夹下，然后重启Eclipse(或Android Studio)，这样当你在Eclipse里面按住<code>Ctrl</code>键点击某个系统类时就可以打开该类的源码文件查看源码了。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dD5Z1Hf" target="_blank" rel="external">android 5.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eQf6F0Q" target="_blank" rel="external">android 4.4W</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1hqGGrVA" target="_blank" rel="external">android 4.4.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1pJI3YrD" target="_blank" rel="external">android 4.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1qWlXS9u" target="_blank" rel="external">android 4.2.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1qWv1spm" target="_blank" rel="external">android 4.1.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1jGGCpuu" target="_blank" rel="external">android 4.0.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1o61AZwQ" target="_blank" rel="external">android 4.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1pJt14En" target="_blank" rel="external">android 3.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eQekIPW" target="_blank" rel="external">android 2.3.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1bny9E2b" target="_blank" rel="external">android 2.2</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-SDK-Extras"><a href="#Android-SDK-Extras" class="headerlink" title="Android SDK Extras"></a>Android SDK Extras</h4><p>包含 <code>Android Support Library</code> 、 <code>Google Cloud Messaging for Android Library</code> 、<code>Google Play services</code> 、 <code>Google Play services for fit preview</code> 、<code>Google Play services for Froyo</code> 、<code>Google Play APK Expansion Library</code>、<code>Google Play Billing Library</code> 、<code>Google Play Licensing Library</code> 等，下载解压后将解压出的整个文件夹复制或者移动到<code>your sdk</code>根目录下下，如果已经存在<code>extras</code>文件夹就替换掉。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTmlB9d" target="_blank" rel="external">21.0.3</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgso8Y0" target="_blank" rel="external">21.0.2</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6v78Lk" target="_blank" rel="external">21</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1eQIMXMy" target="_blank" rel="external">20</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Support-Library"><a href="#Support-Library" class="headerlink" title="Support Library"></a>Support Library</h4><p>包含support <code>v4</code>、<code>v7</code>、<code>v13</code>、<code>v17</code>、<code>multidex</code>和<code>m2repository</code>，下载解压后将解压出的整个文件夹复制或者移动到<code>your sdk 路径/extras</code>下，然后打开SDK Manager，打开<code>Tools(工具)</code>菜单选择<code>Options(选项)</code>菜单项打开Android SDK Manager Setting对话框，点击<code>Clear Cache(清除缓存)</code>按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntsoeE1" target="_blank" rel="external">21.0.3</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTzIkYV" target="_blank" rel="external">21.0.2</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6MBWIu" target="_blank" rel="external">21</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6OBlR8" target="_blank" rel="external">20</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="SDK-Samples"><a href="#SDK-Samples" class="headerlink" title="SDK Samples"></a>SDK Samples</h4><p>这是Android SDK自带的示例代码，下载并解压后，将解压出的整个文件夹复制或者移动到<code>your sdk 路径/samples</code>文件夹下，然后重启Eclipse(或Android Studio)。<br>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">系统版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDD19XB" target="_blank" rel="external">android 21</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1gdpEan5" target="_blank" rel="external">android L</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1ntLVN9B" target="_blank" rel="external">android 4.4W</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDeSKt7" target="_blank" rel="external">android 4.4.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1pJHicjx" target="_blank" rel="external">android 4.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1hqGavMc" target="_blank" rel="external">android 4.2.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eYPL8" target="_blank" rel="external">android 4.1.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1i3mScXv" target="_blank" rel="external">android 4.0.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1kTiKqZP" target="_blank" rel="external">android 4.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eQpafgI" target="_blank" rel="external">android 3.2</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1haIPw" target="_blank" rel="external">android 3.1</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1ntx9qFR" target="_blank" rel="external">android 3.0</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1hqiQw1Q" target="_blank" rel="external">android 2.3.3</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1ntv7wut" target="_blank" rel="external">android 2.2</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="NDK"><a href="#NDK" class="headerlink" title="NDK"></a>NDK</h4><p>C/C++开发Android应用工具包,<code>Linux/Mac OS X 下NDK r10c</code>的安装方法请戳 <a href="install-method-url">这里</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+<th style="text-align:left">MD5/SHA-1校验码</th>
+<th style="text-align:center">官方SHA-1校验码截图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ndk-r11b</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1JWvUI" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1pKlqcZL" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pKi8yJT" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0YLv00" target="_blank" rel="external">64位</a></td>
+<td style="text-align:left">Win:b42da395440cc1c5dc4eeeb383679331addeb3ea <br> 480eca1b29cfe73a5b35374730e6a82ca65c2aa6 <br> Mac: c64fb355fec4da57d329ab45bf0aa29a1aec58dc <br> Linux: cf0658956945c81d3d3fad5f9a24fa062d4c9d41</td>
+<td style="text-align:center"><a href="http://ww2.sinaimg.cn/large/8a41f469gw1f25wwym8t6j21kw0rxwja.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+<tr>
+<td style="text-align:left">ndk-r10e</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jG7Yacm" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1jG5WjL8" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1DKkfc" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1sjoneRr" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1dDAqnK1" target="_blank" rel="external">64位</a></td>
+<td style="text-align:left">Win: 1a82445baaf62aec3a46386ab1e5772c <br>  8412bb4991a95e08fda50b5a44d95df7 <br> Mac: 2cb8893a5701603519d38a7e04c50e81 <br> Linux: c3edd3273029da1cbd2f62c48249e978 <br> 19af543b068bdb7f27787c2bc69aba7f</td>
+<td style="text-align:center"><a href="http://ww1.sinaimg.cn/large/8a41f469gw1ewboorr3czj21kk0vgdmn.jpg" target="_blank" rel="external">查看</a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Additional Download (32-, 64-bit)</th>
+<th style="text-align:left">Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">r10 STL debug info</td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1xWgUE" target="_blank" rel="external">android-ndk-r10-cxx-stl-libs-with-debug-info.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left">r9 STL debug info</td>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1c0EMn8O" target="_blank" rel="external">android-ndk-r9-cxx-stl-libs-with-debug-info.zip</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-L-Preview-System-Image"><a href="#Android-L-Preview-System-Image" class="headerlink" title="Android L Preview System Image"></a>Android L Preview System Image</h4><p>这个是Android L Preview系统的刷机镜像。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">设备</th>
+<th style="text-align:center">下载</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Nexus 5 (GSM/LTE) “hammerhead”</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1kTsnxsF" target="_blank" rel="external">hammerhead-lpv79-preview-ac1d8a8e.tgz</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Nexus 7 (Wifi) “razor”</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgn1CyG" target="_blank" rel="external">razor-lpv79-preview-d0ddf8ce.tgz</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1.8 u77</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hsFDbBu" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1kUJuzH1" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bRetFw" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i4YX7VZ" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1slBWTIH" target="_blank" rel="external">64位</a></td>
+</tr>
+<tr>
+<td style="text-align:center">1.8 u74</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c1w1TCk" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1nu3BdVj" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c0Tv5Pe" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1gecIYxP" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1hrtBXkg" target="_blank" rel="external">64位</a></td>
+</tr>
+<tr>
+<td style="text-align:center">1.7 u80</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bfAT58" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1gewvEAR" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hrl4x3u" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1c1pG2Fu" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1hrecZ9U" target="_blank" rel="external">64位</a></td>
+</tr>
+<tr>
+<td style="text-align:center">1.6 u45</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o67aooM" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1dDmtSZJ" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqpB7Nm" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJJj5Ib" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1dDck3O9" target="_blank" rel="external">64位</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="ADT-Bundle"><a href="#ADT-Bundle" class="headerlink" title="ADT Bundle"></a>ADT Bundle</h4><p>ADT Bundle包含了Eclipse、ADT插件和SDK Tools，是已经集成好的IDE，只需安装好Jdk即可开始开发，推荐初学者下载ADT Bundle，不用再折腾开发环境。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">23.0.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1dDGM8oD" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1mgn2dOs" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1o6OBIHG" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1GmIsQ" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1EQMT4" target="_blank" rel="external">64位</a></td>
+</tr>
+<tr>
+<td style="text-align:center">23.0.0</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i39mvY1" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1o65ExPS" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqvHkry" target="_blank" rel="external">64位</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgoh41q" target="_blank" rel="external">32位</a> <a href="http://pan.baidu.com/s/1qWJh4wk" target="_blank" rel="external">64位</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="ADT-Plugin"><a href="#ADT-Plugin" class="headerlink" title="ADT Plugin"></a>ADT Plugin</h4><p>离线安装ADT插件请戳<a href="https://github.com/inferjay/AndroidDevTools/wiki/首页"><strong>项目wiki</strong></a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bngDm6V" target="_blank" rel="external">ADT-23.0.7</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGraNEQ" target="_blank" rel="external">ADT-23.0.6</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1i39UM7j" target="_blank" rel="external">ADT-23.0.4</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1hqJyLTi" target="_blank" rel="external">ADT-23.0.3</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bnGkEvX" target="_blank" rel="external">ADT-23.0.2</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1sjArX7J" target="_blank" rel="external">ADT-23.0.0</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1jGMb5yQ" target="_blank" rel="external">ADT-22.6.3</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1pJ185Rl" target="_blank" rel="external">AdT-22.6.1</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1gdLhXa7" target="_blank" rel="external">gradle-2.12-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1gewXkzx" target="_blank" rel="external">gradle-2.11-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1mhrKIF2" target="_blank" rel="external">gradle-2.10-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eRll1Ns" target="_blank" rel="external">gradle-2.9-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1qW25Ndy" target="_blank" rel="external">gradle-2.8-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1c0g9D5m" target="_blank" rel="external">gradle-2.7-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1mg8JAbA" target="_blank" rel="external">gradle-2.6-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1jGrmKx4" target="_blank" rel="external">gradle-2.5-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1c0dcgfe" target="_blank" rel="external">gradle-2.4-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDEnQr3" target="_blank" rel="external">gradle-2.3-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1eQH39AE" target="_blank" rel="external">gradle-2.2.1-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1i3BXKYp" target="_blank" rel="external">gradle-2.2-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1bnF6jV5" target="_blank" rel="external">gradle-2.1-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1mgFTN7a" target="_blank" rel="external">gradle-2.0-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1Gmlx8" target="_blank" rel="external">gradle-1.12-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1c0hCmdE" target="_blank" rel="external">gradle-1.11-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1qWtzaGW" target="_blank" rel="external">gradle-1.10-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1dDeSuXV" target="_blank" rel="external">gradle-1.9-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1o6Npqqe" target="_blank" rel="external">gradle-1.8-all.zip</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1pJnvyWz" target="_blank" rel="external">gradle-1.7-all.zip</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Gradle-Plugin-DSL-在线文档"><a href="#Android-Gradle-Plugin-DSL-在线文档" class="headerlink" title="Android Gradle Plugin DSL 在线文档"></a>Android Gradle Plugin DSL 在线文档</h4><p><a href="http://google.github.io/android-gradle-dsl/" target="_blank" rel="external">http://google.github.io/android-gradle-dsl/</a></p>
+<h4 id="Gradle-Dependencies-Configuration-Generator（需要梯子）"><a href="#Gradle-Dependencies-Configuration-Generator（需要梯子）" class="headerlink" title="Gradle Dependencies Configuration Generator（需要梯子）"></a>Gradle Dependencies Configuration Generator（需要梯子）</h4><p><a href="http://gradleplease.appspot.com" target="_blank" rel="external">http://gradleplease.appspot.com</a></p>
+<h4 id="版本控制工具"><a href="#版本控制工具" class="headerlink" title="版本控制工具"></a>版本控制工具</h4><h5 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+<th style="text-align:center">Windows</th>
+<th style="text-align:center">Mac OSX</th>
+<th style="text-align:center">Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Git-2.0.1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1mgkM9BE" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://github.com/inferjay/AndroidDevTools/wiki/Download-for-Linux-and-Unix">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Git-1.9.4</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntjy9N7" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://github.com/inferjay/AndroidDevTools/wiki/Download-for-Linux-and-Unix">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Git-1.8.5.2</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1ntJWxeD" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1bncr1pX" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://github.com/inferjay/AndroidDevTools/wiki/Download-for-Linux-and-Unix">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="SVN-Plugin-For-Eclipse"><a href="#SVN-Plugin-For-Eclipse" class="headerlink" title="SVN Plugin For Eclipse"></a>SVN Plugin For Eclipse</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">版本号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1mg2x4Xq" target="_blank" rel="external">1.10.5</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1hqswoGs" target="_blank" rel="external">1.8.22</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="http://pan.baidu.com/s/1o60r6UA" target="_blank" rel="external">1.6.18</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="反编译工具"><a href="#反编译工具" class="headerlink" title="反编译工具"></a>反编译工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Enjarify</td>
+<td style="text-align:left">Enjarify 是一个用 Python 写的， Google 官方开源的可以将 Dalvik 字节码转换为 Java 字节码的工具。</td>
+<td style="text-align:center"><a href="https://github.com/google/enjarify">下载</a></td>
+</tr>
+<tr>
+<td style="text-align:left">JEB Android Decompiler</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://www.android-decompiler.com/index.php" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Virtuous Ten Studio</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://virtuous-ten-studio.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Apk文件修改工具Root Tools</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/Stericson/RootTools">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Dex文件反编译工具Dedexer</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://dedexer.sourceforge.net" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">APK+Dex文件反编译及回编译工具</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://idoog.me" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">android-apktool</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://ibotpeaches.github.io/Apktool/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Onekey Decompile Apk]</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://code.google.com/p/onekey-decompile-apk/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Baksmali</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://code.google.com/p/smali/downloads/detail?name=baksmali" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Smali</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://code.google.com/p/smali/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">AXMLPrinter2</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://android4me.googlecode.com/files/AXMLPrinter2.jar" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JAD Java Decompiler</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://varaneckas.com/jad/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JD-GUI Decompiler</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/java-decompiler/jd-gui/releases/tag/v1.4.0">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">XJad V2.2</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://files.cnblogs.com/arix04/XJad_V2.2.rar" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android APK Decompiler</td>
+<td style="text-align:left">在线反编译工具</td>
+<td style="text-align:center"><a href="http://www.decompileandroid.com/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JADX - Dex to Java decompiler</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/skylot/jadx">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">dex2jar</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://code.google.com/p/dex2jar/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">SmaliViewer</td>
+<td style="text-align:left">是一款免费的APK分析软件，无论从分析的深度<br>还是广度来看，都是一款能够满足用户需求的产品，<br>使您在APK分析的过程中，更加得心应手。</td>
+<td style="text-align:center"><a href="http://blog.avlyun.com/wp-content/uploads/2014/04/SmaliViewer.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://blog.avlyun.com/show/《sv用户指南》/" target="_blank" rel="external">使用指南</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Android逆向助手</td>
+<td style="text-align:left">Android逆向助手是一功能强大的逆向辅助软件。<br>该软件可以帮助用户来进行apk反编译打包签名；<br>dex/jar互转替换提取修复；so反编译；<br>xml、txt加密；字符串编码等等，操作简单<br>，只需要直接将文件拖放到源和目标文件。</td>
+<td style="text-align:center"><a href="http://enjoycode.info/uploads/Androidnxzs.zip" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://www.sanwho.com/620.html" target="_blank" rel="external">使用指南</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Killer</td>
+<td style="text-align:left">Android Killer 是一款可视化的安卓应用逆向工具，<br>集Apk反编译、Apk打包、Apk签名，编码互转，<br>ADB通信（应用安装-卸载-运行-设备文件管理）<br>等特色功能于一 身，支持logcat日志输出，<br>语法高亮，基于关键字（支持单行代码或多行代码段）<br>项目内搜索，可自定义外部工具；吸收融汇多种工具功能与特点，<br>打造一站 式逆向工具操作体验，大大简化了用户在<br>安卓应用/游戏修改过程中的各类繁琐工作。</td>
+<td style="text-align:center"><a href="http://www.pd521.com/thread-136-1-1.html" target="_blank" rel="external">下载1</a><br><a href="http://pan.baidu.com/share/home?uk=4099707276#category/type=6" target="_blank" rel="external">下载2</a></td>
+<td style="text-align:center"><a href="http://www.pd521.com/thread-509-1-1.html" target="_blank" rel="external">使用指南</a></td>
+</tr>
+<tr>
+<td style="text-align:left">DexExtractor</td>
+<td style="text-align:left">android dex extractor ，anti-shell，android 脱壳。</td>
+<td style="text-align:center"><a href="https://github.com/bunnyblue/DexExtractor">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">jadx</td>
+<td style="text-align:left">Dex to Java decompiler</td>
+<td style="text-align:center"><a href="https://github.com/skylot/jadx">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">android-classyshark</td>
+<td style="text-align:left">a handy Android and Java executables viewer</td>
+<td style="text-align:center"><a href="https://github.com/google/android-classyshark">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ShakaApktool</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/rover12421/ShakaApktool">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="安全工具"><a href="#安全工具" class="headerlink" title="安全工具"></a>安全工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">APKfuscator</td>
+<td style="text-align:center"><a href="https://github.com/strazzere/APKfuscator">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ApkAnalyser</td>
+<td style="text-align:center"><a href="https://github.com/sonyxperiadev/ApkAnalyser/downloads">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">AppXplore</td>
+<td style="text-align:center"><a href="https://play.google.com/store/apps/details?id=com.sonyericsson.androidapp.AppExplore&amp;feature=search_result#?t=W251bGwsMSwxLDEsImNvbS5zb255ZXJpY3Nzb24uYW5kcm9pZGFwcC5BcHBFeHBsb3JlIl0." target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android analysis framework</td>
+<td style="text-align:center"><a href="http://www.dexlabs.org" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Androguard</td>
+<td style="text-align:center"><a href="https://code.google.com/p/androguard/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Droidbox</td>
+<td style="text-align:center"><a href="https://code.google.com/p/droidbox/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">dsploit</td>
+<td style="text-align:center"><a href="https://github.com/evilsocket/dsploit">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Androwarn</td>
+<td style="text-align:center"><a href="https://github.com/maaaaz/androwarn">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Anubis</td>
+<td style="text-align:center"><a href="http://anubis.iseclab.org" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Drozer</td>
+<td style="text-align:center"><a href="https://www.mwrinfosecurity.com/products/drozer/community-edition/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">VirusTotal</td>
+<td style="text-align:center"><a href="https://www.virustotal.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">GDB for Android</td>
+<td style="text-align:center"><a href="http://gnutoolchains.com/android/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">VisualGDB</td>
+<td style="text-align:center"><a href="http://visualgdb.com/?features=android" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="静态代码分析工具"><a href="#静态代码分析工具" class="headerlink" title="静态代码分析工具"></a>静态代码分析工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">infer</td>
+<td style="text-align:left">Facebook 开源的静态代码分析工具，用于在发布移动应用之前对代码进行分析，找出潜在的问题。</td>
+<td style="text-align:center"><a href="https://github.com/facebook/infer">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="搜索工具"><a href="#搜索工具" class="headerlink" title="搜索工具"></a>搜索工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Structural Java Exception Search</td>
+<td style="text-align:left">Java异常搜索工具</td>
+<td style="text-align:center"><a href="http://www.brainleg.com/search" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Library Finder</td>
+<td style="text-align:left">最快的方式获取依赖库</td>
+<td style="text-align:center"><a href="https://github.com/cesarferreira/alfi">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Codota</td>
+<td style="text-align:left">示例代码搜索网站</td>
+<td style="text-align:center"><a href="http://www.codota.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Debug调试工具"><a href="#Debug调试工具" class="headerlink" title="Debug调试工具"></a>Debug调试工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Stetho</td>
+<td style="text-align:left">Stetho 是Facebook推出的Android 调试平台，基于 Chrome Developer Tools ，调试网络请求方面特别方便。</td>
+<td style="text-align:center"><a href="https://github.com/facebook/stetho">下载</a></td>
+<td style="text-align:center"><a href="http://facebook.github.io/stetho/" target="_blank" rel="external">教程</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Augmented Traffic Control</td>
+<td style="text-align:left">Facebook宣布开源移动网络测试工具ATC，该工具支持利用Wi-Fi网络模拟2G、2.5G、3G以及LTE 4G移动网络环境，让测试工程师们能够快速对智能手机和App在不同国家地区和应用环境下的性能表现进行测试。</td>
+<td style="text-align:center"><a href="https://github.com/facebook/augmented-traffic-control">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Api测试工具"><a href="#Api测试工具" class="headerlink" title="Api测试工具"></a>Api测试工具</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">bat</td>
+<td style="text-align:left">一个用Go写的命令行API测试利器，支持文件下载，<br>文件上传，支持Linux的pipe方式，总之就是炫酷。</td>
+<td style="text-align:center"><a href="http://www.brainleg.com/search" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="https://github.com/astaxie/bat#installation">使用指南</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Eclipse-Android-Studio-IDEA插件"><a href="#Eclipse-Android-Studio-IDEA插件" class="headerlink" title="Eclipse/Android Studio/IDEA插件"></a>Eclipse/Android Studio/IDEA插件</h4><h5 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SVN</td>
+<td style="text-align:center"><a href="http://pan.baidu.com/s/1sjqamOP" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Genymobile模拟器</td>
+<td style="text-align:center"><a href="http://genymotion.com/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Memory-Analyzer-Tools</td>
+<td style="text-align:center"><a href="http://download.eclipse.org/mat/1.4/update-site/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Droidinspector</td>
+<td style="text-align:center"><a href="http://www.sriramramani.com/droidinspector/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">SQLiteManager</td>
+<td style="text-align:center"><a href="https://dl.dropboxusercontent.com/u/91846918/sqlite%20manager/com.questoid.sqlitemanager_1.0.0.jar" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Color Theme</td>
+<td style="text-align:center"><a href="http://eclipsecolorthemes.org/?view=plugin" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">RoboVM</td>
+<td style="text-align:center"><a href="http://www.robovm.org" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Newrelic</td>
+<td style="text-align:center"><a href="https://download.newrelic.com/android_agent/eclipse" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="Android-Studio-IDEA"><a href="#Android-Studio-IDEA" class="headerlink" title="Android Studio/IDEA"></a>Android Studio/IDEA</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Resource Resizer Plugin</td>
+<td style="text-align:center"><a href="https://github.com/walmyrcarvalho/android-resource-resizer">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Gradle Dependencies Helper Plugin</td>
+<td style="text-align:center"><a href="https://github.com/ligi/GradleDependenciesHelperPlugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Parcelable code generation Plugin</td>
+<td style="text-align:center"><a href="https://github.com/mcharmas/android-parcelable-intellij-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Holo Colors IDEA Plugin</td>
+<td style="text-align:center"><a href="https://github.com/jeromevdl/android-holo-colors-idea-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Toolbox Plugin</td>
+<td style="text-align:center"><a href="https://github.com/idamobile/android-toolbox-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Gradle Sign Plugin</td>
+<td style="text-align:center"><a href="https://github.com/alexvasilkov/AndroidGradleSignPlugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Permissions Usage Plugin</td>
+<td style="text-align:center"><a href="https://github.com/RomainPiel/AndroidPermissionsUsage">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Helper Plugin</td>
+<td style="text-align:center"><a href="https://github.com/eunjae-lee/AndroidHelper">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Studio Prettify Plugin</td>
+<td style="text-align:center"><a href="https://github.com/Haehnchen/idea-android-studio-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">IDEA ADB Plugin</td>
+<td style="text-align:center"><a href="https://github.com/pbreault/adb-idea">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Otto Intellij Plugin</td>
+<td style="text-align:center"><a href="https://github.com/square/otto-intellij-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Dagger intellij Plugin</td>
+<td style="text-align:center"><a href="https://github.com/square/dagger-intellij-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Gradle Gui Plugin</td>
+<td style="text-align:center"><a href="https://github.com/gradle-archive/gradle-intellij-gui">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Studio Unit Test Plugin</td>
+<td style="text-align:center"><a href="https://github.com/evant/android-studio-unit-test-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Layout ID Converter Plugin</td>
+<td style="text-align:center"><a href="https://github.com/funnything/OffingHarbor">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">IDEA protobuf Plugin</td>
+<td style="text-align:center"><a href="https://github.com/nnmatveev/idea-plugin-protobuf">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Simple Team Code Reviewer Plugin</td>
+<td style="text-align:center"><a href="https://github.com/syllant/idea-plugin-revu">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android XML Plugin</td>
+<td style="text-align:center"><a href="https://github.com/mironov-nsk/AndroidXML">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ADF Plugin</td>
+<td style="text-align:center"><a href="https://github.com/tizionario/adf-intellijPlugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Java2smali Plugin</td>
+<td style="text-align:center"><a href="https://github.com/ollide/intellij-java2smali">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">IDEA gitignore Plugin</td>
+<td style="text-align:center"><a href="https://github.com/hsz/idea-gitignore">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">IDEA Background Image Plugin</td>
+<td style="text-align:center"><a href="https://github.com/kimptoc/Intellij-IDEA-Plugin-Background-Image">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">IDEA Maven Plugin</td>
+<td style="text-align:center"><a href="https://github.com/born2snipe/idea-plugin-maven-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Gradle GooglePlay Publisher Plugin</td>
+<td style="text-align:center"><a href="https://github.com/Triple-T/gradle-play-publisher">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Drawable Selectors Generates Plugin</td>
+<td style="text-align:center"><a href="https://github.com/inmite/android-selector-chapek">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Drawable Importer</td>
+<td style="text-align:center"><a href="https://github.com/winterDroid/android-drawable-importer-intellij-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Color themes for IntelliJ IDEA</td>
+<td style="text-align:center"><a href="https://github.com/winterDroid/android-drawable-importer-intellij-plugin">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">GsonFormat</td>
+<td style="text-align:center"><a href="https://github.com/zzz40500/GsonFormat">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ormlite-android-gradle-plugin</td>
+<td style="text-align:center"><a href="https://github.com/stephanenicolas/ormlite-android-gradle-plugin">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android资源-Themes-Style生成工具"><a href="#Android资源-Themes-Style生成工具" class="headerlink" title="Android资源/Themes/Style生成工具"></a>Android资源/Themes/Style生成工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Asset Studio</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://romannurik.github.io/AndroidAssetStudio/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Drawable Factory</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/tizionario/AndroidDrawableFactory">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Action Bar Style Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://jgilfelt.github.io/android-actionbarstylegenerator" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Holo Colors Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://android-holo-colors.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Simple Nine-patch Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://romannurik.github.io/AndroidAssetStudio/nine-patches.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Device Frame Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://f2prateek.com/android-device-frame-generator/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android 9-patch shadow generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://inloop.github.io/shadow4android/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android资源分析工具"><a href="#Android资源分析工具" class="headerlink" title="Android资源分析工具"></a>Android资源分析工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Assets Viewer</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://www.cellebellum.net/AndroidAssetsViewer/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Layout-Parser工具"><a href="#Android-Layout-Parser工具" class="headerlink" title="Android Layout Parser工具"></a>Android Layout Parser工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Layout Binder</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://android.lineten.net/layout.php" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Content-Provider代码生成工具"><a href="#Android-Content-Provider代码生成工具" class="headerlink" title="Android Content Provider代码生成工具"></a>Android Content Provider代码生成工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Content Provider Code Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://github.com/BoD/android-contentprovider-generator">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Fragment-Code-Generator代码生成工具"><a href="#Android-Fragment-Code-Generator代码生成工具" class="headerlink" title="Android Fragment Code Generator代码生成工具"></a>Android Fragment Code Generator代码生成工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Fragment Code Generator</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="http://techisfun.github.io/pages/android-fragment-generator/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="代码生成工具"><a href="#代码生成工具" class="headerlink" title="代码生成工具"></a>代码生成工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android KickstartR</td>
+<td style="text-align:left">AndroidKickstartR帮助您快速创建<br>Android应用程序并使用最流行的库进行配置。<br>它创建和配置你的项目给你。只专注于代码!</td>
+<td style="text-align:center"><a href="http://androidkickstartr.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Button Maker</td>
+<td style="text-align:left">Android Button Maker是一个在线生成Android应用按钮代码的工具。<br>Android的API提供可绘制资源，其中的XML文件定义的几何形状，包括颜色，边框和梯度。<br>这些按钮是在shape drawable XML代码基础上产生的相比通常的PNG按钮加载速度更快。<br>您可以在设置面板中自定义按钮的属性和获得源代码。</td>
+<td style="text-align:center"><a href="http://angrytools.com/android/button/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">DroidDraw</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><a href="https://code.google.com/p/droiddraw/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android SVG to VectorDrawable</td>
+<td style="text-align:left">一个可以将SVG图片转换为Vector Drawable xml文件的在线工具。</td>
+<td style="text-align:center"><a href="http://inloop.github.io/svg2android/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Native开发工具"><a href="#Android-Native开发工具" class="headerlink" title="Android Native开发工具"></a>Android Native开发工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android++</td>
+<td></td>
+<td style="text-align:center"><a href="http://android-plus-plus.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android测试工具"><a href="#Android测试工具" class="headerlink" title="Android测试工具"></a>Android测试工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Appurify</td>
+<td></td>
+<td style="text-align:center"><a href="http://appurify.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Monkey</td>
+<td></td>
+<td style="text-align:center"><a href="http://developer.android.com/intl/zh-cn/tools/help/monkey.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Testin</td>
+<td></td>
+<td style="text-align:center"><a href="http://testin.cn" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Spoon</td>
+<td></td>
+<td style="text-align:center"><a href="http://square.github.io/spoon/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Little Eye</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.littleeye.co" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">易测云</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.yiceyun.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Emmagee</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/emmagee/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Apk View Tracer</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/apk-view-tracer/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">APT</td>
+<td>APT是一个Android平台高效性能测试组件，<br>提供丰富实用的功能，适用于开发自测、<br>定位性能瓶颈；<br>测试人员完成性能基准测试、竞品对比测试。</td>
+<td style="text-align:center"><a href="https://code.csdn.net/Tencent/apt" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://www.eoeandroid.com/thread-497380-1-1.html" target="_blank" rel="external">教程</a></td>
+</tr>
+<tr>
+<td style="text-align:left">GT</td>
+<td>GT（随身调）是APP的随身调测平台，它是直接运行在手机上的“集成调测环境”(IDTE, Integrated Debug&amp;Test Environment)。</td>
+<td style="text-align:center"><a href="http://gt.tencent.com/index.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://gt.tencent.com/docs.html" target="_blank" rel="external">教程</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Mobile-Checker</td>
+<td>移动端页面检查工具,可以选择三种屏幕规格，通过工具发现网站在移动端存在的问题。</td>
+<td style="text-align:center"><a href="https://github.com/w3c/Mobile-Checker">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android多渠道打包工具"><a href="#Android多渠道打包工具" class="headerlink" title="Android多渠道打包工具"></a>Android多渠道打包工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Umeng多渠道打包工具</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/umeng/umeng-muti-channel-build-tool">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">AppTools具</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/wubo/apptools">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">package_tool</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/ahui2823/package_tool">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">RyApkTool</td>
+<td></td>
+<td style="text-align:center"><a href="http://blog.csdn.net/rydiy/article/details/7901564" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">兰贝壳儿</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.orchidshell.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://www.orchidshell.com/Instructions/OchidShellInstructions.htm" target="_blank" rel="external">教程</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android-Bug日志收集工具"><a href="#Android-Bug日志收集工具" class="headerlink" title="Android Bug日志收集工具"></a>Android Bug日志收集工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Crashlytics</td>
+<td></td>
+<td style="text-align:center"><a href="http://try.crashlytics.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ACRA</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/ACRA/acra">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ChkBugReport</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/sonyxperiadev/ChkBugReport">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Log Collector</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/android-log-collector/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Crash Catcher</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/netcook/crash-catcher">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="其他语言开发Android应用工具"><a href="#其他语言开发Android应用工具" class="headerlink" title="其他语言开发Android应用工具"></a>其他语言开发Android应用工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Xamarin</td>
+<td></td>
+<td style="text-align:center"><a href="http://xamarin.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Basic4android</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.basic4ppc.com/index.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Scripting Layer</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/android-scripting/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Ruby Rhodes</td>
+<td>移动设备上的Ruby</td>
+<td style="text-align:center"><a href="http://rhomobile.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">PHP for Android</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.phpforandroid.net/doku.php" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Codename One</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.codenameone.com/index.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Touchqode</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.codenameone.com/index.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">App Inventor</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.codenameone.com/index.html" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="传感器模拟工具"><a href="#传感器模拟工具" class="headerlink" title="传感器模拟工具"></a>传感器模拟工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sensor Simulator</td>
+<td>独立的Java应用程序，它模拟传感器<br>的数据并将它们传送到Android模拟器。</td>
+<td style="text-align:center"><a href="http://www.openintents.org/en/node/23)" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Android串口开发工具"><a href="#Android串口开发工具" class="headerlink" title="Android串口开发工具"></a>Android串口开发工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Serialport Api</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/android-serialport-api/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="图片尺寸处理工具"><a href="#图片尺寸处理工具" class="headerlink" title="图片尺寸处理工具"></a>图片尺寸处理工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">9-Patch Resizer</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/redwarp/9-Patch-Resizer">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="图片压缩工具"><a href="#图片压缩工具" class="headerlink" title="图片压缩工具"></a>图片压缩工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OptiPNG</td>
+<td></td>
+<td style="text-align:center"><a href="http://optipng.sourceforge.net/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Pngcrush</td>
+<td></td>
+<td style="text-align:center"><a href="http://pmt.sourceforge.net/pngcrush/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ImageOptim</td>
+<td></td>
+<td style="text-align:center"><a href="https://imageoptim.com)" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Tinypng</td>
+<td></td>
+<td style="text-align:center"><a href="https://tinypng.com/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="资源清理工具"><a href="#资源清理工具" class="headerlink" title="资源清理工具"></a>资源清理工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Lint</td>
+<td></td>
+<td style="text-align:center"><a href="http://tools.android.com/tips/lint" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Resource Cleaner</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/android-resource-cleaner/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Unused Resources</td>
+<td></td>
+<td style="text-align:center"><a href="https://code.google.com/p/android-unused-resources/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Resource Remover</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/KeepSafe/android-resource-remover">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="px和dp转换-计算工具"><a href="#px和dp转换-计算工具" class="headerlink" title="px和dp转换/计算工具"></a>px和dp转换/计算工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android dp px Calculator</td>
+<td></td>
+<td style="text-align:center"><a href="http://labs.rampinteractive.co.uk/android_dp_px_calculator/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">dp px converter</td>
+<td></td>
+<td style="text-align:center"><a href="http://pixplicity.com/dp-px-converter/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">pixelcalc</td>
+<td></td>
+<td style="text-align:center"><a href="http://angrytools.com/android/pixelcalc/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">androidpixels</td>
+<td></td>
+<td style="text-align:center"><a href="http://androidpixels.net" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">android dpi calculator</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/JerzyPuchalski/Android-DPI-Calculator">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">DPI Calculator</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/dpi-calculator/dldofgjemhkpilajnlenfijjpkabilcg?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android DPI Calculator插件</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/JerzyPuchalski/Android-DPI-Calculator">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Java-To-iOS"><a href="#Java-To-iOS" class="headerlink" title="Java To iOS"></a>Java To iOS</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">j2Objc</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/google/j2objc">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">RoboVM</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.robovm.org" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="JSON-XML转换为POJO-Class工具"><a href="#JSON-XML转换为POJO-Class工具" class="headerlink" title="JSON/XML转换为POJO Class工具"></a>JSON/XML转换为POJO Class工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">jsonschema2pojo</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.jsonschema2pojo.org" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Convert XML or JSON to Java Pojo</td>
+<td></td>
+<td style="text-align:center"><a href="http://pojo.sodhanalibrary.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Java-DAO-Generate工具"><a href="#Java-DAO-Generate工具" class="headerlink" title="Java DAO Generate工具"></a>Java DAO Generate工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Generate Java DAO for relational data table</td>
+<td></td>
+<td style="text-align:center"><a href="http://pojo.sodhanalibrary.com/GenerateDAO.html" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Chrome插件"><a href="#Chrome插件" class="headerlink" title="Chrome插件"></a>Chrome插件</h4><h5 id="Android插件"><a href="#Android插件" class="headerlink" title="Android插件"></a>Android插件</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android SDK Search</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/android-sdk-search/hgcbffeicehlpmgmnhnkjbjoldkfhoin" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Resource Navigator</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/android-resource-navigato/agoomkionjjbejegcejiefodgbckeebo?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ADB Plugin for remote <br>debugging Chrome on Android</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/adb/dpngiggdglpdnjdoaefidgiigpemgage?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Mobile/RWD Tester</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/mobilerwd-tester/elmekokodcohlommfikpmojheggnbelo?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ExtensionAndroid SDK Samples Search</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/android-sdk-samples-searc/mbiobcenjhldinmnbpjihaemkfofnmgf?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Developer Improvements</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/android-developer-improve/omakkdelnjjgfmohpfkejgfcckpkbhbj?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android downloader</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/android-downloader/pkffcfhlacdchhpahlgcajjiiljobbbb?hl=en" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="JSON-XML格式化插件"><a href="#JSON-XML格式化插件" class="headerlink" title="JSON/XML格式化插件"></a>JSON/XML格式化插件</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">JSONView</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JSON Formatter</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JSON Viewer</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">JSON Finder</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/json-finder/flhdcaebggmmpnnaljiajhihdfconkbj?hl=en" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="Encode-Decode插件"><a href="#Encode-Decode插件" class="headerlink" title="Encode/Decode插件"></a>Encode/Decode插件</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Base64 Encode and Decode</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/base64-encode-and-decode/kcafoaahiffdjffagoegkdiabclnkbha?hl=en" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="Git-1"><a href="#Git-1" class="headerlink" title="Git"></a>Git</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Git Cheat Sheet</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/git-cheat-sheet/mjdmgoiobnbkfcfjcceaodlcodhpokgn?hl=en" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Guides"><a href="#Guides" class="headerlink" title="Guides"></a>Guides</h2><h4 id="Google-Java编程风格指南中文版"><a href="#Google-Java编程风格指南中文版" class="headerlink" title="Google Java编程风格指南中文版"></a>Google Java编程风格指南中文版</h4><p>英文地址：<a href="http://google-styleguide.googlecode.com/svn/trunk/javaguide.html" target="_blank" rel="external">http://google-styleguide.googlecode.com/svn/trunk/javaguide.html</a></p>
+<p>地址0：<a href="http://hawstein.com/posts/google-java-style.html" target="_blank" rel="external">http://hawstein.com/posts/google-java-style.html</a></p>
+<p>地址1：<a href="https://github.com/codeset/google-java-styleguide">https://github.com/codeset/google-java-styleguide</a></p>
+<h4 id="Android-Developers-国内镜像站"><a href="#Android-Developers-国内镜像站" class="headerlink" title="Android Developers 国内镜像站"></a>Android Developers 国内镜像站</h4><p>地址: <a href="http://androiddoc.qiniudn.com/" target="_blank" rel="external">Android Developers 国内镜像站</a></p>
+<h4 id="Android-Api中文版"><a href="#Android-Api中文版" class="headerlink" title="Android Api中文版"></a>Android Api中文版</h4><p>地址：<a href="http://www.embeddedlinux.org.cn/androidapi/" target="_blank" rel="external">http://www.embeddedlinux.org.cn/androidapi/</a></p>
+<p>####Android API指南中文版</p>
+<p>地址：<a href="http://api.apkbus.com/guide" target="_blank" rel="external">http://api.apkbus.com/guide</a></p>
+<h4 id="Android-Proguard混淆配置指南"><a href="#Android-Proguard混淆配置指南" class="headerlink" title="Android Proguard混淆配置指南"></a>Android Proguard混淆配置指南</h4><p>地址：<a href="https://github.com/inferjay/AndroidProguardGuide/">https://github.com/inferjay/AndroidProguardGuide/</a></p>
+<h4 id="Gradle插件使用指南中文版"><a href="#Gradle插件使用指南中文版" class="headerlink" title="Gradle插件使用指南中文版"></a>Gradle插件使用指南中文版</h4><p>地址：<a href="http://avatarqing.github.io/Gradle-Plugin-User-Guide-Chinese-Verision" target="_blank" rel="external">http://avatarqing.github.io/Gradle-Plugin-User-Guide-Chinese-Verision</a></p>
+<h4 id="Gradle-User-Guide"><a href="#Gradle-User-Guide" class="headerlink" title="Gradle User Guide"></a>Gradle User Guide</h4><p>Gradle 1.12用户指南：<a href="http://pan.baidu.com/s/1dD7sC2d" target="_blank" rel="external">http://pan.baidu.com/s/1dD7sC2d</a></p>
+<h2 id="Tutorials"><a href="#Tutorials" class="headerlink" title="Tutorials"></a>Tutorials</h2><h4 id="Android学习之路"><a href="#Android学习之路" class="headerlink" title="Android学习之路"></a>Android学习之路</h4><p>地址：<a href="http://stormzhang.github.io/android/2014/07/07/learn-android-from-rookie/" target="_blank" rel="external">http://stormzhang.github.io/android/2014/07/07/learn-android-from-rookie/</a></p>
+<h4 id="Google-Android官方培训课程中文版"><a href="#Google-Android官方培训课程中文版" class="headerlink" title="Google Android官方培训课程中文版"></a>Google Android官方培训课程中文版</h4><p>地址：<a href="http://hukai.me/android-training-course-in-chinese/index.html" target="_blank" rel="external">http://hukai.me/android-training-course-in-chinese/index.html</a></p>
+<h4 id="Developing-Android-Apps"><a href="#Developing-Android-Apps" class="headerlink" title="Developing Android Apps"></a>Developing Android Apps</h4><p>地址：<a href="https://www.udacity.com/course/ud853" target="_blank" rel="external">https://www.udacity.com/course/ud853</a></p>
+<h4 id="Java-Design-Patterns-Samples-in-Java"><a href="#Java-Design-Patterns-Samples-in-Java" class="headerlink" title="Java Design Patterns Samples in Java."></a>Java Design Patterns Samples in Java.</h4><p><a href="https://github.com/iluwatar/java-design-patterns">Java Design Patterns</a></p>
+<h1 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h1><hr>
+<h2 id="Design-Tools"><a href="#Design-Tools" class="headerlink" title="Design Tools"></a>Design Tools</h2><h4 id="Photoshop插件"><a href="#Photoshop插件" class="headerlink" title="Photoshop插件"></a>Photoshop插件</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cut&amp;Slice</td>
+<td>切图神器</td>
+<td style="text-align:center"><a href="http://www.cutandslice.me" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">DevRocket</td>
+<td>切图神器</td>
+<td style="text-align:center"><a href="http://www.robovm.org" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Cutterman</td>
+<td>最好用的切图工具</td>
+<td style="text-align:center"><a href="http://www.cutterman.cn" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Ink</td>
+<td></td>
+<td style="text-align:center"><a href="http://ink.chrometaphore.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Corner Editor</td>
+<td>路径圆角编辑工具</td>
+<td style="text-align:center"><a href="http://photoshopscripts.wordpress.com" target="_blank" rel="external">下载1</a> <br><a href="http://sourceforge.net/projects/cornereditor/" target="_blank" rel="external">下载1</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">GuideGuide</td>
+<td>辅助线工具</td>
+<td style="text-align:center"><a href="http://guideguide.me" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Assistor PS</td>
+<td></td>
+<td style="text-align:center"><a href="http://assistor.net/en/assistor" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Skeuomorphism.it</td>
+<td></td>
+<td style="text-align:center"><a href="http://skeuomorphism.it" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">QuickGuide</td>
+<td></td>
+<td style="text-align:center"><a href="http://guchitaka.com/project-view/quickguidepro/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Long Shadow Generator</td>
+<td>长投影效果生成插件</td>
+<td style="text-align:center"><a href="http://lab.rayps.com/lsg2/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">android_resizer_toolkit</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/marcosecchi/android_resizer_toolkit">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">android-ps-tools</td>
+<td>一些方便Android UI设计的PhototShop插件。</td>
+<td style="text-align:center"><a href="https://github.com/timroes/android-ps-tools">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">LayerCraft</td>
+<td>A Photoshop plugin to export UI assets from layers</td>
+<td style="text-align:center"><a href="http://lab.rayps.com/lc/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="矢量图设计工具"><a href="#矢量图设计工具" class="headerlink" title="矢量图设计工具"></a>矢量图设计工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sketch 3</td>
+<td></td>
+<td style="text-align:center"><a href="http://bohemiancoding.com/sketch/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Affinity Designer</td>
+<td></td>
+<td style="text-align:center"><a href="https://affinity.serif.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Gravit</td>
+<td></td>
+<td style="text-align:center"><a href="http://gravit.io" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Adobe Illustrator</td>
+<td></td>
+<td style="text-align:center"><a href="https://www.adobe.com/cn/products/illustrator.html" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="切图工具"><a href="#切图工具" class="headerlink" title="切图工具"></a>切图工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Slicy</td>
+<td></td>
+<td style="text-align:center"><a href="http://macrabbit.com/slicy/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="设计稿尺寸标注工具"><a href="#设计稿尺寸标注工具" class="headerlink" title="设计稿尺寸标注工具"></a>设计稿尺寸标注工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">马克鳗</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.getmarkman.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">PxCook像素大厨</td>
+<td>UI设计师效率提升利器，让你专注于设计本质，<br>不再为标注切图而烦恼，从设计到实现一气呵成</td>
+<td style="text-align:center"><a href="http://www.fancynode.com.cn" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"><a href="http://www.fancynode.com.cn/tutorial" target="_blank" rel="external">使用教程</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="原型设计工具"><a href="#原型设计工具" class="headerlink" title="原型设计工具"></a>原型设计工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Axure</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.axure.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Fluid UI</td>
+<td></td>
+<td style="text-align:center"><a href="https://chrome.google.com/webstore/detail/fluid-ui/obgmmkbgpilmggfkhganmcmpemnhimgg?hl=en" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Briefs</td>
+<td></td>
+<td style="text-align:center"><a href="http://giveabrief.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Flinto</td>
+<td></td>
+<td style="text-align:center"><a href="https://www.flinto.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Balsamiq Mockups</td>
+<td></td>
+<td style="text-align:center"><a href="http://balsamiq.com/products/mockups/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">AppCooker</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.appcooker.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Proto.io</td>
+<td></td>
+<td style="text-align:center"><a href="https://proto.io/en/signup/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">UXPin</td>
+<td></td>
+<td style="text-align:center"><a href="http://uxpin.com/#" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">InVision</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.invisionapp.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">POP</td>
+<td></td>
+<td style="text-align:center"><a href="https://popapp.in" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">快现</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.ikuaixian.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Composite</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.getcomposite.com/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">OmniGraffle</td>
+<td></td>
+<td style="text-align:center"><a href="https://www.omnigroup.com/omnigraffle" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Marvelapp</td>
+<td></td>
+<td style="text-align:center"><a href="https://marvelapp.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Justinmind</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.justinmind.com/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Form</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.relativewave.com/form.html" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Prott</td>
+<td></td>
+<td style="text-align:center"><a href="https://prottapp.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Composite</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.getcomposite.com/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Avocado</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/ideo/avocado">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Pixate</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.pixate.com/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="交互设计工具"><a href="#交互设计工具" class="headerlink" title="交互设计工具"></a>交互设计工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Framer Studio</td>
+<td></td>
+<td style="text-align:center"><a href="http://framerjs.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Quartz Composer</td>
+<td></td>
+<td style="text-align:center"><a href="http://adcdownload.apple.com/Developer_Tools/graphics_tools_for_xcode__march_2014/graphics_tools_for_xcode_5.1__march_2014.dmg" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Origami</td>
+<td></td>
+<td style="text-align:center"><a href="http://facebook.github.io/origami/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">jQC</td>
+<td></td>
+<td style="text-align:center"><a href="http://qcdesigners.com/index.php/forums" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="UI效果预览工具"><a href="#UI效果预览工具" class="headerlink" title="UI效果预览工具"></a>UI效果预览工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Design Preview</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/romannurik/AndroidDesignPreview/releases">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">PS Play</td>
+<td></td>
+<td style="text-align:center"><a href="http://isux.tencent.com/app/psplay" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Pixl Preview</td>
+<td></td>
+<td style="text-align:center"><a href="https://play.google.com/store/apps/details?id=at.markushi.pixl" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Skala Preview</td>
+<td></td>
+<td style="text-align:center"><a href="http://bjango.com/mac/skalapreview/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">LiveView</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.zambetti.com/projects/liveview/" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="配色工具"><a href="#配色工具" class="headerlink" title="配色工具"></a>配色工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Android Material Design可视化调色板</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/HozakaN/MaterialDesignColorPalette">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Material Design Colours.xml</td>
+<td></td>
+<td style="text-align:center"><a href="https://gist.github.com/daniellevass/b0b8cfa773488e138037" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Colorube配色神器</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.fancynode.com/colorcube/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Adobe Kuler</td>
+<td></td>
+<td style="text-align:center"><a href="https://kuler.adobe.com/zh/create/color-wheel/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">ColorSchemer Studio</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.colorschemer.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Piknik</td>
+<td></td>
+<td style="text-align:center"><a href="https://gist.github.com/daniellevass/b0b8cfa773488e138037" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="设计稿版本控制工具"><a href="#设计稿版本控制工具" class="headerlink" title="设计稿版本控制工具"></a>设计稿版本控制工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">LayerVault</td>
+<td></td>
+<td style="text-align:center"><a href="https://layervault.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="图标处理工具"><a href="#图标处理工具" class="headerlink" title="图标处理工具"></a>图标处理工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Icon Slate</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.kodlian.com/apps" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="在线Icon库"><a href="#在线Icon库" class="headerlink" title="在线Icon库"></a>在线Icon库</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IconFont</td>
+<td></td>
+<td style="text-align:center"><a href="http://iconfont.cn" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">NounProject</td>
+<td></td>
+<td style="text-align:center"><a href="http://thenounproject.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="取色工具"><a href="#取色工具" class="headerlink" title="取色工具"></a>取色工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ColorSnapper</td>
+<td></td>
+<td style="text-align:center"><a href="http://colorsnapper.com" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="不透明度16进制值"><a href="#不透明度16进制值" class="headerlink" title="不透明度16进制值"></a>不透明度16进制值</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">不透明度</th>
+<th style="text-align:center">16进制值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">100%</td>
+<td style="text-align:center">FF</td>
+</tr>
+<tr>
+<td style="text-align:center">95%</td>
+<td style="text-align:center">F2</td>
+</tr>
+<tr>
+<td style="text-align:center">90%</td>
+<td style="text-align:center">E6</td>
+</tr>
+<tr>
+<td style="text-align:center">85%</td>
+<td style="text-align:center">D9</td>
+</tr>
+<tr>
+<td style="text-align:center">80%</td>
+<td style="text-align:center">CC</td>
+</tr>
+<tr>
+<td style="text-align:center">75%</td>
+<td style="text-align:center">BF</td>
+</tr>
+<tr>
+<td style="text-align:center">70%</td>
+<td style="text-align:center">B3</td>
+</tr>
+<tr>
+<td style="text-align:center">65%</td>
+<td style="text-align:center">A6</td>
+</tr>
+<tr>
+<td style="text-align:center">60%</td>
+<td style="text-align:center">99</td>
+</tr>
+<tr>
+<td style="text-align:center">55%</td>
+<td style="text-align:center">8C</td>
+</tr>
+<tr>
+<td style="text-align:center">50%</td>
+<td style="text-align:center">80</td>
+</tr>
+<tr>
+<td style="text-align:center">45%</td>
+<td style="text-align:center">73</td>
+</tr>
+<tr>
+<td style="text-align:center">40%</td>
+<td style="text-align:center">66</td>
+</tr>
+<tr>
+<td style="text-align:center">35%</td>
+<td style="text-align:center">59</td>
+</tr>
+<tr>
+<td style="text-align:center">30%</td>
+<td style="text-align:center">4D</td>
+</tr>
+<tr>
+<td style="text-align:center">25%</td>
+<td style="text-align:center">40</td>
+</tr>
+<tr>
+<td style="text-align:center">20%</td>
+<td style="text-align:center">33</td>
+</tr>
+<tr>
+<td style="text-align:center">15%</td>
+<td style="text-align:center">26</td>
+</tr>
+<tr>
+<td style="text-align:center">10%</td>
+<td style="text-align:center">1A</td>
+</tr>
+<tr>
+<td style="text-align:center">5%</td>
+<td style="text-align:center">0D</td>
+</tr>
+<tr>
+<td style="text-align:center">0%</td>
+<td style="text-align:center">00</td>
+</tr>
+</tbody>
+</table>
+<p>出自：<a href="http://stackoverflow.com/questions/5445085/understanding-colors-in-android-6-chars" target="_blank" rel="external">http://stackoverflow.com/questions/5445085/understanding-colors-in-android-6-chars</a></p>
+<h4 id="手机To电脑同步预览工具"><a href="#手机To电脑同步预览工具" class="headerlink" title="手机To电脑同步预览工具"></a>手机To电脑同步预览工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Reflector</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.airsquirrels.com/reflector/download/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">x-Mirage</td>
+<td></td>
+<td style="text-align:center"><a href="http://x-mirage.com/x-mirage/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">AirServer</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.airserver.com" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">BBQScreen</td>
+<td></td>
+<td style="text-align:center"><a href="http://screen.bbqdroid.org" target="_blank" rel="external">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Gif图片录制工具"><a href="#Gif图片录制工具" class="headerlink" title="Gif图片录制工具"></a>Gif图片录制工具</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>简介</th>
+<th style="text-align:center">下载地址</th>
+<th style="text-align:center">使用教程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">LICEcap</td>
+<td></td>
+<td style="text-align:center"><a href="http://www.cockos.com/licecap/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">GifCam</td>
+<td></td>
+<td style="text-align:center"><a href="http://blog.bahraniapps.com/gifcam/" target="_blank" rel="external">下载</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">Android Tool</td>
+<td></td>
+<td style="text-align:center"><a href="https://github.com/mortenjust/androidtool-mac">下载</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="UI-Programming-Language"><a href="#UI-Programming-Language" class="headerlink" title="UI Programming Language"></a>UI Programming Language</h2><p><a href="http://uilang.com" target="_blank" rel="external">UILang</a></p>
+<h2 id="Tutorials-1"><a href="#Tutorials-1" class="headerlink" title="Tutorials"></a>Tutorials</h2><p><a href="https://hackdesign.org/lessons" target="_blank" rel="external">HackDesign</a></p>
+<h2 id="Games"><a href="#Games" class="headerlink" title="Games"></a>Games</h2><p><a href="http://bezier.method.ac" target="_blank" rel="external">The Bezier Game</a></p>
+<p>一个帮助你练习PS里钢笔工具的小游戏。</p>
+<h2 id="Guides-1"><a href="#Guides-1" class="headerlink" title="Guides"></a>Guides</h2><h4 id="Android设计指南非官方简体中文版"><a href="#Android设计指南非官方简体中文版" class="headerlink" title="Android设计指南非官方简体中文版"></a>Android设计指南非官方简体中文版</h4><p>Topfun镜像地址：<a href="http://www.topfun.us/adchs/index.html" target="_blank" rel="external">http://www.topfun.us/adchs/index.html</a></p>
+<p>Github镜像地址：<a href="http://adchs.github.io" target="_blank" rel="external">http://adchs.github.io</a></p>
+<p>ApkBus镜像地址：<a href="http://www.apkbus.com/design/" target="_blank" rel="external">http://www.apkbus.com/design/</a></p>
+<p>Segmentfault镜像地址：<a href="http://mirrors.segmentfault.com/adchs/" target="_blank" rel="external">http://mirrors.segmentfault.com/adchs/</a></p>
+<p>多看阅读镜像地址：<a href="http://www.duokan.com/book/47790" target="_blank" rel="external">http://www.duokan.com/book/47790</a></p>
+<h4 id="Android-Cheatsheet-for-Graphic-Designers"><a href="#Android-Cheatsheet-for-Graphic-Designers" class="headerlink" title="Android Cheatsheet for Graphic Designers"></a>Android Cheatsheet for Graphic Designers</h4><p>地址:<a href="http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/" target="_blank" rel="external">http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers/</a></p>
+<h4 id="Google-Material-Design-中文版"><a href="#Google-Material-Design-中文版" class="headerlink" title="Google Material Design 中文版"></a>Google Material Design 中文版</h4><p>地址：<a href="http://design.1sters.com" target="_blank" rel="external">http://design.1sters.com</a></p>
+<p>地址： <a href="http://www.ui.cn/Material/" target="_blank" rel="external">http://www.ui.cn/Material/</a></p>
+<h4 id="Designer’s-Guide-To-dpi"><a href="#Designer’s-Guide-To-dpi" class="headerlink" title="Designer’s Guide To dpi"></a>Designer’s Guide To dpi</h4><p>地址：<a href="http://sebastien-gabriel.com/designers-guide-to-dpi/home#" target="_blank" rel="external">http://sebastien-gabriel.com/designers-guide-to-dpi/home</a></p>
+<h4 id="Email-Design-Guide"><a href="#Email-Design-Guide" class="headerlink" title="Email Design Guide"></a>Email Design Guide</h4><p>地址：<a href="http://mailchimp.com/resources/email-design-guide/" target="_blank" rel="external">http://mailchimp.com/resources/email-design-guide/</a></p>
+<h2 id="Free-Design-Resources"><a href="#Free-Design-Resources" class="headerlink" title="Free Design Resources"></a>Free Design Resources</h2><p><a href="http://pan.baidu.com/s/1i35iBNv" target="_blank" rel="external">Google Material Design 素材</a>(感谢 <a href="http://weibo.com/sanityd" target="_blank" rel="external">@SanityD</a>)</p>
+<p><a href="https://dribbble.com/shots/1617724" target="_blank" rel="external">Material Design Icon Templates</a></p>
+<p><a href="https://github.com/google/material-design-icons">Material Design的图标集</a></p>
+<p><a href="https://www.behance.net/gallery/20514895/Material-Design-UI-Kit" target="_blank" rel="external">Material Design UI Kit for Sketch</a></p>
+<p><a href="http://tristanremy.com/nexus-5/" target="_blank" rel="external">Nexus 5 template for Sketch</a></p>
+<p><a href="http://androiduiux.com/free-design-resources/?blogsub=confirming#blog_subscription-2" target="_blank" rel="external">Free Design Resources</a></p>
+<p><a href="https://dl.dropboxusercontent.com/u/8067075/System%20Icons.zip" target="_blank" rel="external">434 SVG icons</a></p>
+<p><a href="http://ui-cloud.com" target="_blank" rel="external">UI Cloun</a></p>
+<p><a href="http://github.com/nullice/NViconsLib_Silhouette">161个国内外社交网站矢量图标</a></p>
+<p><a href="http://www.androidicons.com" target="_blank" rel="external">250 free icons in 5 sizes and 14 colors</a></p>
+<p><a href="http://matt-cooper.com/minimalistic-icons/" target="_blank" rel="external">MINIMALISTIC EVERYDAY ICONS</a></p>
+<p><a href="http://www.icons4android.com" target="_blank" rel="external">Icons4Android</a></p>
+<h1 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h1><hr>
+<p><a href="https://github.com/vhf/free-programming-books/blob/master/free-programming-books.md#android">Free Programming Books</a></p>
+<p>一堆免费的Android开发相关的电子书。</p>
+<p><a href="http://www.it-ebooks.info/book/2445/" target="_blank" rel="external">50 Android Hacks</a></p>
+<p>50 Android Hacks这本书分12个部分介绍了50个Android开发的小技巧。</p>
+<p><a href="http://siberiawolf.com/free_programming/index.html" target="_blank" rel="external">免费的编程中文书籍索引</a></p>
+<h1 id="Disclaimer"><a href="#Disclaimer" class="headerlink" title="Disclaimer"></a>Disclaimer</h1><hr>
+<pre><code>版权归原作者所有，这里仅做收集整理，欢迎自由转载-非商用-非衍生-保持署名和链接。
+</code></pre><hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-29T06:44:14.000Z" itemprop="dateUpdated">2017-07-29 14:44:14</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android开发工具大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/09/02/决策.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">决策</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/你真的了解AsyncTask吗.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">你真的了解AsyncTask吗</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&title=《Android开发工具大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android开发工具大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/29/Android开发工具大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsklEQVR42u3awYrjMBAE0Pz/T2euA8FOlVoKPjyflmBsPQ+otdX9esXX+9+V/3L1nM/7739Pnjy68PDw8AZLz1/5udwrxj3s/v4NnwAPDw/vGC/ZxO9fn+zJ+e7drufydzw8PLzH8H7DzgsJHh4e3pN5ScFo44b8GI2Hh4f3HF7+6GQTX/tMSSE5mLXg4eHhHegiPeffR/p7eHh4eOOu+v2Gm7/4/gltdFusFg8PD+8AL99w18CTo/muwBcPDw/vNG9eHvLxqSSovY8hovYYHh4e3lZesqB2+06o7adZLBt4eHh4x3htS6k9Oq8VjzZQHlU8PDw8vJg3GQK4/2XtCJ6PUm3o++Hh4eENeG2IkB+p2wW1za2iAYaHh4d3gNe27dfGs/IltgflKKXGw8PD28rLD8c5oA2Ik/vrIAMPDw9vKy/f+tea+gk7J+VPwMPDwzvNaxv8k8Z/exwfvQUPDw/vAK/dP+cxQbvR5w2zDeUBDw8PL+CtRav5kbptnrXDBEVJwMPDw9vEyw+vk6GBZBqqHTWow1w8PDy8rbx8ETmvDWrXWmhrww14eHh4E9779pq0/Nv4YPHb54dpPDw8vGO8Iv0to961gapR6cLDw8P7IS/Z7ttjbrvE5O1f3oiHh4d3gLfWyM9bZZMi9A6uOqXGw8PD28prI4a1GGJXzFHciYeHh/cTXr4p5xFDO6o1+TN8KQx4eHh4x3iT7fhdXq9N12WYi4eHh7eJt7aIeStrHtFGYQQeHh7eAd68PT+JgFvG2nADHh4e3gleWwxObM35GpJBh+JgjYeHhzfg5Y2unLoW484DETw8PLxn8pLXT0KKJP6IChIeHh7ew3j5IOlaXLs20ICHh4f3G14bBOTB66SQtMMNl4UBDw8Pbyuv/Q9/HuDuHTjYNSiGh4eHN+D9Acf0c6j2GojJAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/你真的了解AsyncTask吗.html">
+    
+    
+    <title>你真的了解AsyncTask吗 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 你真的了解AsyncTask?虽说现在做网络请求有了Volley全家桶和OkHttp这样好用的库，但是在处理其他后台任务以及与UI交互上，还是需要用到AsyncTask。但是你真的了解AsyncTask吗？ Asy">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你真的了解AsyncTask吗">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 你真的了解AsyncTask?虽说现在做网络请求有了Volley全家桶和OkHttp这样好用的库，但是在处理其他后台任务以及与UI交互上，还是需要用到AsyncTask。但是你真的了解AsyncTask吗？ Asy">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="https://github.com/images/asynctask.png">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T14:05:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你真的了解AsyncTask吗">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 你真的了解AsyncTask?虽说现在做网络请求有了Volley全家桶和OkHttp这样好用的库，但是在处理其他后台任务以及与UI交互上，还是需要用到AsyncTask。但是你真的了解AsyncTask吗？ Asy">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">你真的了解AsyncTask吗</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">你真的了解AsyncTask吗</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T12:09:45.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#你真的了解AsyncTask"><span class="post-toc-number">1.</span> <span class="post-toc-text">你真的了解AsyncTask?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AsyncTask是什么？"><span class="post-toc-number">2.</span> <span class="post-toc-text">AsyncTask是什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程池ThreadPoolExecutor"><span class="post-toc-number">3.</span> <span class="post-toc-text">线程池ThreadPoolExecutor</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Handler"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Handler</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#AsyncTask是并行执行的吗？"><span class="post-toc-number">4.</span> <span class="post-toc-text">AsyncTask是并行执行的吗？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么默认不并行执行？"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">为什么默认不并行执行？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如何让AsyncTask并行执行？"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">如何让AsyncTask并行执行？</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更好的AsyncTask"><span class="post-toc-number">5.</span> <span class="post-toc-text">更好的AsyncTask</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-你真的了解AsyncTask吗"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">你真的了解AsyncTask吗</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 20:09:45" datetime="2017-07-26T12:09:45.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<h2 id="你真的了解AsyncTask"><a href="#你真的了解AsyncTask" class="headerlink" title="你真的了解AsyncTask?"></a>你真的了解AsyncTask?</h2><p>虽说现在做网络请求有了Volley全家桶和OkHttp这样好用的库，但是在处理其他后台任务以及与UI交互上，还是需要用到AsyncTask。但是你真的了解AsyncTask吗？</p>
+<p>AsyncTask的实现几经修改，因此在不同版本的Android系统上表现各异；我相信，任何一个用户量上千万的产品绝对不会在代码里面使用系统原生的AsynTask，因为它蛋疼的兼容性以及极高的崩溃率实在让人不敢恭维。本文将带你了解AsyncTask背后的原理，并给出一个久经考验的AsyncTask修改版。</p>
+<h2 id="AsyncTask是什么？"><a href="#AsyncTask是什么？" class="headerlink" title="AsyncTask是什么？"></a>AsyncTask是什么？</h2><p>AsyncTask到底是什么呢？很简单，<strong>它不过是对线程池和Handler的封装</strong>；用线程池来处理后台任务，用Handler来处理与UI的交互。线程池使用的是<code>Executor</code>接口，我们先了解一下线程池的特性。</p>
+<h2 id="线程池ThreadPoolExecutor"><a href="#线程池ThreadPoolExecutor" class="headerlink" title="线程池ThreadPoolExecutor"></a>线程池ThreadPoolExecutor</h2><p>JDK5带来的一大改进就是Java的并发能力，它提供了三种并发武器：并发框架Executor，并发集合类型如ConcurrentHashMap，并发控制类如CountDownLatch等；圣经《Effective Java》也说，尽量使用Exector而不是直接用Thread类进行并发编程。</p>
+<p>AsyncTask内部也使用了线程池处理并发；线程池通过<code>ThreadPoolExector</code>类构造，这个构造函数参数比较多，它允许开发者对线程池进行定制，我们先看看这每个参数是什么意思，然后看看Android是以何种方式定制的。</p>
+<p>ThreadPoolExecutor的其他构造函数最终都会调用如下的构造函数完成对象创建工作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></div><div class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></div><div class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></div><div class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></div><div class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></div><div class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span></span></div></pre></td></tr></table></figure>
+<ul>
+<li>corePoolSize: 核心线程数目，即使线程池没有任务，核心线程也不会终止（除非设置了allowCoreThreadTimeOut参数）可以理解为“常驻线程”</li>
+<li>maximumPoolSize: 线程池中允许的最大线程数目；一般来说，线程越多，线程调度开销越大；因此一般都有这个限制。</li>
+<li>keepAliveTime: 当线程池中的线程数目比核心线程多的时候，如果超过这个keepAliveTime的时间，多余的线程会被回收；这些与核心线程相对的线程通常被称为缓存线程</li>
+<li>unit: keepAliveTime的时间单位</li>
+<li>workQueue: 任务执行前保存任务的队列；这个队列仅保存由execute提交的Runnable任务</li>
+<li>threadFactory: 用来构造线程池的工厂；一般都是使用默认的；</li>
+<li>handler: 当线程池由于线程数目和队列限制而导致后续任务阻塞的时候，线程池的处理方式。</li>
+</ul>
+<p>那么，当一个新的任务到达的时候，线程池中的线程是如何调度的呢？（别慌，讲这么一大段线程池的知识，是为了理解AsyncTask；Be Patient）</p>
+<ol>
+<li>如果线程池中线程的数目少于corePoolSize，就算线程池中有其他的没事做的核心线程，线程池还是会重新创建一个核心线程；直到核心线程数目到达corePoolSize（常驻线程就位）</li>
+<li>如果线程池中线程的数目大于或者等于corePoolSize，但是工作队列workQueue没有满，那么新的任务会放在队列workQueue中，按照FIFO的原则依次等待执行；（当有核心线程处理完任务空闲出来后，会检查这个工作队列然后取出任务默默执行去）</li>
+<li>如果线程池中线程数目大于等于corePoolSize，并且工作队列workQueue满了，但是总线程数目小于maximumPoolSize，那么直接创建一个线程处理被添加的任务。</li>
+<li>如果工作队列满了，并且线程池中线程的数目到达了最大数目maximumPoolSize，那么就会用最后一个构造参数<code>handler</code>处理；<strong>默认的处理方式是直接丢掉任务，然后抛出一个异常。</strong></li>
+</ol>
+<p>总结起来，也即是说，当有新的任务要处理时，<strong>先看线程池中的线程数量是否大于 corePoolSize，再看缓冲队列 workQueue 是否满，最后看线程池中的线程数量是否大于 maximumPoolSize</strong>。另外，当线程池中的线程数量大于 corePoolSize 时，如果里面有线程的空闲时间超过了 keepAliveTime，就将其移除线程池，这样，可以动态地调整线程池中线程的数量。</p>
+<p>我们以API 22为例，看一看AsyncTask里面的线程池是以什么参数构造的；AsyncTask里面有“两个”线程池；一个<code>THREAD_POOL_EXECUTOR</code>一个<code>SERIAL_EXECUTOR</code>；之所以打引号，是因为其实<code>SERIAL_EXECUTOR</code>也使用<code>THREAD_POOL_EXECUTOR</code>实现的，只不过加了一个队列弄成了串行而已，那么这个<code>THREAD_POOL_EXECUTOR</code>是如何构造的呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = CPU_COUNT + <span class="number">1</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_POOL_SIZE = CPU_COUNT * <span class="number">2</span> + <span class="number">1</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> KEEP_ALIVE = <span class="number">1</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> BlockingQueue&lt;Runnable&gt; sPoolWorkQueue =</div><div class="line">            <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(<span class="number">128</span>);</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor THREAD_POOL_EXECUTOR</div><div class="line">            = <span class="keyword">new</span> ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,</div><div class="line">                    TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);</div></pre></td></tr></table></figure>
+<p>可以看到，AsyncTask里面线程池是一个核心线程数为<code>CPU + 1</code>，最大线程数为<code>CPU * 2 + 1</code>，工作队列长度为<strong>128</strong>的线程池；并且没有传递<code>handler</code>参数，那么使用的就是默认的Handler（拒绝执行).</p>
+<p>那么问题来了：</p>
+<ol>
+<li>如果任务过多，那么超过了工作队列以及线程数目的限制导致这个线程池发生阻塞，那么悲剧发生，默认的处理方式会直接抛出一个异常导致进程挂掉。假设你自己写一个异步图片加载的框架，然后用AsyncTask实现的话，当你快速滑动ListView的时候很容易发生这种异常；这也是为什么各大ImageLoader都是自己写线程池和Handlder的原因。</li>
+<li>这个线程池是一个静态变量；那么在同一个进程之内，所有地方使用到的AsyncTask默认构造函数构造出来的AsyncTask都使用的是同一个线程池，如果App模块比较多并且不加控制的话，很容易满足第一条的崩溃条件；如果你不幸在不同的AsyncTask的doInBackgroud里面访问了共享资源，那么就会发生各种并发编程问题。</li>
+<li>在AsyncTask全部执行完毕之后，进程中还是会常驻corePoolSize个线程；在Android 4.4 （API 19）以下，这个corePoolSize是hardcode的，数值是5；API 19改成了<code>cpu + 1</code>；也就是说，在Android 4.4以前；如果你执行了超过五个AsyncTask；然后啥也不干了，进程中还是会有5个AsyncTask线程；不信，你看：</li>
+</ol>
+<p><img src="/images/asynctask.png" alt="img"></p>
+<h3 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h3><p>AsyncTask里面的handler很简单，如下（API 22代码）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> InternalHandler sHandler = <span class="keyword">new</span> InternalHandler();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">InternalHandler</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(Looper.getMainLooper());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，这里直接用的主线程的Looper；如果去看API 22以下的代码，会发现它没有这个构造函数，而是使用默认的；默认情况下，Handler会使用当前线程的Looper，如果你的AsyncTask是在子线程创建的，那么很不幸，你的<code>onPreExecute</code>和<code>onPostExecute</code>并非在UI线程执行，而是被Handler post到创建它的那个线程执行；如果你在这两个线程更新了UI，那么直接导致崩溃。这也是大家口口相传的<strong>AsyncTask必须在主线程创建</strong>的原因。</p>
+<p>另外，AsyncTask里面的这个Handler是一个静态变量，也就是说它是在类加载的时候创建的；如果在你的APP进程里面，以前从来没有使用过AsyncTask，然后在子线程使用AsyncTask的相关变量，那么导致静态Handler初始化，如果在API 16以下，那么会出现上面同样的问题；这就是<strong>AsyncTask必须在主线程初始化</strong> 的原因。</p>
+<p>事实上，在Android 4.1(API 16)以后，在APP主线程ActivityThread的main函数里面，直接调用了<code>AscynTask.init</code>函数确保这个类是在主线程初始化的；另外，init这个函数里面获取了<code>InternalHandler</code>的Looper，由于是在主线程执行的，因此，AsyncTask的Handler用的也是主线程的Looper。这个问题从而得到彻底的解决。</p>
+<h2 id="AsyncTask是并行执行的吗？"><a href="#AsyncTask是并行执行的吗？" class="headerlink" title="AsyncTask是并行执行的吗？"></a>AsyncTask是并行执行的吗？</h2><p>现在知道AsyncTask内部有一个线程池，那么派发给AsyncTask的任务是并行执行的吗？</p>
+<p>答案是不确定。在Android 1.5刚引入的时候，AsyncTask的<code>execute</code>是串行执行的；到了Android 1.6直到Android 2.3.2，又被修改为并行执行了，这个执行任务的线程池就是<code>THREAD_POOL_EXECUTOR</code>，因此在一个进程内，所有的AsyncTask都是并行执行的；但是在Android 3.0以后，如果你使用<code>execute</code>函数直接执行AsyncTask，那么<strong>这些任务是串行执行的</strong>；（你说蛋疼不）源代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> AsyncTask&lt;Params, Progress, Result&gt; <span class="title">execute</span><span class="params">(Params... params)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> executeOnExecutor(sDefaultExecutor, params);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个<code>sDefaultExecutor</code>就是用来执行任务的线程池，那么它的值是什么呢？继续看代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Executor sDefaultExecutor = SERIAL_EXECUTOR;</div></pre></td></tr></table></figure>
+<p>因此结论就来了：<strong>Android 3.0以上，AsyncTask默认并不是并行执行的</strong>；</p>
+<h3 id="为什么默认不并行执行？"><a href="#为什么默认不并行执行？" class="headerlink" title="为什么默认不并行执行？"></a>为什么默认不并行执行？</h3><p>也许你不理解，为什么AsyncTask默认把它设计为串行执行的呢？</p>
+<p>由于一个进程内所有的AsyncTask都是使用的同一个线程池执行任务；如果同时有几个AsyncTask一起并行执行的话，恰好AysncTask的使用者在<code>doInbackgroud</code>里面访问了相同的资源，但是自己没有处理同步问题；那么就有可能导致灾难性的后果！</p>
+<p>由于开发者通常不会意识到需要对他们创建的所有的AsyncTask对象里面的<code>doInbackgroud</code>做同步处理，因此，API的设计者为了避免这种无意中访问并发资源的问题，干脆把这个API设置为默认所有串行执行的了。如果你明确知道自己需要并行处理任务，那么你需要使用<code>executeOnExecutor(Executor exec,Params... params)</code>这个函数来指定你用来执行任务的线程池，同时为自己的行为负责。（处理同步问题）</p>
+<p>实际上《Effective Java》里面有一条原则说的就是这种情况：不要在同步块里面调用不可信的外来函数。这里明显违背了这个原则：AsyncTask这个类并不知道使用者会在<code>doInBackgroud</code>这个函数里面做什么，但是对它的行为做了某种假设。</p>
+<h3 id="如何让AsyncTask并行执行？"><a href="#如何让AsyncTask并行执行？" class="headerlink" title="如何让AsyncTask并行执行？"></a>如何让AsyncTask并行执行？</h3><p>正如上面所说，如果你确定自己做好了同步处理，或者你没有在不同的AsyncTask里面访问共享资源，需要AsyncTask能够并行处理任务的话，你可以用带有两个参数的<code>executeOnExecutor</code>执行任务：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> AsyncTask&lt;Void, Void, Vo</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> Void <span class="title">doInBackground</span><span class="params">(Void... params)</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);</div></pre></td></tr></table></figure>
+<h2 id="更好的AsyncTask"><a href="#更好的AsyncTask" class="headerlink" title="更好的AsyncTask"></a>更好的AsyncTask</h2><p>从上面的分析得知，AsyncTask有如下问题：</p>
+<ol>
+<li>默认的AsyncTask如果处理的任务过多，会导致程序直接崩溃；</li>
+<li>AsyncTask类必须在主线程初始化，必须在主线程创建，不然在API 16以下很大概率崩溃。</li>
+<li>如果你曾经使用过AsyncTask，以后不用了；在Android 4.4以下，进程内也默认有5个AsyncTask线程；在Android 4.4以上，默认有<code>CPU + 1</code>个线程。</li>
+<li>Android 3.0以上的AsyncTask默认是串行执行任务的；如果要并行执行需要调用低版本没有的API，处理麻烦。</li>
+</ol>
+<p>因此我们对系统的AsyncTask做了一些修改，在不同Android版本提供一致的行为，并且提高了使用此类的安全性，主要改动如下：</p>
+<ol>
+<li>添加对于任务过多导致崩溃的异常保护；在这里进行必要的数据统计上报工作；如果出现这个问题，说明AsyncTask不适合这种场景了，需要考虑重构；</li>
+<li>移植API 22对于Handler的处理；这样就算在线程创建异步任务，也不会有任何问题；</li>
+<li>提供串行执行和并行执行的<code>execute</code>方法；默认串行执行，如果明确知道自己在干什么，可以使用<code>executeParallel</code>并行执行。</li>
+<li>在<code>doInbackgroud</code>里面频繁崩溃的地方加上<code>try..catch</code>；自己处理数据上报工作。</li>
+</ol>
+<p>完整代码见gist，<a href="https://gist.github.com/tiann/8860bcc514f067ab4291" target="_blank" rel="external">BetterAsyncTask</a></p>
+<blockquote>
+<p>原文地址：<a href="http://weishu.me/2016/01/18/dive-into-asynctask/" target="_blank" rel="external">http://weishu.me/2016/01/18/dive-into-asynctask/</a></p>
+</blockquote>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T14:05:14.000Z" itemprop="dateUpdated">2017-07-26 22:05:14</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&title=《你真的了解AsyncTask吗》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&title=《你真的了解AsyncTask吗》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你真的了解AsyncTask吗》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/29/Android开发工具大全.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Android开发工具大全</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/ViewDragHelper源码解析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ViewDragHelper源码解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&title=《你真的了解AsyncTask吗》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&title=《你真的了解AsyncTask吗》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你真的了解AsyncTask吗》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/你真的了解AsyncTask吗.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqklEQVR42u3awW7jMAwE0P7/T+9eC7R1Zkgp2wWeT0GA2HouILFDfnzE159P1+dvvn5O7vN8z69X+5T6wsPDw1ss/fnWG2QC27+Ib9aAh4eHd42XLOjUPpz8arYePDw8vN/M2xS7GzweHh7e/8v76cF5rLAJI/Dw8PB+A28WoT4fGLPX9My+mLXg4eHhTTKBonH1bz9f6e/h4eHhrSPX5w130zbbvL5itXh4eHgXePmGO2titYHCPizGw8PDeyfv+QBot+y2sk0As2MGDw8P7yxv1tbaDAS8NUfBw8PDuxbRtkvcjB3M2JuiHA8PD+8eLylw829y9o0BBTw8PLzbvNnwaFuC58dDG168OMDw8PDwLvDaaCBhJEvPj6VZ+w0PDw/vHq/dcPOWWFu4P68kL+Lx8PDw7vHaAalZabsZF8iPojqTxsPDw1vzNmHrrH11qvUVHQx4eHh4R3ltS74dL5gdM3m8++PxgIeHh/d2Xltw5zXt2WGCFykLHh4e3lHeLIptY9n8t23DLLonHh4e3lFeEsXmB0ZboJ8dQfjmezw8PLwLvM2/+vmGvopigydG/zfg4eHhHeIlUWy+EW9GCvIivijr8fDw8C7w2jmlJFRtY9x202/bdXh4eHg3ePuwtb3PpnmWDxbg4eHhvZOXx6zPRe0mlm0PkhdnHR4eHt5lXjscMNu+Z02vfOV4eHh47+S1xfEs0s1D5M2fBw8PD+8s79RC2xJ5M3ZQHBJ4eHh4F3ib9nyy0Flrbf+5puLh4eGVvPwwyJd1Y2duR7jw8PDwbvP2YwFJ62s29rrKafHw8PB+DS9ZRDtitQ+ajx0MeHh4eEd5bSsrjxvy2KI4PPDw8PCu8fLCN39Zs7K4/bzq8uHh4eFta9fV42ek2aFyZXQADw8P7/Vz/wKt6s8Ub1kKtQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

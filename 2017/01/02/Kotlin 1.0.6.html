@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/01/02/Kotlin 1.0.6.html">
+    
+    
+    <title>Kotlin 1.0.6 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Kotlin">
+    <meta name="description" content="我把所有文章和视频都放到了 Github 上 ，如果你喜欢，请给个 Star，谢谢~  在上周二，Kotlin 1.0.6 发布啦！这次更新主要是工具更新和bug修复。本文的内容主要来自官方博客。 IDE 插件的更新  try-finally 转换为 use()    通常我们在进行 IO 操作的时候，我们并不希望异常影响我们程序的执行，所以我们需要对异常进行捕获，但捕获的话我们也没有必要处理，">
+<meta name="keywords" content="Kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 1.0.6">
+<meta property="og:url" content="https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="我把所有文章和视频都放到了 Github 上 ，如果你喜欢，请给个 Star，谢谢~  在上周二，Kotlin 1.0.6 发布啦！这次更新主要是工具更新和bug修复。本文的内容主要来自官方博客。 IDE 插件的更新  try-finally 转换为 use()    通常我们在进行 IO 操作的时候，我们并不希望异常影响我们程序的执行，所以我们需要对异常进行捕获，但捕获的话我们也没有必要处理，">
+<meta property="og:image" content="https://github.com/assets/2017.1.2/try.gif">
+<meta property="og:image" content="https://github.com/assets/2017.1.2/args.gif">
+<meta property="og:image" content="https://github.com/arts/kotlin扫码关注.png">
+<meta property="og:updated_time" content="2017-06-23T16:08:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin 1.0.6">
+<meta name="twitter:description" content="我把所有文章和视频都放到了 Github 上 ，如果你喜欢，请给个 Star，谢谢~  在上周二，Kotlin 1.0.6 发布啦！这次更新主要是工具更新和bug修复。本文的内容主要来自官方博客。 IDE 插件的更新  try-finally 转换为 use()    通常我们在进行 IO 操作的时候，我们并不希望异常影响我们程序的执行，所以我们需要对异常进行捕获，但捕获的话我们也没有必要处理，">
+<meta name="twitter:image" content="https://github.com/assets/2017.1.2/try.gif">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Kotlin 1.0.6</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Kotlin 1.0.6</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-01-02T08:22:57.000Z" itemprop="datePublished" class="page-time">
+  2017-01-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/官方动态/">官方动态</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IDE-插件的更新"><span class="post-toc-number">1.</span> <span class="post-toc-text">IDE 插件的更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-相关更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">Android 相关更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kapt-优化"><span class="post-toc-number">3.</span> <span class="post-toc-text">Kapt 优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#No-arg-插件"><span class="post-toc-number">4.</span> <span class="post-toc-text">No-arg 插件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何更新"><span class="post-toc-number">5.</span> <span class="post-toc-text">如何更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小结"><span class="post-toc-number">6.</span> <span class="post-toc-text">小结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Kotlin 1.0.6"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Kotlin 1.0.6</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-01-02 16:22:57" datetime="2017-01-02T08:22:57.000Z"  itemprop="datePublished">2017-01-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/官方动态/">官方动态</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>我把所有文章和视频都放到了 <a href="https://github.com/enbandari/Kotlin-Tutorials">Github</a> 上 ，如果你喜欢，请给个 Star，谢谢~</p>
+</blockquote>
+<p>在上周二，Kotlin 1.0.6 发布啦！这次更新主要是工具更新和bug修复。本文的内容主要来自<a href="https://blog.jetbrains.com/kotlin/" target="_blank" rel="external">官方博客</a>。</p>
+<h2 id="IDE-插件的更新"><a href="#IDE-插件的更新" class="headerlink" title="IDE 插件的更新"></a>IDE 插件的更新</h2><ul>
+<li><ol>
+<li>try-finally 转换为 use()</li>
+</ol>
+</li>
+</ul>
+<p>通常我们在进行 IO 操作的时候，我们并不希望异常影响我们程序的执行，所以我们需要对异常进行捕获，但捕获的话我们也没有必要处理，所以写下来的就是下面的形式：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">	... <span class="keyword">do</span> something with <span class="string">"reader"</span> ...</div><div class="line">&#125;<span class="keyword">finally</span>&#123;</div><div class="line">	reader.close()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但这样写起来是不是非常的不流畅？如果用 use() 的话，简直一气呵成：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">reader.use&#123;</div><div class="line">	reader -&gt; ... <span class="keyword">do</span> something with <span class="string">"reader"</span> ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所以，这次更新 Kotlin 的插件为我们带来了这样的自动转换功能：</p>
+<p><img src="/assets/2017.1.2/try.gif" alt=""></p>
+<ul>
+<li><ol>
+<li>补全具名参数</li>
+</ol>
+</li>
+</ul>
+<p>通常我们在编写代码的时候，函数入参都会按照顺序一个一个传入，不过随着代码量的增加，特别是对于参数较多的函数，一长串的代码看上去会让我们感到非常的头疼。所以，这次更新 Kotlin 还为我们带来了自动补全具名参数的功能。</p>
+<p><img src="/assets/2017.1.2/args.gif" alt=""></p>
+<ul>
+<li><ol>
+<li>删除空构造方法的声明</li>
+</ol>
+</li>
+<li><ol>
+<li>合并声明和赋值</li>
+</ol>
+</li>
+<li><ol>
+<li>inline 函数的问题修复和调试工具的优化</li>
+</ol>
+</li>
+<li><ol>
+<li>提示、KDoc 和 Quick Doc 相关的较多问题的修复</li>
+</ol>
+</li>
+</ul>
+<h2 id="Android-相关更新"><a href="#Android-相关更新" class="headerlink" title="Android 相关更新"></a>Android 相关更新</h2><ul>
+<li>支持 Android Studio 2.3 beta 1 和 Android Gradle Plugin 2.3.0-alpha3及更新的版本</li>
+<li>增加 “Create XML resource” 的提示</li>
+<li>Android Extensions support 这个功能可以让我们很方便的引用 XML 布局的 View，不过这需要我们主动启用 ‘kotlin-android-extensions’ 才行。在过去，即使不启用这个插件，IDE 也会允许我们直接引用 XML 布局的 View，但这并不能正常编译，所以这次更新修复了这个问题：只有启用了这个插件，IDE 才会允许我们引用对应的 View。</li>
+<li>Android Lint 相关的问题修复。</li>
+<li>增加 Suppress Lint 提示。</li>
+</ul>
+<h2 id="Kapt-优化"><a href="#Kapt-优化" class="headerlink" title="Kapt 优化"></a>Kapt 优化</h2><p>尽管还不能完全支持增量编译，相比 1.0.4，这次更新较大的提升了 Kapt 的性能。如果需要启用 Kapt，请在 gradle 当中启动它：<figure class="highlight plain"><figcaption><span>plugin: 'kotlin-kapt'```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## All-open 插件</div><div class="line"></div><div class="line">我们知道 Kotlin 的所有类及其成员默认情况下都是 final 的，也就是说你想要继承一个类，就要不断得写各种 open。刚开始看到这一特性的时候，觉得很赞，它对培养良好的编码意识非常有帮助，不过它也在某些情况下给我们带来麻烦，比如在一些大量依赖继承和覆写的 Java 框架的使用中。</div><div class="line"></div><div class="line">这一次 Kotlin 提供了一个妥协的办法，主要某个类被某一个特定注解标注，那么这个类就默认所有成员通通 open，省得一个一个写了。有关 allopen 的讨论，大家可以参考这里 [KEEP](https://github.com/Kotlin/KEEP/pull/40)。</div><div class="line"></div><div class="line">那么 allopen 如何使用呢？</div><div class="line"></div><div class="line">```groovy</div><div class="line">buildscript &#123;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &quot;org.jetbrains.kotlin:kotlin-allopen:$kotlin_version&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: &quot;kotlin-allopen&quot;</div><div class="line"></div><div class="line">allOpen &#123;</div><div class="line">    annotation(&quot;com.your.Annotation&quot;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">buildscript &#123;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &quot;org.jetbrains.kotlin:kotlin-allopen:$kotlin_version&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">apply plugin: &quot;kotlin-allopen&quot;</div><div class="line"></div><div class="line">allOpen &#123;</div><div class="line">    annotation(&quot;com.your.Annotation&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那么所有被 com.your.Annotation 这个注解标注的类成员都会默认 open。除此之外，它还可以作为元注解使用：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@com</span>.your.Annotation</div><div class="line">annotation <span class="class"><span class="keyword">class</span> <span class="title">MyFrameworkAnnotation</span></span></div><div class="line"><span class="class"></span></div><div class="line"><span class="class">@<span class="title">MyFrameworkAnnotation</span></span></div><div class="line"><span class="class"><span class="title">class</span> <span class="title">MyClass</span> // <span class="title">will</span> <span class="title">be</span> <span class="title">all</span>-<span class="title">open</span></span></div></pre></td></tr></table></figure>
+<p>Kotlin 还提供了 “kotlin-spring” 插件，其中包含了 spring 相关的所有注解，这样免得我们一个一个在 allopen 的配置中声明了。</p>
+<h2 id="No-arg-插件"><a href="#No-arg-插件" class="headerlink" title="No-arg 插件"></a>No-arg 插件</h2><p>如果大家看过我的视频，一定对我之前提到的“毁三观”的实例化有印象吧，附上<a href="https://github.com/enbandari/Kotlin-Tutorials">视频连接：12 Json数据引发的血案</a>，其中我们提到对于没有无参构造方法的 Kotlin 类，Gson 反序列化它们的时候，不知道如何实例化它们，只好用到了 <figure class="highlight plain"><figcaption><span>这个类。听说 Java 9 要移除这个略显黑科技的类，如果是这样，Gson 是不是会被削弱呢？Java 的心我们还是不操了，从 Kotlin 1.0.6 开始，这个问题将得到一个比较好的解决。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```groovy</div><div class="line">buildscript &#123;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &quot;org.jetbrains.kotlin:kotlin-noarg:$kotlin_version&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Or &quot;kotlin-jpa&quot; for the Java Persistence API support</div><div class="line">apply plugin: &quot;kotlin-noarg&quot;</div><div class="line"></div><div class="line">noArg &#123;</div><div class="line">    annotation(&quot;com.your.Annotation&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类似于 allopen 的使用方法，如果某个类需要无参默认构造方法，你只需要用上面声明好的注解 com.your.Annotation 标注即可。当然，这个生成的默认构造方法只能通过反射调用。</p>
+<h2 id="如何更新"><a href="#如何更新" class="headerlink" title="如何更新"></a>如何更新</h2><p>我一直觉得虽然我们出生就被选择了 Hard 模式，但我们没啥感觉啊。可是最近一直访问国外的网站，感觉真的好困难，宽带换成了电信 100M，下载 Kotlin 的插件仍然跟小水管一样，真也是没谁了。为了方便大家我把我下载的几个版本的插件放到<a href="https://pan.baidu.com/s/1pLbb2fp" target="_blank" rel="external">百度网盘</a>，供大家使用，请大家点击阅读原文获取下载地址。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>目前 Kotlin 1.0.x 的版本更新更侧重于稳定性和易用性，因此语言上的特性基本不会更新，主要集中于 IDE 插件和编译器插件。如果大家期待语言特性的更新，那我们就去关注一下 1.1 吧！</p>
+<p><img src="/arts/kotlin扫码关注.png" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-06-23T16:08:04.000Z" itemprop="dateUpdated">2017-06-24 00:08:04</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kotlin/">Kotlin</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&title=《Kotlin 1.0.6》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&title=《Kotlin 1.0.6》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kotlin 1.0.6》 — KotlinAndroid&url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/02/06/Kotlin 1.1 Beta 2 发布~.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Kotlin 1.1 Beta 2 发布~</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2015/12/07/Kotlin 1.0 Beta 3 is Out!.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[译]Kotlin 1.0 Beta 3 发布啦!</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&title=《Kotlin 1.0.6》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&title=《Kotlin 1.0.6》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Kotlin 1.0.6》 — KotlinAndroid&url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/01/02/Kotlin 1.0.6.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3awW7cMAwE0Pz/T2+BoIcCrZ0ZalPE0vMpcBJLTweCFPnxET+vz+fvN3++v3pz9V/JF978YGBgPJbxun3aTeeba9e9+hsMDIxzGPdBNv/cfbhM/v4+ZF++x8DAwAgWa9PH2boYGBgYs88laV9SxGJgYGDcM5Jist1iflj5Wm+oxTEwMB7IaBsD//Pnb+xvYGBgPITxKp8kHWxboSv7+f01DAyMrRlJqrcy1ZCH7DzhKzJcDAyM7RjJdtvULW8VzHj/CLgYGBgHMJKgmSycF8OzFS9TQwwMjO0Y+cLJpX/7nTZAX7IxMDC2ZqwkZDlsFmST30axHAMDYwtGO+A1axvMQnN90BgYGFsz8kQtv41PNpEXsbOmKQYGxtMZbTMyv2hry93ZJR0GBsY5jPeGwpWksC1iMTAwzmTkhWs7bDEL7lHgxsDA2JoxG4No6+MkHM/SUAwMjBMYbSHaNjjbpDBfFwMD4xxGUqC24Xg9yWvXwsDAOIExC3ztQbSXerN1MTAw9mPk5ej6tX57bVdQMTAwjmGslLJtmdo2LL84UAwMjK0ZyadnZWrRdByxMTAwzmG8yqcdCGsv5tqk8DLDxcDA2IgxS+BmoxWz48iRGBgYezNmQbYduciPI9lDdD+HgYGxHaO9CMtbkm36mBexX4yFYWBgHMmYYVaaoMV+MDAwMOIrtvWRi5yKgYFxGmNWxK6PROTDYd943YaBgfHjGeuNgfxaf2W0Yn0EDQMD44GMXxQXzFJeZ+MgAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

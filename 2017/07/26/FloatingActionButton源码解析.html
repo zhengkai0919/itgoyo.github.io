@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/FloatingActionButton源码解析.html">
+    
+    
+    <title>FloatingActionButton源码解析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 背景FloatingActionButton（下文以fab代替）是android support design组件库中提供的一个视图控件，是material design设计中fab的官方实现。 此控件的官方介绍如">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FloatingActionButton源码解析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 背景FloatingActionButton（下文以fab代替）是android support design组件库中提供的一个视图控件，是material design设计中fab的官方实现。 此控件的官方介绍如">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="https://github.com/itgoyo/2017/07/26/01.png">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T11:57:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FloatingActionButton源码解析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 背景FloatingActionButton（下文以fab代替）是android support design组件库中提供的一个视图控件，是material design设计中fab的官方实现。 此控件的官方介绍如">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">FloatingActionButton源码解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">FloatingActionButton源码解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:55:14.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始"><span class="post-toc-number">2.</span> <span class="post-toc-text">开始</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-fab的自定义属性、背景着色相关"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1. fab的自定义属性、背景着色相关</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-fab的大小"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2. fab的大小</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-fab的动画"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">3.fab的动画</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-fab与CoordinatorLayout的交互"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">4. fab与CoordinatorLayout的交互</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#License"><span class="post-toc-number">3.</span> <span class="post-toc-text">License</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-FloatingActionButton源码解析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">FloatingActionButton源码解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:55:14" datetime="2017-07-26T11:55:14.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>FloatingActionButton（下文以fab代替）是android support design组件库中提供的一个视图控件，是material design设计中fab的官方实现。</p>
+<p>此控件的官方介绍如下：</p>
+<blockquote>
+<p>Floating action buttons are used for a promoted action. They are distinguished by a circled icon floating above the UI and have motion behaviors that include morphing, launching, and a transferring anchor point.</p>
+</blockquote>
+<p>关于该控件的设计规范及使用场景请参考文档：</p>
+<blockquote>
+<p><a href="http://www.google.com/design/spec/components/buttons-floating-action-button.html#" target="_blank" rel="external">http://www.google.com/design/spec/components/buttons-floating-action-button.html#</a></p>
+</blockquote>
+<p>如果你还不了解design组件库，请参考官方博客:</p>
+<blockquote>
+<p><a href="http://android-developers.blogspot.hk/2015/05/android-design-support-library.html" target="_blank" rel="external">http://android-developers.blogspot.hk/2015/05/android-design-support-library.html</a></p>
+</blockquote>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>源码版本:23.3.0</p>
+<p><img src="./01.png" alt="类图"></p>
+<p>fab间接继承自<code>ImageView</code>（<code>ImageButton</code>是<code>ImageView</code>的子类），因而拥有<code>ImageView</code>的大部分特性。但是其内部还是做了很多定制，我们一一来看。</p>
+<h3 id="1-fab的自定义属性、背景着色相关"><a href="#1-fab的自定义属性、背景着色相关" class="headerlink" title="1. fab的自定义属性、背景着色相关"></a>1. fab的自定义属性、背景着色相关</h3><p>从构造器开始：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FloatingActionButton</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">		 <span class="comment">//检查是否使用Theme.Appcompat主题</span></div><div class="line">        ThemeUtils.checkAppCompatTheme(context);</div><div class="line">        <span class="comment">//拿到自定义属性并赋值</span></div><div class="line">        TypedArray a = context.obtainStyledAttributes(attrs,</div><div class="line">                R.styleable.FloatingActionButton, defStyleAttr,</div><div class="line">                R.style.Widget_Design_FloatingActionButton);</div><div class="line">       ...</div><div class="line">        a.recycle();</div><div class="line"></div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> maxImageSize = (<span class="keyword">int</span>) getResources().getDimension(R.dimen.design_fab_image_size);</div><div class="line">        mImagePadding = (getSizeDimension() - maxImageSize) / <span class="number">2</span>;</div><div class="line"></div><div class="line">		<span class="comment">//背景着色</span></div><div class="line">        getImpl().setBackgroundDrawable(mBackgroundTint, mBackgroundTintMode,</div><div class="line">                mRippleColor, mBorderWidth);</div><div class="line">      <span class="comment">//绘制阴影</span></div><div class="line">        getImpl().setElevation(elevation);</div><div class="line">		...</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>构造器中主要是拿到用户设置的自定义属性，比如着色、波纹颜色、大小等等,一共有以下几个属性可以定义。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"FloatingActionButton"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"backgroundTint"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"backgroundTintMode"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">format</span>=<span class="string">"color"</span> <span class="attr">name</span>=<span class="string">"rippleColor"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"fabSize"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"normal"</span> <span class="attr">value</span>=<span class="string">"0"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"mini"</span> <span class="attr">value</span>=<span class="string">"1"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">attr</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"elevation"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">format</span>=<span class="string">"dimension"</span> <span class="attr">name</span>=<span class="string">"pressedTranslationZ"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">format</span>=<span class="string">"dimension"</span> <span class="attr">name</span>=<span class="string">"borderWidth"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">attr</span> <span class="attr">format</span>=<span class="string">"boolean"</span> <span class="attr">name</span>=<span class="string">"useCompatPadding"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>属性的默认值定义如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Widget.Design.FloatingActionButton"</span> <span class="attr">parent</span>=<span class="string">"android:Widget"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:background"</span>&gt;</span>@drawable/design_fab_background<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"backgroundTint"</span>&gt;</span>?attr/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"fabSize"</span>&gt;</span>normal<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"elevation"</span>&gt;</span>@dimen/design_fab_elevation<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"pressedTranslationZ"</span>&gt;</span>@dimen/design_fab_translation_z_pressed<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"rippleColor"</span>&gt;</span>?attr/colorControlHighlight<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">       <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"borderWidth"</span>&gt;</span>@dimen/design_fab_border_width<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">   </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>需要注意的是<code>android:background</code>属性，这里指定了background为<code>design_fab_background</code>,并且不允许改变:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBackgroundDrawable</span><span class="params">(Drawable background)</span> </span>&#123;</div><div class="line">      Log.i(LOG_TAG, <span class="string">"Setting a custom background is not supported."</span>);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>那么我们来看下这个background长啥样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:shape</span>=<span class="string">"oval"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@android:color/white"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>很显然，fab的形状固定为圆形都是因为这个background。那么这里指定了背景色为白色，那是不是fab只能是白色背景呢？当然不是，还有我们牛逼的backgroundTint(即背景着色)，tint是android 5.x引进的一个新特性，可以动态地给drawable资源着色，其原理就是通过给控件设置colorFilter:</p>
+<p>drawable.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setColorFilter</span><span class="params">(@ColorInt <span class="keyword">int</span> color, @NonNull PorterDuff.Mode mode)</span> </span>&#123;</div><div class="line">        setColorFilter(<span class="keyword">new</span> PorterDuffColorFilter(color, mode));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>默认的着色模式为SRC_IN(取交集、显示上层，故底层白色会被忽略)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> PorterDuff.Mode DEFAULT_TINT_MODE = PorterDuff.Mode.SRC_IN;</div></pre></td></tr></table></figure>
+<p>在fab构造的时候，会指定着色为<code>？attr/colorAccent</code>，即当前主题的<code>colorAccent</code>属性值。<br>然后执行如下代码，进行着色。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">getImpl().setBackgroundDrawable(mBackgroundTint, mBackgroundTintMode,</div><div class="line">               mRippleColor, mBorderWidth);</div></pre></td></tr></table></figure>
+<p>因为不同版本间的实现略有不同，所以这里会根据不同版本创建不同的<code>FloatingActionButtonImpl</code>实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> FloatingActionButtonImpl <span class="title">createImpl</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> sdk = Build.VERSION.SDK_INT;</div><div class="line">        <span class="keyword">if</span> (sdk &gt;= <span class="number">21</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FloatingActionButtonLollipop(<span class="keyword">this</span>, <span class="keyword">new</span> ShadowDelegateImpl());</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sdk &gt;= <span class="number">14</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FloatingActionButtonIcs(<span class="keyword">this</span>, <span class="keyword">new</span> ShadowDelegateImpl());</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> FloatingActionButtonEclairMr1(<span class="keyword">this</span>, <span class="keyword">new</span> ShadowDelegateImpl());</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>以5.x为例，其setBackgroundDrawable实现代码如下:</p>
+<p>先创建着色的背景drawable。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">GradientDrawable <span class="title">createShapeDrawable</span><span class="params">()</span> </span>&#123;</div><div class="line">       GradientDrawable d = <span class="keyword">new</span> GradientDrawable();</div><div class="line">       d.setShape(GradientDrawable.OVAL);</div><div class="line">       d.setColor(Color.WHITE);</div><div class="line">       <span class="keyword">return</span> d;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>再对此drawable设置tint：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setBackgroundDrawable</span><span class="params">(ColorStateList backgroundTint,</span></span></div><div class="line"><span class="function"><span class="params">            PorterDuff.Mode backgroundTintMode, <span class="keyword">int</span> rippleColor, <span class="keyword">int</span> borderWidth)</span> </span>&#123;</div><div class="line">        <span class="comment">// Now we need to tint the shape background with the tint</span></div><div class="line">        mShapeDrawable = DrawableCompat.wrap(createShapeDrawable());</div><div class="line"></div><div class="line">        <span class="comment">//着色，这里会其实就是设置了下colorFilter</span></div><div class="line">        DrawableCompat.setTintList(mShapeDrawable, backgroundTint);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (backgroundTintMode != <span class="keyword">null</span>) &#123;</div><div class="line">            DrawableCompat.setTintMode(mShapeDrawable, backgroundTintMode);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">final</span> Drawable rippleContent;</div><div class="line">        <span class="keyword">if</span> (borderWidth &gt; <span class="number">0</span>) &#123;</div><div class="line">            mBorderDrawable = createBorderDrawable(borderWidth, backgroundTint);</div><div class="line">            rippleContent = <span class="keyword">new</span> LayerDrawable(<span class="keyword">new</span> Drawable[]&#123;mBorderDrawable, mShapeDrawable&#125;);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mBorderDrawable = <span class="keyword">null</span>;</div><div class="line">            rippleContent = mShapeDrawable;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        mRippleDrawable = <span class="keyword">new</span> RippleDrawable(ColorStateList.valueOf(rippleColor),</div><div class="line">                rippleContent, <span class="keyword">null</span>);</div><div class="line"></div><div class="line">        mContentBackground = mRippleDrawable;</div><div class="line"></div><div class="line">        mShadowViewDelegate.setBackgroundDrawable(mRippleDrawable);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>经过着色，fab就呈现出我们想要的颜色啦。</p>
+<h3 id="2-fab的大小"><a href="#2-fab的大小" class="headerlink" title="2. fab的大小"></a>2. fab的大小</h3><p>再来看fab的大小，fab有两种大小，一种是<code>NORMAL</code>，一种是<code>MINI</code>，实际大小分别是56dp和40dp，其定义可以在design库的values.xml中看到。</p>
+<p>fab如何控制控件大小只有这两种规格呢(这样说不准确，事实上你可以通过设置fab的<code>layout_width</code>/<code>layout_height</code>指定为任意大小，但是我们最好按照MD规范来)?必然是通过复写<code>onMeasure</code>啦:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</div><div class="line">      <span class="comment">//我们希望的大小</span></div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> preferredSize = getSizeDimension();</div><div class="line"> <span class="comment">//最终测量的大小</span></div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> w = resolveAdjustedSize(preferredSize, widthMeasureSpec);</div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> h = resolveAdjustedSize(preferredSize, heightMeasureSpec);</div><div class="line"></div><div class="line">      <span class="comment">//取小值，保证最后绘制的是圆形</span></div><div class="line">      <span class="keyword">final</span> <span class="keyword">int</span> d = Math.min(w, h);</div><div class="line"></div><div class="line">      <span class="comment">// We add the shadow's padding to the measured dimension</span></div><div class="line">      setMeasuredDimension(</div><div class="line">              d + mShadowPadding.left + mShadowPadding.right,</div><div class="line">              d + mShadowPadding.top + mShadowPadding.bottom);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>其中<code>getSizeDimension</code>方法计算出来的是我们期望的大小:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getSizeDimension</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (mSize) &#123;</div><div class="line">            <span class="keyword">case</span> SIZE_MINI:</div><div class="line">                <span class="keyword">return</span> getResources().getDimensionPixelSize(R.dimen.design_fab_size_mini);<span class="comment">//40dp</span></div><div class="line">            <span class="keyword">case</span> SIZE_NORMAL:</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">return</span> getResources().getDimensionPixelSize(R.dimen.design_fab_size_normal);<span class="comment">//56dp</span></div><div class="line"></div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>但是最终的值还是得看我们设置的LayoutParams。关于控件测量相关内容不在此文介绍范围内，大家可以自行google。</p>
+<h3 id="3-fab的动画"><a href="#3-fab的动画" class="headerlink" title="3.fab的动画"></a>3.fab的动画</h3><p>fab还支持fab以动画的方式显现/隐藏，通常和AppBarLayout一起使用，可以通过<code>hide()</code>/<code>show()</code>两个方法控制。</p>
+<p>那么动画是如何实现的呢:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(OnVisibilityChangedListener listener, <span class="keyword">boolean</span> fromUser)</span> </span>&#123;</div><div class="line">        getImpl().show(wrapOnVisibilityChangedListener(listener), fromUser);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hide</span><span class="params">(@Nullable OnVisibilityChangedListener listener, <span class="keyword">boolean</span> fromUser)</span> </span>&#123;</div><div class="line">    getImpl().hide(wrapOnVisibilityChangedListener(listener), fromUser);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里因为要兼容不同版本，所以具体实现也交给了不同的fab实现类。3.x之后很好办，直接使用属性动画，如果是3.x之前的话，那么只能使用传统的Animation了</p>
+<p>以<code>hide()</code>为例，使用属性动画较为简单，直接使用<code>View#animate()</code>即可链式调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">hide</span><span class="params">(@Nullable <span class="keyword">final</span> InternalVisibilityChangedListener listener, <span class="keyword">final</span> <span class="keyword">boolean</span> fromUser)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mIsHiding || mView.getVisibility() != View.VISIBLE) &#123;</div><div class="line">            <span class="comment">// A hide animation is in progress, or we're already hidden. Skip the call</span></div><div class="line">            <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">                listener.onHidden();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (!ViewCompat.isLaidOut(mView) || mView.isInEditMode()) &#123;</div><div class="line">            <span class="comment">// If the view isn't laid out, or we're in the editor, don't run the animation</span></div><div class="line">            mView.internalSetVisibility(View.GONE, fromUser);</div><div class="line">            <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">                listener.onHidden();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mView.animate().cancel();</div><div class="line">            mView.animate()</div><div class="line">                    .scaleX(<span class="number">0f</span>)</div><div class="line">                    .scaleY(<span class="number">0f</span>)</div><div class="line">                    .alpha(<span class="number">0f</span>)</div><div class="line">                    .setDuration(SHOW_HIDE_ANIM_DURATION)</div><div class="line">                    .setInterpolator(AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR)</div><div class="line">                    .setListener(<span class="keyword">new</span> AnimatorListenerAdapter() &#123;</div><div class="line">                        <span class="keyword">private</span> <span class="keyword">boolean</span> mCancelled;</div><div class="line"></div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                            mIsHiding = <span class="keyword">true</span>;</div><div class="line">                            mCancelled = <span class="keyword">false</span>;</div><div class="line">                            mView.internalSetVisibility(View.VISIBLE, fromUser);</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                            mIsHiding = <span class="keyword">false</span>;</div><div class="line">                            mCancelled = <span class="keyword">true</span>;</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                            mIsHiding = <span class="keyword">false</span>;</div><div class="line">                            <span class="keyword">if</span> (!mCancelled) &#123;</div><div class="line">                                mView.internalSetVisibility(View.GONE, fromUser);</div><div class="line">                                <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">                                    listener.onHidden();</div><div class="line">                                &#125;</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果使用传统动画的话，则先在xml中定义好动画，然后构造<code>Animation</code>实例，启动动画。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">void</span> <span class="title">hide</span><span class="params">(@Nullable <span class="keyword">final</span> InternalVisibilityChangedListener listener, <span class="keyword">final</span> <span class="keyword">boolean</span> fromUser)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mIsHiding || mView.getVisibility() != View.VISIBLE) &#123;</div><div class="line">           <span class="comment">// A hide animation is in progress, or we're already hidden. Skip the call</span></div><div class="line">           <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">               listener.onHidden();</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">return</span>;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       Animation anim = android.view.animation.AnimationUtils.loadAnimation(</div><div class="line">               mView.getContext(), R.anim.design_fab_out);</div><div class="line">       anim.setInterpolator(AnimationUtils.FAST_OUT_LINEAR_IN_INTERPOLATOR);</div><div class="line">       anim.setDuration(SHOW_HIDE_ANIM_DURATION);</div><div class="line">       anim.setAnimationListener(<span class="keyword">new</span> AnimationUtils.AnimationListenerAdapter() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">               mIsHiding = <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">               mIsHiding = <span class="keyword">false</span>;</div><div class="line">               mView.internalSetVisibility(View.GONE, fromUser);</div><div class="line">               <span class="keyword">if</span> (listener != <span class="keyword">null</span>) &#123;</div><div class="line">                   listener.onHidden();</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">       mView.startAnimation(anim);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="4-fab与CoordinatorLayout的交互"><a href="#4-fab与CoordinatorLayout的交互" class="headerlink" title="4. fab与CoordinatorLayout的交互"></a>4. fab与CoordinatorLayout的交互</h3><blockquote>
+<p>这块内容因为与<code>CoordinatorLayout</code>/<code>CoordinatorLayout#Behavior</code>有很大关联，如果不熟悉，请先google相关资料。本文假设读者对这块内容已经有一定理解。</p>
+</blockquote>
+<p>fab并不直接与<code>CoordinatorLayout</code>联系，而是通过<code>CoordinatorLayout#Behavior</code>作为桥梁。<code>CoordinatorLayout</code>类通过<code>CoordinatorLayout#Behavior</code>可以间接控制其直系子View的行为，能控制什么行为？View测量、布局、touch事件拦截、监听、NestedScroll等等。是不是很屌。</p>
+<p>fab内部实现了<code>CoordinatorLayout#Behavior</code>抽象类。该抽象类有如下接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Behavior</span>&lt;<span class="title">V</span> <span class="keyword">extends</span> <span class="title">View</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">		...</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(CoordinatorLayout parent, V child, MotionEvent ev)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(CoordinatorLayout parent, V child, MotionEvent ev)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">       ...</div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         * Determine whether the supplied child view has another specific sibling view as a</span></div><div class="line"><span class="comment">         * layout dependency.</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;This method will be called at least once in response to a layout request. If it</span></div><div class="line"><span class="comment">         * returns true for a given child and dependency view pair, the parent CoordinatorLayout</span></div><div class="line"><span class="comment">         * will:&lt;/p&gt;</span></div><div class="line"><span class="comment">         * &lt;ol&gt;</span></div><div class="line"><span class="comment">         *     &lt;li&gt;Always lay out this child after the dependent child is laid out, regardless</span></div><div class="line"><span class="comment">         *     of child order.&lt;/li&gt;</span></div><div class="line"><span class="comment">         *     &lt;li&gt;Call &#123;<span class="doctag">@link</span> #onDependentViewChanged&#125; when the dependency view's layout or</span></div><div class="line"><span class="comment">         *     position changes.&lt;/li&gt;</span></div><div class="line"><span class="comment">         * &lt;/ol&gt;</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">layoutDependsOn</span><span class="params">(CoordinatorLayout parent, V child, View dependency)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         * Respond to a change in a child's dependent view</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;This method is called whenever a dependent view changes in size or position outside</span></div><div class="line"><span class="comment">         * of the standard layout flow. A Behavior may use this method to appropriately update</span></div><div class="line"><span class="comment">         * the child view in response.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;A view's dependency is determined by</span></div><div class="line"><span class="comment">         * &#123;<span class="doctag">@link</span> #layoutDependsOn(CoordinatorLayout, android.view.View, android.view.View)&#125; or</span></div><div class="line"><span class="comment">         * if &#123;<span class="doctag">@code</span> child&#125; has set another view as it's anchor.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;Note that if a Behavior changes the layout of a child via this method, it should</span></div><div class="line"><span class="comment">         * also be able to reconstruct the correct position in</span></div><div class="line"><span class="comment">         * &#123;<span class="doctag">@link</span> #onLayoutChild(CoordinatorLayout, android.view.View, int) onLayoutChild&#125;.</span></div><div class="line"><span class="comment">         * &lt;code&gt;onDependentViewChanged&lt;/code&gt; will not be called during normal layout since</span></div><div class="line"><span class="comment">         * the layout of each child view will always happen in dependency order.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;If the Behavior changes the child view's size or position, it should return true.</span></div><div class="line"><span class="comment">         * The default implementation returns false.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDependentViewChanged</span><span class="params">(CoordinatorLayout parent, V child, View dependency)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">			...</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         * Called when the parent CoordinatorLayout is about the lay out the given child view.</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;This method can be used to perform custom or modified layout of a child view</span></div><div class="line"><span class="comment">         * in place of the default child layout behavior. The Behavior's implementation can</span></div><div class="line"><span class="comment">         * delegate to the standard CoordinatorLayout measurement behavior by calling</span></div><div class="line"><span class="comment">         * &#123;<span class="doctag">@link</span> CoordinatorLayout#onLayoutChild(android.view.View, int)</span></div><div class="line"><span class="comment">         * parent.onLayoutChild&#125;.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         * &lt;p&gt;If a Behavior implements</span></div><div class="line"><span class="comment">         * &#123;<span class="doctag">@link</span> #onDependentViewChanged(CoordinatorLayout, android.view.View, android.view.View)&#125;</span></div><div class="line"><span class="comment">         * to change the position of a view in response to a dependent view changing, it</span></div><div class="line"><span class="comment">         * should also implement &lt;code&gt;onLayoutChild&lt;/code&gt; in such a way that respects those</span></div><div class="line"><span class="comment">         * dependent views. &lt;code&gt;onLayoutChild&lt;/code&gt; will always be called for a dependent view</span></div><div class="line"><span class="comment">         * &lt;em&gt;after&lt;/em&gt; its dependency has been laid out.&lt;/p&gt;</span></div><div class="line"><span class="comment">         *</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onLayoutChild</span><span class="params">(CoordinatorLayout parent, V child, <span class="keyword">int</span> layoutDirection)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">      ...</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedScroll</span><span class="params">(CoordinatorLayout coordinatorLayout, V child, View target,</span></span></div><div class="line"><span class="function"><span class="params">                <span class="keyword">int</span> dxConsumed, <span class="keyword">int</span> dyConsumed, <span class="keyword">int</span> dxUnconsumed, <span class="keyword">int</span> dyUnconsumed)</span> </span>&#123;</div><div class="line">            <span class="comment">// Do nothing</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>看到这个抽象类，有两点需要注意:</p>
+<ol>
+<li>此抽象类并无抽象方法，也即子类可选择任何想复写的方法进行复写。</li>
+<li>此抽象类接受一个泛型。该泛型需要是View的子类。</li>
+</ol>
+<p>fab实现此抽象类:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Behavior</span> <span class="keyword">extends</span> <span class="title">CoordinatorLayout</span>.<span class="title">Behavior</span>&lt;<span class="title">FloatingActionButton</span>&gt; </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>有选择性地实现了三个方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">layoutDependsOn</span><span class="params">(CoordinatorLayout parent,</span></span></div><div class="line"><span class="function"><span class="params">                FloatingActionButton child, View dependency)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDependentViewChanged</span><span class="params">(CoordinatorLayout parent, FloatingActionButton child,</span></span></div><div class="line"><span class="function"><span class="params">                View dependency)</span></span>;</div><div class="line"></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onLayoutChild</span><span class="params">(CoordinatorLayout parent, FloatingActionButton child,</span></span></div><div class="line"><span class="function"><span class="params">                <span class="keyword">int</span> layoutDirection)</span></span>;</div></pre></td></tr></table></figure>
+<p>fab为啥要实现<code>Behavior</code>?主要是为了配合其他控件完成一些复杂的交互，比较经典的像这个:</p>
+<p><a href="http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B6Okdz75tqQsLWFucDNlYWEyeW8/components_snackbar_usage_fabdo_002.webm" target="_blank" rel="external">fab动画效果</a></p>
+<p>fab需要在<code>snackBar</code>弹出的时候自动向上平移，这就得知道SnackBar的状态了，实现<code>Behavior</code>让fab有机会监听到其他<code>CoordinatorLayout</code>子View的状态，并根据状态更新自己。</p>
+<p>复写<code>layoutDependsOn</code>方法可以告诉<code>CoordinatorLayout</code>我对哪个View感兴趣，</p>
+<p>这里当然是SnackBar了。（注意哦，SnackBar最终展现的是SnackbarLayout，SnackBar本身并不是View）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> SNACKBAR_BEHAVIOR_ENABLED = Build.VERSION.SDK_INT &gt;= <span class="number">11</span>;</div><div class="line"></div><div class="line"> <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">layoutDependsOn</span><span class="params">(CoordinatorLayout parent,</span></span></div><div class="line"><span class="function"><span class="params">                FloatingActionButton child, View dependency)</span> </span>&#123;</div><div class="line">            <span class="comment">// We're dependent on all SnackbarLayouts (if enabled)</span></div><div class="line">            <span class="keyword">return</span> SNACKBAR_BEHAVIOR_ENABLED &amp;&amp; dependency <span class="keyword">instanceof</span> Snackbar.SnackbarLayout;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>为什么API LEVEL要大于11呢？因为google偷懒想直接使用属性动画。</p>
+<p>前面告诉了<code>CoordinatorLayout</code>fab对<code>SnackBar</code>比较感兴趣,那么当SnackBar状态改变的时候，<code>CoordinatorLayout</code>就会通过<code>onDependentViewChanged</code>回调通知fab:</p>
+<p>fab就可以更新自己的UI拉（这里当然是平移喽）:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDependentViewChanged</span><span class="params">(CoordinatorLayout parent, FloatingActionButton child,</span></span></div><div class="line"><span class="function"><span class="params">                View dependency)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (dependency <span class="keyword">instanceof</span> Snackbar.SnackbarLayout) &#123;</div><div class="line">                updateFabTranslationForSnackbar(parent, child, dependency);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dependency <span class="keyword">instanceof</span> AppBarLayout) &#123;</div><div class="line">                <span class="comment">// If we're depending on an AppBarLayout we will show/hide it automatically</span></div><div class="line">                <span class="comment">// if the FAB is anchored to the AppBarLayout</span></div><div class="line">                updateFabVisibility(parent, (AppBarLayout) dependency, child);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>如果是SnackBar状态变化了，那么fab就会根据情况进行平移：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateFabTranslationForSnackbar</span><span class="params">(CoordinatorLayout parent,</span></span></div><div class="line"><span class="function"><span class="params">                <span class="keyword">final</span> FloatingActionButton fab, View snackbar)</span> </span>&#123;</div><div class="line">            <span class="keyword">final</span> <span class="keyword">float</span> targetTransY = getFabTranslationYForSnackbar(parent, fab);</div><div class="line">            <span class="keyword">if</span> (mFabTranslationY == targetTransY) &#123;</div><div class="line">                <span class="comment">// We're already at (or currently animating to) the target value, return...</span></div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">final</span> <span class="keyword">float</span> currentTransY = ViewCompat.getTranslationY(fab);</div><div class="line"></div><div class="line">            <span class="comment">// Make sure that any current animation is cancelled</span></div><div class="line">            <span class="keyword">if</span> (mFabTranslationYAnimator != <span class="keyword">null</span> &amp;&amp; mFabTranslationYAnimator.isRunning()) &#123;</div><div class="line">                mFabTranslationYAnimator.cancel();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (fab.isShown()</div><div class="line">                    &amp;&amp; Math.abs(currentTransY - targetTransY) &gt; (fab.getHeight() * <span class="number">0.667f</span>)) &#123;</div><div class="line">                <span class="comment">// If the FAB will be travelling by more than 2/3 of it's height, let's animate</span></div><div class="line">                <span class="comment">// it instead</span></div><div class="line">                <span class="keyword">if</span> (mFabTranslationYAnimator == <span class="keyword">null</span>) &#123;</div><div class="line">                    mFabTranslationYAnimator = ViewUtils.createAnimator();</div><div class="line">                    mFabTranslationYAnimator.setInterpolator(</div><div class="line">                            AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);</div><div class="line">                    mFabTranslationYAnimator.setUpdateListener(</div><div class="line">                            <span class="keyword">new</span> ValueAnimatorCompat.AnimatorUpdateListener() &#123;</div><div class="line">                                <span class="meta">@Override</span></div><div class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimatorCompat animator)</span> </span>&#123;</div><div class="line">                                    ViewCompat.setTranslationY(fab,</div><div class="line">                                            animator.getAnimatedFloatValue());</div><div class="line">                                &#125;</div><div class="line">                            &#125;);</div><div class="line">                &#125;</div><div class="line">                mFabTranslationYAnimator.setFloatValues(currentTransY, targetTransY);</div><div class="line">                mFabTranslationYAnimator.start();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// Now update the translation Y</span></div><div class="line">                ViewCompat.setTranslationY(fab, targetTransY);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            mFabTranslationY = targetTransY;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>代码里的注释很多，我就不解释了。</p>
+<p>前面说到AppBarLayout和fab一起使用可以完成另一个效果，即AppBarLayout伸缩时，fab也可以以动画的形式显现、隐藏，其实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">updateFabVisibility</span><span class="params">(CoordinatorLayout parent,</span></span></div><div class="line"><span class="function"><span class="params">                AppBarLayout appBarLayout, FloatingActionButton child)</span> </span>&#123;</div><div class="line">            <span class="keyword">final</span> CoordinatorLayout.LayoutParams lp =</div><div class="line">                    (CoordinatorLayout.LayoutParams) child.getLayoutParams();</div><div class="line">            <span class="comment">//注意到我们必须为fab指定layout_anchor为appBarLayout                    </span></div><div class="line">            <span class="keyword">if</span> (lp.getAnchorId() != appBarLayout.getId()) &#123;</div><div class="line">                <span class="comment">// The anchor ID doesn't match the dependency, so we won't automatically</span></div><div class="line">                <span class="comment">// show/hide the FAB</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (child.getUserSetVisibility() != VISIBLE) &#123;</div><div class="line">                <span class="comment">// The view isn't set to be visible so skip changing it's visibility</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (mTmpRect == <span class="keyword">null</span>) &#123;</div><div class="line">                mTmpRect = <span class="keyword">new</span> Rect();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="comment">// First, let's get the visible rect of the dependency</span></div><div class="line">            <span class="keyword">final</span> Rect rect = mTmpRect;</div><div class="line">            ViewGroupUtils.getDescendantRect(parent, appBarLayout, rect);</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (rect.bottom &lt;= appBarLayout.getMinimumHeightForVisibleOverlappingContent()) &#123;</div><div class="line">                <span class="comment">// If the anchor's bottom is below the seam, we'll animate our FAB out</span></div><div class="line">                child.hide(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// Else, we'll animate our FAB back in</span></div><div class="line">                child.show(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>除此之外，<code>fab#Behavior</code>还实现了<code>onLayoutChild</code>,主要是为了根据AppBarLayout的当前状态来判断自己是否需要隐藏。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onLayoutChild</span><span class="params">(CoordinatorLayout parent, FloatingActionButton child,</span></span></div><div class="line"><span class="function"><span class="params">               <span class="keyword">int</span> layoutDirection)</span> </span>&#123;</div><div class="line">           <span class="comment">// First, lets make sure that the visibility of the FAB is consistent</span></div><div class="line">           <span class="keyword">final</span> List&lt;View&gt; dependencies = parent.getDependencies(child);</div><div class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, count = dependencies.size(); i &lt; count; i++) &#123;</div><div class="line">               <span class="keyword">final</span> View dependency = dependencies.get(i);</div><div class="line">               <span class="keyword">if</span> (dependency <span class="keyword">instanceof</span> AppBarLayout</div><div class="line">                       &amp;&amp; updateFabVisibility(parent, (AppBarLayout) dependency, child)) &#123;</div><div class="line">                   <span class="keyword">break</span>;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">           <span class="comment">// Now let the CoordinatorLayout lay out the FAB</span></div><div class="line">           parent.onLayoutChild(child, layoutDirection);</div><div class="line">           <span class="comment">// Now offset it if needed</span></div><div class="line">           offsetIfNeeded(parent, child);</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<p>此方法会在<code>CoordinatorLayout</code>对孩子布局的时候进行调用(即<code>CoordinatorLayout#onLayout</code>)，<code>CoordinatorLayout</code>会检查所有的直系孩子，是否设置了Behavior，如果设置了，那么就执行其<code>onLayoutChild</code>方法:</p>
+<p>CoordinatorLayout#onLayout</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">       <span class="keyword">final</span> <span class="keyword">int</span> layoutDirection = ViewCompat.getLayoutDirection(<span class="keyword">this</span>);</div><div class="line">       <span class="keyword">final</span> <span class="keyword">int</span> childCount = mDependencySortedChildren.size();</div><div class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</div><div class="line">           <span class="keyword">final</span> View child = mDependencySortedChildren.get(i);</div><div class="line">           <span class="keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();</div><div class="line">           <span class="keyword">final</span> Behavior behavior = lp.getBehavior();</div><div class="line"></div><div class="line">           <span class="keyword">if</span> (behavior == <span class="keyword">null</span> || !behavior.onLayoutChild(<span class="keyword">this</span>, child, layoutDirection)) &#123;</div><div class="line">               onLayoutChild(child, layoutDirection);</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>如果该Behavior实现了OnLayoutChild，并且返回了true，那么将不会执行<code>CoordinatorLayout #onLayoutChild</code>,否则执行默认的布局方案。<br>最后一点，这里的Behavior如何生效的呢？通过注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CoordinatorLayout</span>.DefaultBehavior(FloatingActionButton.Behavior.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FloatingActionButton</span> <span class="keyword">extends</span> <span class="title">VisibilityAwareImageButton</span> </span>&#123;</div></pre></td></tr></table></figure>
+<p><code>CoordinatorLayout</code>在解析孩子的<code>LayoutParams</code>时，会check有无注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function">LayoutParams <span class="title">getResolvedLayoutParams</span><span class="params">(View child)</span> </span>&#123;</div><div class="line">      <span class="keyword">final</span> LayoutParams result = (LayoutParams) child.getLayoutParams();</div><div class="line">      <span class="keyword">if</span> (!result.mBehaviorResolved) &#123;</div><div class="line">          Class&lt;?&gt; childClass = child.getClass();</div><div class="line">          DefaultBehavior defaultBehavior = <span class="keyword">null</span>;</div><div class="line">          <span class="keyword">while</span> (childClass != <span class="keyword">null</span> &amp;&amp;</div><div class="line">                  (defaultBehavior = childClass.getAnnotation(DefaultBehavior.class)) == <span class="keyword">null</span>) &#123;</div><div class="line">              childClass = childClass.getSuperclass();</div><div class="line">          &#125;</div><div class="line">          <span class="keyword">if</span> (defaultBehavior != <span class="keyword">null</span>) &#123;</div><div class="line">              <span class="keyword">try</span> &#123;</div><div class="line">                  result.setBehavior(defaultBehavior.value().newInstance());</div><div class="line">              &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">                  Log.e(TAG, <span class="string">"Default behavior class "</span> + defaultBehavior.value().getName() +</div><div class="line">                          <span class="string">" could not be instantiated. Did you forget a default constructor?"</span>, e);</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">          result.mBehaviorResolved = <span class="keyword">true</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> result;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>至此<code>fab</code>解析完毕，谢谢观看！</p>
+<p>如有疑惑，可以issue。</p>
+<p>微博：<a href="http://weibo.com/u/2331178381?is_all=1" target="_blank" rel="external">楚奕RX</a></p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">The MIT License (MIT)</div><div class="line"></div><div class="line">Copyright (c) 2016 Rowandjj</div><div class="line"></div><div class="line">Permission is hereby granted, free of charge, to any person obtaining a copy</div><div class="line">of this software and associated documentation files (the &quot;Software&quot;), to deal</div><div class="line">in the Software without restriction, including without limitation the rights</div><div class="line">to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</div><div class="line">copies of the Software, and to permit persons to whom the Software is</div><div class="line">furnished to do so, subject to the following conditions:</div><div class="line"></div><div class="line">The above copyright notice and this permission notice shall be included in all</div><div class="line">copies or substantial portions of the Software.</div><div class="line"></div><div class="line">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</div><div class="line">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</div><div class="line">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</div><div class="line">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</div><div class="line">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</div><div class="line">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</div><div class="line">SOFTWARE.</div></pre></td></tr></table></figure>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T11:57:12.000Z" itemprop="dateUpdated">2017-07-26 19:57:12</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&title=《FloatingActionButton源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&title=《FloatingActionButton源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《FloatingActionButton源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/LruCache源码解析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">LruCache源码解析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/CoordinatorLayout源码分析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CoordinatorLayout源码分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&title=《FloatingActionButton源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&title=《FloatingActionButton源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《FloatingActionButton源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/FloatingActionButton源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3aQW5bMQwEUN//0u62i9qeocTEBd5fBel3oqcCojLk4xE/z7+e9++8ev/54nn12Vefemw8eHh4eAdLf//rZ99//512Vfma8fDw8LZ5yUGfvJ8/SfmZrQEPDw/v23jJNXq2BfmFHg8PD+9/5CWxQrsR+RUcDw8P7xt4ecyaB6/tdbn918tZCx4eHt7k7vrIm1u/+/VKfw8PDw/vuKs+O3Dz99///LYY/OOn4eHh4S3w8gP31oU4v6zPthgPDw/vZ3j5qNN5MJEHHBtRMh4eHt4er/26jQnajWvZlzMVPDw8vGBoIAkLTpphsy1uywMeHh7eBq89jvPr70l/6qSEFAvFw8PDG/HaC+sscm1HWvPmVtHfw8PDw1vg3bo6J5tVLPGgUOHh4eFt8E4O5bwRlY8OtJ8t/pPw8PDwLvFmQwCz8alZKToZKcDDw8Pb4yWH/mxMKiElxWY43ICHh4e3zMvHBdoCcCt0aJtkeHh4eBu8Wx/O212zkLcdQcDDw8Pb4yXRQxtVtJuSh7NJu+tljIuHh4d3iXer8V/Un7gItewP5QEPDw/vEu/koD8/sttC0jbJ8PDw8LZ5+UGfH9/tsma8Dyk1Hh4e3hpv1ny6VVSGY1XvfzseHh7eAu+kKZWPAtRX4eMoGQ8PD++3eCcH92y5t7Yg+rsBDw8P7xJvNsDalpB2K9uS8GH0Cg8PD2+BlxePltdu2SwIxsPDw9vjPcsnvzQn1/F26KoexsLDw8Nb4F1oz5dhwXk5uTVwgIeHh3fCa1tZbSCbDyWcxCIfRq/w8PDwFnhtbJoHE7NDP69mdX8PDw8P78d5SQuqbvAfbOiHGAIPDw/vy3jnTa+ToDaKJPDw8PDWeHnzKQ9hZ6MJs/cvZC14eHh4V2ec2mhgFsu25edx68HDw8NL1/MH4bkDJ7Z/vxcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

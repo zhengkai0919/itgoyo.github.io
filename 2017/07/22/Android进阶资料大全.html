@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/22/Android进阶资料大全.html">
+    
+    
+    <title>Android进阶资料大全 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="目录 书籍 开发环境/工具 博客 社区 开源项目学习 Android 开发者杂志周刊 Awesome 系列 动画系列 Material Design 设计 素材 开源库收集 设计模式 实践篇 Git 教程 文档 其它资料收集 知乎上的讨论 贡献者 License  ============================================================= 书籍">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android进阶资料大全">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="目录 书籍 开发环境/工具 博客 社区 开源项目学习 Android 开发者杂志周刊 Awesome 系列 动画系列 Material Design 设计 素材 开源库收集 设计模式 实践篇 Git 教程 文档 其它资料收集 知乎上的讨论 贡献者 License  ============================================================= 书籍">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-22T09:39:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android进阶资料大全">
+<meta name="twitter:description" content="目录 书籍 开发环境/工具 博客 社区 开源项目学习 Android 开发者杂志周刊 Awesome 系列 动画系列 Material Design 设计 素材 开源库收集 设计模式 实践篇 Git 教程 文档 其它资料收集 知乎上的讨论 贡献者 License  ============================================================= 书籍">
+<meta name="twitter:image" content="https://github.com/arts/kotlin_group.jpg">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android进阶资料大全</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Android进阶资料大全</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-22T09:29:25.000Z" itemprop="datePublished" class="page-time">
+  2017-07-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/学习资料/">学习资料</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目录"><span class="post-toc-number">1.</span> <span class="post-toc-text">目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#书籍"><span class="post-toc-number">2.</span> <span class="post-toc-text">书籍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开发环境-工具"><span class="post-toc-number">3.</span> <span class="post-toc-text">开发环境/工具</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#博客"><span class="post-toc-number">4.</span> <span class="post-toc-text">博客</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#社区"><span class="post-toc-number">5.</span> <span class="post-toc-text">社区</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开源项目学习"><span class="post-toc-number">6.</span> <span class="post-toc-text">开源项目学习</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-开发者杂志周刊"><span class="post-toc-number">7.</span> <span class="post-toc-text">Android 开发者杂志周刊</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Awesome-系列"><span class="post-toc-number">8.</span> <span class="post-toc-text">Awesome 系列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#动画系列"><span class="post-toc-number">9.</span> <span class="post-toc-text">动画系列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Material-Design-设计"><span class="post-toc-number">10.</span> <span class="post-toc-text">Material Design 设计</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#素材"><span class="post-toc-number">11.</span> <span class="post-toc-text">素材</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开源库收集"><span class="post-toc-number">12.</span> <span class="post-toc-text">开源库收集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设计模式"><span class="post-toc-number">13.</span> <span class="post-toc-text">设计模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实践篇"><span class="post-toc-number">14.</span> <span class="post-toc-text">实践篇</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Git-教程"><span class="post-toc-number">15.</span> <span class="post-toc-text">Git 教程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文档"><span class="post-toc-number">16.</span> <span class="post-toc-text">文档</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其它资料收集"><span class="post-toc-number">17.</span> <span class="post-toc-text">其它资料收集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知乎上的讨论"><span class="post-toc-number">18.</span> <span class="post-toc-text">知乎上的讨论</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#贡献者"><span class="post-toc-number">19.</span> <span class="post-toc-text">贡献者</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#License"><span class="post-toc-number">20.</span> <span class="post-toc-text">License</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Android进阶资料大全"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Android进阶资料大全</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-22 17:29:25" datetime="2017-07-22T09:29:25.000Z"  itemprop="datePublished">2017-07-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/学习资料/">学习资料</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="#书籍">书籍</a></li>
+<li><a href="#开发环境工具">开发环境/工具</a></li>
+<li><a href="#博客">博客</a></li>
+<li><a href="#社区">社区</a></li>
+<li><a href="#开源项目学习">开源项目学习</a></li>
+<li><a href="#android-开发者杂志周刊">Android 开发者杂志周刊</a></li>
+<li><a href="#awesome-系列">Awesome 系列</a></li>
+<li><a href="#动画系列">动画系列</a></li>
+<li><a href="#material-design-设计">Material Design 设计</a></li>
+<li><a href="#素材">素材</a></li>
+<li><a href="#开源库收集">开源库收集</a></li>
+<li><a href="#设计模式">设计模式</a></li>
+<li><a href="#实践篇">实践篇</a></li>
+<li><a href="#git-教程">Git 教程</a></li>
+<li><a href="#文档">文档</a></li>
+<li><a href="#其它资料收集">其它资料收集</a></li>
+<li><a href="#知乎上的讨论">知乎上的讨论</a></li>
+<li><a href="#贡献者">贡献者</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<p>=============================================================</p>
+<h2 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h2><table>
+<thead>
+<tr>
+<th>书籍名称</th>
+<th>推荐理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.amazon.cn/Java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3-%E5%9F%83%E5%8F%B2%E5%B0%94/dp/B0011F7WU4/ref=sr_1_1?ie=UTF8&amp;qid=1428138267&amp;sr=8-1&amp;keywords=java%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3" target="_blank" rel="external">Thinking In Java 中文版</a></td>
+<td>学习 Android 开发, 首先需要 Java 基础, 这里推荐 Thinking In Java, Thinking In Java 是 Java 的经典书籍, 是学习 Java 语言必备书籍</td>
+</tr>
+<tr>
+<td><a href="http://www.amazon.cn/%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81-Android-%E9%83%AD%E9%9C%96/dp/B00LVHTI9U/ref=sr_1_1?ie=UTF8&amp;qid=1428138432&amp;sr=8-1&amp;keywords=%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E2%80%94%E2%80%94android+%E9%83%AD%E9%9C%96" target="_blank" rel="external">第一行代码</a></td>
+<td>郭霖大神的杰作, 郭神在CSDN中的博客文章非常不错, 书我看了, 非常适合新手, 里面的内容非常棒, 建议结合郭神博客文章一起来学习</td>
+</tr>
+<tr>
+<td><a href="http://item.jd.com/11689014.html" target="_blank" rel="external">疯狂Android讲义第三版</a></td>
+<td>作者是李刚, 这本书是基于 Android 5.0 来讲的, 我看过第二版, 这本书给我第一感觉就是很厚, 但里面内容写的还是很详细的, 代码很多, 可以跟着代码一步步敲</td>
+</tr>
+<tr>
+<td><a href="http://www.amazon.cn/Android%E7%BE%A4%E8%8B%B1%E4%BC%A0-%E5%BE%90%E5%AE%9C%E7%94%9F/dp/B01481RAA4/ref=sr_1_1?m=A1AJ19PSB66TGU&amp;s=books&amp;ie=UTF8&amp;qid=1442198757&amp;sr=1-1&amp;keywords=android%E7%BE%A4%E8%8B%B1%E4%BC%A0" target="_blank" rel="external">Android群英传</a></td>
+<td>本书作者 @Tomcat 的猫, 曾就职于上海 TCL 通讯, 从事 Alcatel(阿尔卡特) Android 手机系统的定制工作, 活跃于 CSDN, 目前就职于上海沪江网 Android 开发部RD项目组, 负责沪江 App 的功能预研</td>
+</tr>
+<tr>
+<td><a href="http://product.china-pub.com/4806147" target="_blank" rel="external">Android开发艺术探索</a></td>
+<td>由@任玉刚Coder所著, 是一本 Android 进阶类书籍, 采用理论, 源码和实践相结合的方式来阐述高水准的 Android 应用开发要点. 本书从三个方面来组织内容: 第一, 介绍 Android 开发者不容易掌握的一些知识点: 第二,结合Android源代码和应用层开发过程, 融会贯通, 介绍一些比较深入的知识点: 第三, 介绍一些核心技术和Android的性能优化思想.</td>
+</tr>
+<tr>
+<td><a href="http://book.douban.com/subject/26649050/" target="_blank" rel="external">App 研发录</a></td>
+<td>本书作者是包建强, 本书是作者多年 App 开发的经验总结, 从 App 架构的角度, 重点总结了 Android 应用开发中常见的实用技巧和疑难问题解决方法, 为打造高质量 App 提供有价值的实践指导, 迅速提升应用开发能力和解决疑难问题的能力. 这本书非常有利于 Android 开发者进阶.</td>
+</tr>
+<tr>
+<td><a href="http://book.douban.com/subject/26644935/" target="_blank" rel="external">Android 设计模式源码分析</a></td>
+<td>本书作者是开发技术前线创立者之一 Mr.Simple, 该书从 Android 源码的角度由浅入深地剖析设计模式的运用, 让工程师们把设计与模式重视起来, 提升自己的设计能力与代码质量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="开发环境-工具"><a href="#开发环境-工具" class="headerlink" title="开发环境/工具"></a>开发环境/工具</h2><p>(附上: 由 <a href="http://weibo.com/234959219" target="_blank" rel="external">@脉脉不得语</a> 收集维护超多开发工具下载地址 <a href="https://github.com/inferjay/AndroidDevTools">AndroidDevTools</a>, 后五个工具资料在 <a href="http://stormzhang.com/" target="_blank" rel="external">stormzhang</a> 博客中找到的,<a href="http://stormzhang.com/android/2015/05/26/android-tools/" target="_blank" rel="external">地址</a>)</p>
+<table>
+<thead>
+<tr>
+<th>环境/工具</th>
+<th>简述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://developer.android.com/sdk/index.html" target="_blank" rel="external">Android Studio</a></td>
+<td>这个开发工具上手需要一定的时间, 自从 Google 推出1.0正式版, 这个工具一直火爆, 目前 github 上面的绝大多数开源项目都是使用 Android Studio 工具, 这就是 Android 开发工具的未来, 所以极力推荐 Android 开发人员使用这个工具, 该工具已更新到 2.0 预览版, 性能逐渐稳定提高, 没有之前那么卡了</td>
+</tr>
+<tr>
+<td><a href="https://www.genymotion.com/#!/download" target="_blank" rel="external">Genymotion</a></td>
+<td>强大好用高性能的 Android 模拟器, 自带的那个模拟器简直不忍直视, 启动超慢的, 跟这个没法比, 无论你是用 Eclipse 还是 Android Studio 里面都有 Genymotion 插件</td>
+</tr>
+<tr>
+<td><a href="https://github.com/skylot/jadx">jadx</a></td>
+<td>一个 Android 反编译神器, 不同于常见的 <a href="https://github.com/pxb1988/dex2jar">dex2jar</a>, 这个反编译器生成代码的 try/catch 次数更少, View也不再是数字 id 了, 可读性更高</td>
+</tr>
+<tr>
+<td><a href="https://github.com/importre/android-selector-intellij-plugin">android-selector</a></td>
+<td>可以根据指定颜色生成 Selector Drawable 的插件</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ligi/GradleDependenciesHelperPlugin">GradleDependenciesHelperPlugin</a></td>
+<td>Gradle 依赖自动补全插件</td>
+</tr>
+<tr>
+<td><a href="http://blog.avlyun.com/show/%E3%80%8Asv%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97%E3%80%8B/" target="_blank" rel="external">Smali Viewer</a></td>
+<td>sv 是一款免费 APK 分析软件, 对你感兴趣的 APP 分析看看它们都用了些什么, 对你学习借鉴有一定帮助</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dmytrodanylyk/folding-plugin">folding-plugin</a></td>
+<td>layout 文件夹里的布局文件一般很长很长没有目录, 这个插件就可以把 layout 分好层级结构, 类似 src 下目录结构</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Vektah/CodeGlance">CodeGlance</a></td>
+<td>在编辑代码最右侧, 显示一块代码小地图</td>
+</tr>
+<tr>
+<td><a href="https://plugins.jetbrains.com/plugin/?idea&amp;id=4509" target="_blank" rel="external">Statistic</a></td>
+<td>统计整个项目行数的插件, 这可表示我们日日夜夜辛辛苦苦必备插件</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nicoulaj/idea-markdown">idea-markdown</a></td>
+<td>在 AS 中编写 Markdown 文件, 可以直接预览网页显示效果, 对于你经常编写 Markdown 文件的你值得拥有这个插件</td>
+</tr>
+<tr>
+<td><a href="http://facebook.github.io/stetho/" target="_blank" rel="external">Stetho</a></td>
+<td>Stetho 是 Facebook 出品的一个强大的 Android 调试工具,使用该工具你可以在 Chrome Developer Tools 查看 App 的布局, 网络请求(仅限使用 Volley, okhttp 的网络请求库), sqlite, preference, 一切都是可视化的操作,无须自己在去使用 adb, 也不需要 root 你的设备</td>
+</tr>
+<tr>
+<td><a href="https://github.com/google/android-classyshark">ClassyShark</a></td>
+<td>ClassyShark 是 Google 发布的一款可以查看 Android 可执行文件的浏览工具, 支持.dex, .aar, .so, .apk, .jar, .class, .xml 等文件格式, 分析里面的内容包括 classes.dex 文件, 包方法数量, 类, 字符串, 使用的 NativeLibrary 等</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pedrovgs/AndroidWiFiADB">AndroidWiFiADB</a></td>
+<td>使用 WiFi 连接而不需要 USB 连接 Android 设备达到安装, 运行, 调试应用的目的</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jshiell/checkstyle-idea">checkstyle-idea</a></td>
+<td>Checkstyle-idea 是一款检查自己写的代码是否符合规范的插件, 该插件是根据 checkstyle.xml 文件来检查的, checkstyle.xml 文件可以由自己自己定义, 也可以使用一些大公司定义的规范, 如果不懂得如何定义, 可以查看 <a href="http://checkstyle.sourceforge.net/checks.html" target="_blank" rel="external">官方文档</a>, 该插件的详细介绍以及使用, 可以看一下咕咚大侠写的 <a href="http://gudong.name/2016/04/07/checkstyle.html" target="_blank" rel="external">文章</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/Skykai521/ECTranslation">ECTranslation</a></td>
+<td>ECTranslation 是 Android Studio 开发工具的一个翻译插件, 可以将英文翻译为中文, 英语基础差的童鞋装上它就可以轻松阅读 Android 源码啦</td>
+</tr>
+<tr>
+<td><a href="https://plugins.jetbrains.com/plugin/8076?pr=androidstudio" target="_blank" rel="external">Android Methods Count</a></td>
+<td>统计 Android 依赖库中方法的总个数, 避免应用方法数超过 65K 问题</td>
+</tr>
+<tr>
+<td><a href="https://github.com/westlinkin/AndroidLocalizationer">AndroidLocalizationer</a></td>
+<td>可用于将项目中的 string 资源自动翻译为其他语言的插件, 其翻译支持使用 Microsoft Translator 或 Google Translation</td>
+</tr>
+<tr>
+<td><a href="https://github.com/avast/android-butterknife-zelezny">ButterKnife Zelezny</a></td>
+<td>ButterKnife 生成器, 使用起来非常简单方便, 为你简写了很多 findViewId 代码, 如果你不了解 ButterKnife 的可以到<a href="http://stormzhang.com/openandroid/android/2014/01/12/android-butterknife/" target="_blank" rel="external">这里</a>看看</td>
+</tr>
+<tr>
+<td><a href="https://github.com/inmite/android-selector-chapek">SelectorChapek</a></td>
+<td>设计师给我们提供好了各种资源, 每个按钮都要写一个selector是不是很麻烦? 这么这个插件就为解决这个问题而生, 你只需要做的是告诉设计师们按照规范命名就好了, 其他一键搞定</td>
+</tr>
+<tr>
+<td><a href="https://github.com/zzz40500/GsonFormat">GsonFormat</a></td>
+<td>现在大多数服务端 api 都以 json 数据格式返回, 而客户端需要根据 api 接口生成相应的实体类, 这个插件把这个过程自动化了, 赶紧使用起来吧</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mcharmas/android-parcelable-intellij-plugin">ParcelableGenerator</a></td>
+<td>Android中的序列化有两种方式, 分别是实现 Serializable 接口和 Parcelable 接口, 但在 Android 中是推荐使用 Parcelable, 只不过我们这种方式要比Serializable方式要繁琐, 那么有了这个插件一切就ok了</td>
+</tr>
+<tr>
+<td><a href="https://github.com/square/leakcanary">LeakCanary</a></td>
+<td>良心企业 Square 最近刚开源的一个非常有用的工具, 强烈推荐, 帮助你在开发阶段方便的检测出内存泄露的问题, 使用起来更简单方便, 而且我们团队第一时间使用帮助我们发现了不少问题, 英文不好的这里有雷锋同志翻译的中文版 <a href="http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" target="_blank" rel="external">LeakCanary 中文使用说明</a></td>
+</tr>
+<tr>
+<td><a href="https://ydmmocoo.github.io/2016/06/28/Android-Studio%E6%8F%92%E4%BB%B6%E6%95%B4%E7%90%86/" target="_blank" rel="external">更多</a></td>
+<td>该作者收集整理了 40 个插件, 可以说是史上最全的了</td>
+</tr>
+</tbody>
+</table>
+<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><table>
+<thead>
+<tr>
+<th>博客地址</th>
+<th>博主信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://android-developers.blogspot.com/" target="_blank" rel="external">Android Developers Blog</a></td>
+<td>Android官网博客, 在上面可以关注 Android 最新的进展与最权威的博客(需翻墙)</td>
+</tr>
+<tr>
+<td><a href="http://stormzhang.com/" target="_blank" rel="external">stormzhang</a></td>
+<td>博主是上海薄荷科技开发主管, 他的博客分享了他从编程白痴到自学 Android 一路走过的经验, 写了一篇 <a href="http://stormzhang.com/android/2014/07/07/learn-android-from-rookie/" target="_blank" rel="external">Android学习之路</a> 帮助了无数人, 里面还有很多好的文章非常适合新手入门, 并且是微信公众号「AndroidDeveloper」的运营者, 可以算是 Android 界最有影响力的公众号之一了, 强烈推荐关注</td>
+</tr>
+<tr>
+<td><a href="http://hukai.me/" target="_blank" rel="external">胡凯</a></td>
+<td>目前就职于腾讯上海从事 Android 开发的工作, 发起 Google Android 官方培训课程中文版翻译, 这课程是学习 Android 应用开发的绝佳资料</td>
+</tr>
+<tr>
+<td><a href="http://www.trinea.cn/" target="_blank" rel="external">Trinea</a></td>
+<td>目前在滴滴负责 Android 客户端技术, 他是开源库项目收集达人, 你想要的开源库<a href="https://github.com/Trinea">上面</a>都有, 并且发起 Android 开源项目源码解析, 在使用开源库的同时也可以知道其中原理, 大家可以去关注一下, <a href="http://p.codekk.com" target="_blank" rel="external">地址</a></td>
+</tr>
+<tr>
+<td><a href="http://blog.csdn.net/guolin_blog" target="_blank" rel="external">郭霖</a></td>
+<td>博主郭霖是大神, 人人都称”郭神”, 是第一行代码的作者, 博主在 CSDN 上所写的文章都非常值得学习</td>
+</tr>
+<tr>
+<td><a href="http://blog.daimajia.com/" target="_blank" rel="external">代码家</a></td>
+<td>90后 Android 大神, 称作库达人, 博主收集了很多 Android 开源库, 博主自己也做了很多开源库, 非常值得学习</td>
+</tr>
+<tr>
+<td><a href="http://www.lightskystreet.com/" target="_blank" rel="external">light_sky</a></td>
+<td>Android 开发工程师, 目前在北京工作. Google big fan, 热爱开源, 热爱分享, 活跃于 GitHub, G+, Twitter, 捕捉Android最新资讯和技术, ViewPagerIndicator 开源项目分析者</td>
+</tr>
+<tr>
+<td><a href="http://blog.csdn.net/lmj623565791/" target="_blank" rel="external">张鸿洋</a></td>
+<td>张鴻洋是 CSDN 博客专家, 博主在 CSDN 所发布的每一篇文章都是干货, 都很值得大家去学习</td>
+</tr>
+<tr>
+<td><a href="http://blog.csdn.net/xyz_lmn" target="_blank" rel="external">张兴业</a></td>
+<td>张兴业同样也是 CSDN 博客专家, 博主专注移动互联网开发, 关注移动支付业务</td>
+</tr>
+<tr>
+<td><a href="http://blog.csdn.net/lzyzsd/" target="_blank" rel="external">hi大头鬼hi</a></td>
+<td>hi大头鬼hi 是阿里巴巴集团的一名 Android 工程师, 擅长 Android, RxJava, RxAndroid, ReactNative, Node.js, 大前端, 可谓是全栈工程师, 如果你对 RxJava 技术感兴趣, 不妨到他的博客看看, 他写了一系列有关 RxJava 的介绍</td>
+</tr>
+<tr>
+<td><a href="https://github.com/android-cn/android-dev-cn">更多</a></td>
+<td>这里面收集了很多国内外开发者的信息, 大家可以去看看</td>
+</tr>
+</tbody>
+</table>
+<h2 id="社区"><a href="#社区" class="headerlink" title="社区"></a>社区</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://stackoverflow.com/" target="_blank" rel="external">StackOverFlow</a></td>
+<td>IT 界的问答社区, 你开发当中所遇到的问题基本上都能在这里能寻找到你想要的答案</td>
+</tr>
+<tr>
+<td><a href="https://segmentfault.com/t/android" target="_blank" rel="external">SegmentFault</a></td>
+<td>SegmentFault 是一个专注于解决编程问题, 提高开发技能的社区</td>
+</tr>
+<tr>
+<td><a href="http://blog.csdn.net/mobile/newest.html" target="_blank" rel="external">CSDN</a></td>
+<td>CSDN 是全球最大中文IT技术社区</td>
+</tr>
+<tr>
+<td><a href="http://gold.xitu.io/explore/android" target="_blank" rel="external">稀土掘金</a></td>
+<td>高质量的技术分享社区</td>
+</tr>
+<tr>
+<td><a href="http://chinagdg.org/" target="_blank" rel="external">谷歌开发者社区(GDG)</a></td>
+<td>GDG 是 Google Developer Groups 的缩写, 中文名称是谷歌开发者社区</td>
+</tr>
+</tbody>
+</table>
+<h2 id="开源项目学习"><a href="#开源项目学习" class="headerlink" title="开源项目学习"></a>开源项目学习</h2><table>
+<thead>
+<tr>
+<th>项目名称</th>
+<th>项目简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/google/iosched">Google I/O 2014</a></td>
+<td>Google I/O Android App 使用了当时最新推出的 Material Design 设计</td>
+</tr>
+<tr>
+<td><a href="https://github.com/googlesamples/android-UniversalMusicPlayer">Google play music</a></td>
+<td>一个跨多个平台音乐播放器</td>
+</tr>
+<tr>
+<td><a href="https://github.com/google/santa-tracker-android?utm_source=www.race604.com">Google Santa Tracker for Android</a></td>
+<td>Google 开源的一个儿童教育和娱乐的 App</td>
+</tr>
+<tr>
+<td><a href="https://github.com/pockethub/PocketHub">github客户端</a></td>
+<td>开源者 github 团队, 支持项目的 lssues 和 Gists 并集成了新闻 feed 以便及时获取来自组织好友和资料库的更新信息, 还提供了一个用于快速访问你创建,监控以及发布 issue 面板, 可查看并将问题加到收藏夹</td>
+</tr>
+<tr>
+<td><a href="https://github.com/klinker24/Talon-for-Twitter">Talon-for-Twitter</a></td>
+<td>一个完整版 Twitter 第三方客户端, 属于顶级水平, 而且在源代码 100% 开源, 学习资源让你取之不尽</td>
+</tr>
+<tr>
+<td><a href="https://github.com/daimajia/AnimeTaste">Anime Taste</a></td>
+<td>开发者是代码家为 AnimeTaste 全球动画精选开发的 Android 客户端, 国内很少见的精彩而且开源的 APP, 获得豌豆荚110期设计奖</td>
+</tr>
+<tr>
+<td><a href="https://github.com/daimajia/EverMemo">EverMemo</a></td>
+<td>开发者是代码家, EverMemo 是一款让你快速记录与分享灵感的随身便签, 极简的界面与卡片式布局, 让你记录与查找便签更有效率</td>
+</tr>
+<tr>
+<td><a href="https://github.com/stormzhang/9GAG">9GAG</a></td>
+<td>开发者是 stormzhang 博主,这个开源项目教你使用 Studio, Gradle 以及一些流行的开源库快速开发一个不错的 Android 客户端</td>
+</tr>
+<tr>
+<td><a href="https://github.com/MiCode/Notes">MIUI 便签</a></td>
+<td>MiCode 便签是小米便签的社区开源版, 由 MIUI 团队（ww.miui.com）发起并贡献第一批代码, 遵循 NOTICE 文件所描述的开源协议</td>
+</tr>
+<tr>
+<td><a href="https://github.com/drakeet/Seashell-app">贝壳单词</a></td>
+<td>开发者是许晓峰(Drakeet), 获得豌豆荚设计奖, 这个是初期版本, 新版没有开源, 但是在博主的博客当中将一些新版的内容都剥离出来写成了文章,可以去学习一下</td>
+</tr>
+<tr>
+<td><a href="https://github.com/romannurik/muzei">Muzei Live Wallpaper</a></td>
+<td>开发者是 Ian Lake , 就职于 Google, 这款是定时更换桌面精美壁纸 App</td>
+</tr>
+<tr>
+<td><a href="https://github.com/qii/weiciyuan">四次元-新浪微博客户端</a></td>
+<td>一个仿新浪微博客户端 App, 基本都含有新浪微博的功能, 开源团队写了一份 wiki 文档, 可以去学习一下该 App 是如何实现的</td>
+</tr>
+<tr>
+<td><a href="https://github.com/bxbxbai/ZhuanLan">知乎专栏</a></td>
+<td>开发者是白瓦力, 项目结构清晰, 代码分包合理, 很棒. 很适合新手去学习如何搭建一个 App 结构, 熟悉开发一个完整 App 的流程</td>
+</tr>
+<tr>
+<td><a href="https://github.com/eoecn/android-app">eoe 客户端</a></td>
+<td>eoe 社区Android客户端</td>
+</tr>
+<tr>
+<td><a href="http://git.oschina.net/oschina/android-app" target="_blank" rel="external">oschina</a></td>
+<td>开源中国社区 Android 客户端, 此开源的是 v1 版本, v2 版本将在 2015 年年中开源</td>
+</tr>
+<tr>
+<td><a href="https://github.com/kyze8439690/v2ex-daily-android">v2ex</a></td>
+<td>开发者是<a href="http://yanghui.name/about/" target="_blank" rel="external">杨辉</a>, 这个是 v2ex Android 第三方客户端</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chrislacy/TweetLanes">Tweet Lanes</a></td>
+<td>功能比较完整的 Twitter 客户端</td>
+</tr>
+<tr>
+<td><a href="https://github.com/mvarnagiris/financius-public">Financius</a></td>
+<td>一款简单易用个人理财 Android 程序</td>
+</tr>
+<tr>
+<td><a href="https://coding.net/u/coding/p/Coding-Android/git" target="_blank" rel="external">Coding</a></td>
+<td>Coding 类似于 github 一个代码托管平台, 这个是 Coding 的 Android 版客户端</td>
+</tr>
+<tr>
+<td><a href="https://github.com/zxing/zxing">ZXing</a></td>
+<td>二维码扫描工具,市场上许多应用的二维码扫描工具都是从这个修改得到的</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chrisbanes/photup">photup</a></td>
+<td>编辑机批量上传照片到 facebook 上,代码分包合理,很棒,不过这个项目依赖的开源项目比较多, 比较难编译</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ginatrapani/todo.txt-android">todo.txt-android</a></td>
+<td>todo.txt 官方 Android 应用, 一个极简的将待办事件记录在 .txt 文件中</td>
+</tr>
+<tr>
+<td><a href="https://github.com/JayFang1993/ScanBook">扫扫图书</a></td>
+<td>一个让你懂得如何去选择一本书的 APP, 具有扫描搜索查询图书的信息功能</td>
+</tr>
+<tr>
+<td><a href="https://github.com/tvbarthel/ChaseWhisplyProject">ChaseWhisplyProject</a></td>
+<td>开启摄像头在你所在位置寻找鬼魂, 进行打鬼游戏</td>
+</tr>
+<tr>
+<td><a href="https://github.com/AntennaPod/AntennaPod">AntennaPod</a></td>
+<td>AntennaPod 是一个自由, 开源的播客客户端, 支持 Atom 和 RSS Feed</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openproject/AndroidDigest">干柴</a></td>
+<td>开发者是冯建, 一个专注收集 android 相关干货(文摘,名博,github等等)资源 App</td>
+</tr>
+<tr>
+<td><a href="https://github.com/manmal/hn-android">Hacker News</a></td>
+<td>一个查看黑客新闻报道和评论的 App</td>
+</tr>
+<tr>
+<td><a href="https://github.com/madeye/proxydroid">proxydroid</a></td>
+<td>ProxyDroid 是一个帮助你在你的 Android 设备上设置代理 (HTTP / SOCKS4 / SOCKS5)</td>
+</tr>
+<tr>
+<td><a href="https://git.oschina.net/way/AliGesture" target="_blank" rel="external">AliGesture</a></td>
+<td>Android平台手势识别应用, 简单的手势就可以进入预置的应用, 方便快捷</td>
+</tr>
+<tr>
+<td><a href="https://coding.net/u/youzi/p/Zhidu-Android/git/tree/master" target="_blank" rel="external">指读</a></td>
+<td>指读顾名思义就是用手指去阅读浩瀚的书海</td>
+</tr>
+<tr>
+<td><a href="https://github.com/KJFrame/KJMusic">KJ 音乐</a></td>
+<td>开发者是<a href="http://blog.kymjs.com/about/" target="_blank" rel="external">张涛</a>, 快捷音乐使用到<a href="https://github.com/kymjs/KJFrameForAndroid">KJFrameForAndroid</a>开发框架, 拥有界面绚丽, 操作简单, 播放手机本地音乐, 在线收听音乐等功能, 还支持: 新浪微博, 百度账号, QQ 账号的一键登录</td>
+</tr>
+<tr>
+<td><a href="http://git.oschina.net/tonlin/android-app" target="_blank" rel="external">哎嘛</a></td>
+<td>OSCHINA 第三方客户端, 这个版本界面比官方版本界面好看多了, 使用的是 Material Design, 界面看上去非常清爽舒服</td>
+</tr>
+<tr>
+<td><a href="http://git.oschina.net/wlemuel/Cotable/tree/master/" target="_blank" rel="external">码厩</a></td>
+<td>博客园第三方客户端, 使用到缓存技术, 当你打开一次之后的博客内容, 会自动保存到设备中, 下次打开阅读同一文章时不需要再利用网络加载, 大家如果想为自己 App 搞缓存的, 可以研究一下该 App 是如何实现的喔</td>
+</tr>
+<tr>
+<td><a href="http://git.oschina.net/ywwxhz/cnBeta-reader" target="_blank" rel="external">cnBeta 第三方阅读器</a></td>
+<td>该 App 是 cnBeta(中文业界资讯站) 第三方阅读客户端, 界面也是使用 Material Design, 还加上一些动画效果, 让人阅读文章起来不会感觉枯燥, 值得去研究学习一下</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PaperAirplane-Dev-Team/BlackLight">BlackLight</a></td>
+<td>BlackLight是由纸飞机开发团队开发的一款Android上的新浪微博第三方轻量级客户端</td>
+</tr>
+<tr>
+<td><a href="https://github.com/actorapp/actor-platform">Actor</a></td>
+<td>Actor(优聆) 是一款即时通讯 App, 解决网络通讯差的情况, 支持离线消息和文件存储, 自动与手机联系人建立联系等等</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nickbutcher/plaid">Plaid</a></td>
+<td>一个遵循 Material Design 的一个设计新闻客户端，里面的一些完全MD的一些特效很棒，同时整个客户端的框架设计也很有参考意义</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SkillCollege/SimplifyReader">SimplifyReader</a></td>
+<td>一款基于 Google Material Design 设计开发的 Android 客户端, 包括新闻简读, 图片浏览, 视频爽看, 音乐轻听以及二维码扫描五个子模块, 项目采取的是MVP架构开发</td>
+</tr>
+<tr>
+<td><a href="https://github.com/CycloneAxe/phphub-android">PHPHub-Android</a></td>
+<td>PHPHub Android 客户端, 项目架构使用 nucleus 简化 MVP 架构, API 请求返回数据使用 RxJava 进行处理, 客户端使用了独特的二维码扫码登录, 有兴趣的可以去研究一下</td>
+</tr>
+<tr>
+<td><a href="https://github.com/MummyDing/Leisure">Leisure</a></td>
+<td>闲暇(Leisure)是一款集”知乎日报”, “果壳科学人”, “新华网新闻”以及”豆瓣图书”于一体的阅读类 Android 应用, 项目里面有多语言切换、夜间模式以及无图模式, 如果你还不知道这些技术怎么实现, 不妨参考一下这个项目</td>
+</tr>
+<tr>
+<td><a href="https://github.com/drakeet/Meizhi">Meizhi</a></td>
+<td>开发者是许晓峰(Drakeet), 该 app 是数据来自代码家干货网站 <a href="http://gank.io" target="_blank" rel="external">gank.io</a>, 有很多开发者都纷纷为这网站做客户端 app, 因为代码家大神开放该网站的 Api, 更重要的是该网站每天除了有干货还有漂亮妹子看呢, 该 App 使用到的技术有 RxJava + Retrofit, 代码结构非常清晰, 值得一看的开源 App.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sfsheng0322/Bingo">Bingo</a></td>
+<td>开发者是<a href="http://weibo.com/u/3852192525" target="_blank" rel="external">孙福生</a>, Bingo 是一款 IT 阅读学习类的开源软件, 作者收集一些干货学习内容, 你也可以在 App 上分享你的认为干货文章, 该项目使用动态代理 AOP 编程框架, 使开发起来更简洁, 更高效. 里面有一个功能就是多种主题切换, 感兴趣的可以看看怎么实现</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Android-开发者杂志周刊"><a href="#Android-开发者杂志周刊" class="headerlink" title="Android 开发者杂志周刊"></a>Android 开发者杂志周刊</h2><p>( 前五个资料来自 <a href="http://drakeet.me/" target="_blank" rel="external">Drakeet</a> 收集整理的, 资料原链接 <a href="http://www.jianshu.com/p/54c4a19ffa68" target="_blank" rel="external">地址</a> )</p>
+<table>
+<thead>
+<tr>
+<th>周刊名</th>
+<th>周刊简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://androidweekly.net/" target="_blank" rel="external">Android Weekly</a></td>
+<td>Android Weekly 是由Android 团队的成员和国外知名的 Android 开发者维护, 分享的内容不仅仅只有干货, 而且还有最新的技术分享, 也是Android 开发圈子最早, 最有名的周报</td>
+</tr>
+<tr>
+<td><a href="http://www.androidweekly.cn/" target="_blank" rel="external">Android 开发技术周报</a></td>
+<td>Android 开发技术周报是由<a href="http://weibo.com/234959219" target="_blank" rel="external">@脉脉不嘚語</a> 维护更新, 截止到现在, 已经发布了28 期, 分享的都是高质量的文章教程, 代码库, 工具, 新闻视频, 设计等</td>
+</tr>
+<tr>
+<td><a href="http://zhuanlan.zhihu.com/andlib" target="_blank" rel="external">Android 科学院</a></td>
+<td>由 <a href="http://weibo.com/duguguiyu?from=feed&amp;loc=at&amp;nick=duguguiyu" target="_blank" rel="external">@duguguiyu</a>和豌豆荚一小撮工程师组成, 分享的都是最新的 Android 技术: 虽然更新频率不是很高, 但是质量确是很高的, 值得一看的</td>
+</tr>
+<tr>
+<td><a href="http://www.devtf.cn/?cat=2" target="_blank" rel="external">开发技术前线</a></td>
+<td>开发技术前线是一个高质量技术文章的聚合网站, 主要分享 Android, iOS, 以及招聘等内容</td>
+</tr>
+<tr>
+<td><a href="http://app.memect.com/" target="_blank" rel="external">App 开发日报</a></td>
+<td>App 开发日报主要关注移动应用的开发, 它每天一刊, 分享的内容主要来自微博上知名的开发者推荐的内容, 因此质量基本上是有保证的</td>
+</tr>
+<tr>
+<td><a href="http://www.infoq.com/cn/author/%E9%83%AD%E4%BA%AE" target="_blank" rel="external">Android 开发周报</a></td>
+<td>Android 开发周报是郭亮在连载更新在 Infoq 的周刊, 它不仅分享 Android 的相关新闻, 新工具, 而且还有更加深入的, 所以对于新生老人都很适合</td>
+</tr>
+<tr>
+<td><a href="http://gank.io/" target="_blank" rel="external">干货集中营</a></td>
+<td>由 <a href="http://blog.daimajia.com/" target="_blank" rel="external">代码家</a> 维护更新, 周一到周五每天中午分享, 分享内容有漂亮妹子, Android 干货, iOS 干货, App, 技术以外推荐, 还有休息视频</td>
+</tr>
+<tr>
+<td><a href="http://www.androidblog.cn/" target="_blank" rel="external">Android Blog 周刊</a></td>
+<td>AndroidBlog 是由 <a href="http://weibo.com/u/2106134235?refer_flag=1001030201_&amp;is_hot=1" target="_blank" rel="external">Jomeslu</a> 收录的, 目前就职于搜狐, 该周刊分享内容主要有一周国内外热门技术博客, 优秀的类库, 以及一些有趣的新闻, 看了前几期分享的内容质量都是很高的, 因此值得推荐给大家</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Awesome-系列"><a href="#Awesome-系列" class="headerlink" title="Awesome 系列"></a>Awesome 系列</h2><ul>
+<li><a href="https://github.com/snowdream/awesome-android">awesome android(1)</a></li>
+<li><a href="https://github.com/JStumpp/awesome-android">awesome_android(2)</a></li>
+<li><a href="https://github.com/wasabeef/awesome-android-ui">awesome_android_UI</a></li>
+<li><a href="https://github.com/wasabeef/awesome-android-libraries">awesome_android_libraries</a></li>
+<li><a href="https://github.com/akullpp/awesome-java">awesome_java</a></li>
+<li><a href="https://github.com/lightSky/Awesome-MaterialDesign">awesome_materialdesign</a></li>
+<li><a href="https://github.com/sindresorhus/awesome">awesome 系列之终极版</a></li>
+<li><a href="https://github.com/liaohuqiu/android-dynamic-load-awesome">android-dynamic-load-awesome</a></li>
+</ul>
+<h2 id="动画系列"><a href="#动画系列" class="headerlink" title="动画系列"></a>动画系列</h2><ul>
+<li><a href="https://github.com/hitherejoe/animate">animate</a></li>
+<li><a href="https://github.com/Animatious/awesome-animation">awesome-animation</a></li>
+<li><a href="https://github.com/lgvalle/Material-Animations">Material-Animations</a></li>
+<li><a href="https://github.com/daimajia/AndroidViewAnimations">AndroidViewAnimations</a></li>
+</ul>
+<h2 id="Material-Design-设计"><a href="#Material-Design-设计" class="headerlink" title="Material Design 设计"></a>Material Design 设计</h2><ul>
+<li><a href="https://www.google.com/design/spec/material-design/introduction.html" target="_blank" rel="external">Material Design 教程</a></li>
+<li><a href="https://github.com/1sters/material_design_zh_2">Material Design 教程(中文版)</a></li>
+<li><a href="https://github.com/navasmdc/MaterialDesignLibrary">Material Design Android Library </a>(Material Design 开源库, 很多效果可以直接拿来用)</li>
+<li><a href="http://www.aplesson.com/?p=650" target="_blank" rel="external">十大Material Design开源项目</a></li>
+</ul>
+<h2 id="素材"><a href="#素材" class="headerlink" title="素材"></a>素材</h2><ul>
+<li><a href="http://tool.c7sky.com/webcolor/" target="_blank" rel="external">常用色彩搭配表</a></li>
+<li><a href="http://www.colorhunt.co/" target="_blank" rel="external">ColorHunt-色彩搭配</a></li>
+<li><a href="http://www.materialpalette.com/" target="_blank" rel="external">在线 Material Design 界面调色板</a></li>
+<li><a href="http://www.materialup.com/" target="_blank" rel="external">Material Design设计模板与素材</a></li>
+<li><a href="https://icons8.com/" target="_blank" rel="external">App Icon 图标</a></li>
+<li><a href="https://iconstore.co/" target="_blank" rel="external">Icon Store</a></li>
+<li><a href="https://design.google.com/icons/" target="_blank" rel="external">Material icons</a></li>
+<li><a href="http://iconfont.cn/" target="_blank" rel="external">Iconfont</a></li>
+</ul>
+<h2 id="开源库收集"><a href="#开源库收集" class="headerlink" title="开源库收集"></a>开源库收集</h2><ul>
+<li><a href="http://alamkanak.github.io/android-libraries-and-resources/" target="_blank" rel="external">Android Libraries and Resources </a></li>
+<li><a href="http://android-arsenal.com/" target="_blank" rel="external">Android Arsenal </a>(一个专门收集 android 开源库的网站, 网站经常更新)</li>
+<li><a href="https://github.com/Trinea/android-open-project">Android 开源项目汇总 </a>(Trinea 大神收集的)</li>
+<li><a href="http://codekk.com/open-source-project-analysis" target="_blank" rel="external">Android 开源项目源码分析 </a>(在懂得使用这些开源项目同时, 也应该了解当中的原理)</li>
+<li><a href="http://www.jcodecraeer.com/plus/list.php?tid=31" target="_blank" rel="external">泡在网上的日子</a></li>
+<li><a href="http://www.android-gems.com/" target="_blank" rel="external">android-gems</a>(国内外很多开发者都在这里上传他们最新的项目, 还带有 apk 下载)</li>
+</ul>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ul>
+<li><a href="https://github.com/iluwatar/java-design-patterns#model-view-presenter">java-design-patterns</a></li>
+<li><a href="https://github.com/simple-android-framework-exchange/android_design_patterns_analysis">Android源码设计模式分析项目</a></li>
+<li><a href="http://blog.csdn.net/zhangerqing/article/details/8194653" target="_blank" rel="external">Java之美[从菜鸟到高手演变]之设计模式</a></li>
+</ul>
+<h2 id="实践篇"><a href="#实践篇" class="headerlink" title="实践篇"></a>实践篇</h2><ul>
+<li><a href="https://github.com/futurice/android-best-practices/blob/master/translations/Chinese/README.cn.md">Android 开发最佳实践</a></li>
+<li><a href="http://hukai.me/android-dev-patterns/" target="_blank" rel="external">Android 开发最佳实践 </a>(来自<a href="http://hukai.me/" target="_blank" rel="external">胡凯</a>总结)</li>
+<li><a href="http://sr1.me/way-to-explore/2015/03/25/best-practice-for-android-ui.html" target="_blank" rel="external">Android 最佳实践之 UI 篇</a></li>
+<li><a href="http://blog.csdn.net/zhaokaiqiang1992/article/details/45419023" target="_blank" rel="external">Android 屏幕适配全攻略</a></li>
+<li><a href="http://www.hamberluo.cn/2015/04/27/semi-android-newer" target="_blank" rel="external">给半新人的app开发指南</a></li>
+<li><a href="https://github.com/FX-Max/Point-of-Android">Android 一些重要知识点解析整理</a></li>
+<li><a href="http://www.imooc.com/article/1287" target="_blank" rel="external">Android 开发人员应避免的 10 个误区</a></li>
+<li><a href="https://github.com/tianzhijiexian/Android-Best-Practices/blob/master/2015.9/reflect/reflect.md">Java 反射最佳实践</a></li>
+<li><a href="http://www.csdn.net/article/2015-09-18/2825737/1" target="_blank" rel="external">Android 内存优化之 OOM</a></li>
+<li><a href="http://blog.csdn.net/vipzjyno1/article/details/23542617" target="_blank" rel="external">Android 命名规范</a></li>
+<li><a href="https://github.com/tianzhijiexian/Android-Best-Practices/blob/master/2015.10/adapter/adapter.md">Adapter 优化方案的探索</a></li>
+<li><a href="https://github.com/tangqi92/Android-Tips">Android-Tips</a></li>
+<li><a href="http://adbshell.com/" target="_blank" rel="external">最全 Android ADB Shell</a></li>
+<li><a href="https://github.com/CharonChui/AndroidNote">AndroidNote</a></li>
+<li><a href="https://github.com/l123456789jy/Lazy">Android 常用工具类</a></li>
+<li><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2016/0218/3978.html" target="_blank" rel="external">创建安卓 app 的 30 个经验教训</a></li>
+<li><a href="http://www.trinea.cn/android/android-image-cache-compare/" target="_blank" rel="external">Android 三大图片缓存原理、特性对比</a></li>
+<li><a href="http://www.trinea.cn/android/performance/" target="_blank" rel="external">Android 性能优化总结</a></li>
+<li><a href="http://www.eoeandroid.com/thread-570919-1-1.html" target="_blank" rel="external">Android 实用代码片段整合 </a></li>
+<li><a href="http://www.phpxs.com/code/1001775" target="_blank" rel="external">36 个 Android 开发常用代码片段</a></li>
+<li><a href="https://github.com/jiang111/awesome-android-tips">收集了大家常用的一些 Android 的模板代码</a></li>
+<li><a href="http://keeganlee.me/post/android/20150709" target="_blank" rel="external">Android 技术积累: 开发规范</a></li>
+<li><a href="http://keeganlee.me/post/architecture/20160114" target="_blank" rel="external">App 架构设计经验谈</a></li>
+<li><a href="http://blog.csdn.net/yyh352091626/article/details/50957851" target="_blank" rel="external">关于 Android 开发的 40 条优化建议</a></li>
+<li><a href="http://gold.xitu.io/entry/56cd6ebb99a6ce005a2887e3" target="_blank" rel="external">如何提高安卓代码的质量和语法</a></li>
+<li><a href="http://www.jianshu.com/p/4f152bc8f4f3" target="_blank" rel="external">我的 Android 开发实战经验总结</a></li>
+<li><a href="http://www.wangchenlong.org/2016/02/23/tips/1603/231-android-tips-1/" target="_blank" rel="external">Android Tips 系列</a></li>
+<li><a href="http://www.jianshu.com/p/28111d29eee4" target="_blank" rel="external">如何自学 Android</a></li>
+<li><a href="https://github.com/JackyAndroid/AndroidInterview-Q-A">国内一线互联网公司内部面试题库</a></li>
+</ul>
+<h2 id="Git-教程"><a href="#Git-教程" class="headerlink" title="Git 教程"></a>Git 教程</h2><p>新手看完这几份教程基本上知道怎么使用 Git 了</p>
+<ul>
+<li><a href="http://jlord.us/git-it/challenges/get_git.html" target="_blank" rel="external">GitHub 团队美女写的一套 Git 使用教程</a></li>
+<li><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external">ProGit 中文版</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">廖雪峰的 Git 教程</a></li>
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="external">Git 简易指南</a></li>
+</ul>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><ul>
+<li><a href="http://developer.android.com/reference/android/package-summary.html" target="_blank" rel="external">Android 官方 API 文档</a>(网站需要翻墙，不翻墙可以<a href="http://pan.baidu.com/s/1dDu3LVb" target="_blank" rel="external">下载</a>离线文件)</li>
+<li><a href="http://hukai.me/android-training-course-in-chinese/index.html" target="_blank" rel="external">Android 官方培训课程中文版</a>(由胡凯发起对 Google Android 官方培训课程翻译的中文版)</li>
+</ul>
+<h2 id="其它资料收集"><a href="#其它资料收集" class="headerlink" title="其它资料收集"></a>其它资料收集</h2><ul>
+<li><a href="http://www.eoeandroid.com/forum.php?mod=viewthread&amp;tid=571335&amp;highlight=10%E4%B8%AA%E5%BE%88%E6%A3%92" target="_blank" rel="external">10 个很棒的学习 Android 开发的网站</a></li>
+<li><a href="http://android.jobbole.com/80815/" target="_blank" rel="external">Android 开发, 你应该知道的学习资源</a></li>
+<li><a href="https://github.com/ColorfulCat/AndroidGuide">AndroidCat 安卓书签网</a></li>
+<li><a href="http://www.jianshu.com/p/e961f1633d7a" target="_blank" rel="external">每个 Android 开发者都应该了解的资源列表</a></li>
+<li><a href="http://www.jianshu.com/p/54902270249d" target="_blank" rel="external">Android 开发者网址导航</a></li>
+<li><a href="https://github.com/ruijun/Android-Dev-Favorites">Android 开发收藏夹</a></li>
+<li><a href="https://github.com/Tim9Liu9/TimLiu-Android">TimLiu-Android</a>(TimLiu 总结的 Android 开源项目及库)</li>
+<li><a href="https://github.com/JohnTsaiAndroid/AndroidTips">AndroidTips</a></li>
+</ul>
+<h2 id="知乎上的讨论"><a href="#知乎上的讨论" class="headerlink" title="知乎上的讨论"></a>知乎上的讨论</h2><ul>
+<li><a href="http://www.zhihu.com/question/19775981" target="_blank" rel="external">有哪些 Android 大牛的 blog 值得推荐?</a></li>
+<li><a href="http://www.zhihu.com/question/23804819" target="_blank" rel="external">GitHub 上都有哪些值得关注学习的 Android项目?</a></li>
+<li><a href="https://www.zhihu.com/question/28481864" target="_blank" rel="external">GitHub 上有哪些适合新人围观的 Android 项目?</a></li>
+<li><a href="http://www.zhihu.com/question/28841081" target="_blank" rel="external">2015 年移动设备界面设计有哪些趋势?</a></li>
+<li><a href="http://www.zhihu.com/question/33636939" target="_blank" rel="external">Android开发中, 有哪些让你觉得相见恨晚的方法,类或接口?</a></li>
+<li><a href="https://www.zhihu.com/question/28527388" target="_blank" rel="external">Android Studio有哪些非常好用的插件?</a></li>
+<li><a href="https://www.zhihu.com/question/32037895" target="_blank" rel="external">Android 开发有哪些新技术出现?</a></li>
+<li><a href="https://www.zhihu.com/question/19804692" target="_blank" rel="external">有哪些优秀的 Android 应用开源项目, 特效, 设计资料推荐?</a></li>
+<li><a href="https://www.zhihu.com/question/26687642" target="_blank" rel="external">有没有适合 Android 开发初学者的 App 源码推荐?</a></li>
+<li><a href="https://www.zhihu.com/question/29939631" target="_blank" rel="external">Android有什么好的技术点适合进行技术分享?</a></li>
+<li><a href="https://www.zhihu.com/question/27482725" target="_blank" rel="external">Android Studio有什么奇技淫巧?</a></li>
+<li><a href="https://www.zhihu.com/question/37433825" target="_blank" rel="external">Android 开发: 开始一个项目前, 做好哪些准备可以事半功倍?</a></li>
+</ul>
+<h2 id="贡献者"><a href="#贡献者" class="headerlink" title="贡献者"></a>贡献者</h2><p>点击<a href="https://github.com/Freelander/Android_Data/graphs/contributors">该链接</a>查看该项目所有贡献者</p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>以上内容采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="external">CC BY-NC-SA 3.0</a> 进行许可, 转载请注明出处, 版权归本人及所有贡献者所有</p>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-22T09:39:00.000Z" itemprop="dateUpdated">2017-07-22 17:39:00</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&title=《Android进阶资料大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&title=《Android进阶资料大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android进阶资料大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/25/AndroidStudio插件大全.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">AndroidStudio插件大全</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/06/String、StringBuffer、StringBuilder的区别.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">String、StringBuffer、StringBuilder的区别</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&title=《Android进阶资料大全》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&title=《Android进阶资料大全》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android进阶资料大全》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/22/Android进阶资料大全.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQU7DQAwF0N7/0rBFgqTf9rhk8bJCoSTzgpRxv/16xcfXjyM5f3+d3397f756l/KBh4eHN1h6csur5V6duYfdX+fAI8DDw8Nb4yULqm4S+Ws9+eT947g8j4eHh/cY3qkCPblaspHg4eHhPZk3KXx7McRHNwY8PDy8mDe5dFIu98r0vFg/kLXg4eHhLXSRnvPzSn8PDw8Pb9xVTzaJSYzbi24Lq8XDw8Nb4OUv3HyYIIkbPhn44uHh4Z3lTSLXPJjobTnV8a8/1oCHh4e3xqu+cCeham+QqzlMgIeHh7fAmxe11YbZJJjIS3k8PDy8z/DyNnx++2Rj6I1SlbcEPDw8vKO8PBQoxwHFBfVacVEDDA8PD+8Q7760nW8bvZg4jyTe3BcPDw9vjdcbe+q1qarFejWeuNzx8PDw8I7yqoV1NYTNxwXyhxiFEXh4eHgLvMlLvDcQkEcYp0JePDw8vG1eb2RqY4SrGmeUb4aHh4d3iDd/6fdaZb0YN/okHh4e3lFeb7iqPM81GM+qDm/9MTqAh4eHt8Crltf5b6vFd75JRK04PDw8vAVevhnkYUTSyqo22PJtZvQhPDw8vGDlvcA0WW6vd58/3ChMwcPDw1vg9SKGXomcBxOT6Lb8n8TDw8M7xKsW2UlB3BsUmNwFDw8Pb4936hXcGyPo/TcK4QUeHh7eMq8Xzk5e65OtIlozHh4e3jIvbzLlwwHJ8Tp0FL4r4OHh4bV4vUUky5q0spKiPCqy8fDw8BZ41RduHunmramcUR1ZwMPDw9vj5ZtBtZjuPb5kQ8qjEDw8PLw93iR6OBvjTiISPDw8vOfzegMEp2LiUUqNh4eH90+8pIzuDW/1mmqjzBgPDw+vyJs0vXrxQR4EH9gY8PDw8I7yel/4e+V13jDrPcRRfw8PDw/vPe8b5kemS1WM/tgAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/CompoundButton源码分析.html">
+    
+    
+    <title>CompoundButton源码分析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 CompoundButton 是一个有两种状态（选中和未选中 / checkd unchecked）的Button。当你按下（pressed）或者点击（clicked），它的状态会自动改变。 特点 是一个抽象类（a">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CompoundButton源码分析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 CompoundButton 是一个有两种状态（选中和未选中 / checkd unchecked）的Button。当你按下（pressed）或者点击（clicked），它的状态会自动改变。 特点 是一个抽象类（a">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/68622377gw1f36nyso3hsg20c0034dfy.gif">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T11:53:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CompoundButton源码分析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 CompoundButton 是一个有两种状态（选中和未选中 / checkd unchecked）的Button。当你按下（pressed）或者点击（clicked），它的状态会自动改变。 特点 是一个抽象类（a">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CompoundButton源码分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CompoundButton源码分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:52:49.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特点"><span class="post-toc-number">1.</span> <span class="post-toc-text">特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制按钮图形"><span class="post-toc-number">3.</span> <span class="post-toc-text">绘制按钮图形</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#着色"><span class="post-toc-number">4.</span> <span class="post-toc-text">着色</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#绘制"><span class="post-toc-number">5.</span> <span class="post-toc-text">绘制</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置选中-checked-状态"><span class="post-toc-number">6.</span> <span class="post-toc-text">设置选中(checked)状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#状态保存"><span class="post-toc-number">7.</span> <span class="post-toc-text">状态保存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Checkbox-ToggleButton"><span class="post-toc-number">8.</span> <span class="post-toc-text">Checkbox/ToggleButton</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-CompoundButton源码分析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CompoundButton源码分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:52:49" datetime="2017-07-26T11:52:49.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<p>CompoundButton 是一个有两种状态（选中和未选中 / checkd unchecked）的Button。当你按下（pressed）或者点击（clicked），它的状态会自动改变。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>是一个抽象类（abstract），所以我们不能直接使用它，只有自定义实现或者系统已经提供的它的一直子类（ToggleButton，Checkbox，RadioButton 等等）</li>
+<li>继承自Button，而Button 继承自TextView，所以Button，TextView 的特性CompoundButton 都是具备的</li>
+<li>实现自Checkable 接口（interface），利用它可以设置状态（setChecked(boolean checked)），获取状态（isChecked()）和切换状态（toggle()）</li>
+</ul>
+<p>最后的效果图就是这样的。</p>
+<p><img src="http://ww2.sinaimg.cn/large/68622377gw1f36nyso3hsg20c0034dfy.gif" alt=""></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 选中和未选中的状态</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mChecked;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mBroadcasting;</div><div class="line"></div><div class="line"><span class="keyword">private</span> Drawable mButtonDrawable;</div><div class="line"></div><div class="line"><span class="keyword">private</span> ColorStateList mButtonTintList = <span class="keyword">null</span>;</div><div class="line"><span class="comment">// 就是水波纹和背景颜色混合的方式</span></div><div class="line"><span class="keyword">private</span> PorterDuff.Mode mButtonTintMode = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mHasButtonTint = <span class="keyword">false</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mHasButtonTintMode = <span class="keyword">false</span>;</div><div class="line"></div><div class="line"><span class="comment">// 状态监听</span></div><div class="line"><span class="keyword">private</span> OnCheckedChangeListener mOnCheckedChangeListener;</div><div class="line"><span class="keyword">private</span> OnCheckedChangeListener mOnCheckedChangeWidgetListener;</div></pre></td></tr></table></figure>
+<p>这是一些局部变量，在后面的分析会用到。</p>
+<p>我们先来看看CompoundButton 自定义控件有哪些属性</p>
+<p><strong>\data\res\values\attrs.xml</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"CompoundButton"</span>&gt;</span></div><div class="line">     <span class="comment">&lt;!-- 设置状态  true: 选中; false: 未选中 --&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"checked"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></div><div class="line">     <span class="comment">&lt;!-- 绘制按钮图形，一般为Drawable 资源 (e.g. checkbox, radio button, etc). --&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"button"</span> <span class="attr">format</span>=<span class="string">"reference"</span> /&gt;</span></div><div class="line">     <span class="comment">&lt;!-- 对绘制的按钮图形着色 --&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"buttonTint"</span> <span class="attr">format</span>=<span class="string">"color"</span> /&gt;</span></div><div class="line">     <span class="comment">&lt;!-- 对着色设置模式 --&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"buttonTintMode"</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"src_over"</span> <span class="attr">value</span>=<span class="string">"3"</span> /&gt;</span></div><div class="line">         ...</div><div class="line">     <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后再来看看怎么绘制，先来看看构造方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">CompoundButton</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr, <span class="keyword">int</span> defStyleRes)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>(context, attrs, defStyleAttr, defStyleRes);</div><div class="line"></div><div class="line">    <span class="comment">// 这里的获取自定义的CompoundButton 就是上面的定义的CompoundButton</span></div><div class="line">    <span class="keyword">final</span> TypedArray a = context.obtainStyledAttributes(</div><div class="line">            attrs, com.android.internal.R.styleable.CompoundButton, defStyleAttr, defStyleRes);</div><div class="line"></div><div class="line">    <span class="comment">// 用于绘制按钮图形</span></div><div class="line">    <span class="keyword">final</span> Drawable d = a.getDrawable(com.android.internal.R.styleable.CompoundButton_button);</div><div class="line">    <span class="keyword">if</span> (d != <span class="keyword">null</span>) &#123;</div><div class="line">        setButtonDrawable(d);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 对绘制的按钮图形着色设置模式</span></div><div class="line">    <span class="keyword">if</span> (a.hasValue(R.styleable.CompoundButton_buttonTintMode)) &#123;</div><div class="line">        mButtonTintMode = Drawable.parseTintMode(a.getInt(</div><div class="line">                R.styleable.CompoundButton_buttonTintMode, -<span class="number">1</span>), mButtonTintMode);</div><div class="line">        mHasButtonTintMode = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 对绘制的按钮图形着色</span></div><div class="line">    <span class="keyword">if</span> (a.hasValue(R.styleable.CompoundButton_buttonTint)) &#123;</div><div class="line">        mButtonTintList = a.getColorStateList(R.styleable.CompoundButton_buttonTint);</div><div class="line">        mHasButtonTint = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 设置状态</span></div><div class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> checked = a.getBoolean(</div><div class="line">            com.android.internal.R.styleable.CompoundButton_checked, <span class="keyword">false</span>);</div><div class="line">    setChecked(checked);</div><div class="line"></div><div class="line">    a.<span class="function">re <span class="title">cycle</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    applyButtonTint();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在构造方法中，获取自定义属性的各个属性，</p>
+<ul>
+<li>button：用于绘制按钮图形，然后调用setButtonDrawable() 来绘制。</li>
+<li>buttonTint：绘制的按钮着色。使用一个boolean 标识符来设置的，然后会在applyButtonTint() 中统一处理。它们两个分别用作给和</li>
+<li>buttonTintMode：和设置着色模式。设置方式和buttonTint 几乎一样。不过它的一些属性，参考这篇文章来看看具体不同的着色模式效果是怎么样的。<a href="http://www.cnblogs.com/fuly550871915/p/5002759.html" target="_blank" rel="external">android5.x新特性之Tinting</a></li>
+<li>checked：是设置选中状态，在setChecked() 中设置。</li>
+</ul>
+<h2 id="绘制按钮图形"><a href="#绘制按钮图形" class="headerlink" title="绘制按钮图形"></a>绘制按钮图形</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setButtonDrawable</span><span class="params">(@Nullable Drawable drawable)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mButtonDrawable != drawable) &#123;</div><div class="line">        <span class="keyword">if</span> (mButtonDrawable != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// 取消对View 的引用</span></div><div class="line">            mButtonDrawable.setCallback(<span class="keyword">null</span>);</div><div class="line">            <span class="comment">// 取消绘制对象相关联的调度,当我们重新绘制一个Drawable，可以调用此方法</span></div><div class="line">            unscheduleDrawable(mButtonDrawable);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        mButtonDrawable = drawable;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (drawable != <span class="keyword">null</span>) &#123;</div><div class="line">            drawable.setCallback(<span class="keyword">this</span>);</div><div class="line">            drawable.setLayoutDirection(getLayoutDirection());</div><div class="line">            <span class="keyword">if</span> (drawable.isStateful()) &#123;</div><div class="line">                drawable.setState(getDrawableState());</div><div class="line">            &#125;</div><div class="line">            drawable.setVisible(getVisibility() == VISIBLE, <span class="keyword">false</span>);</div><div class="line">            setMinHeight(drawable.getIntrinsicHeight());</div><div class="line">            applyButtonTint();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法，就是用于绘制按钮图形，首先会判断我们设置的Drawable 和初始会的mButtonDrawable 是否相等，如果不等，将会对初始化的mButtonDrawable 对象，取消对View 的引用（setCallback(null)），并且取消mButtonDrawable 相关联调度（unscheduleDrawable()），然后将我们新设置的Drawable 赋值给mButtonDrawable 对象，然后再设置引用，设置布局的方向，然后判断如果状态改变时，重新设置状态。最后调用applyButtonTint()。</p>
+<h2 id="着色"><a href="#着色" class="headerlink" title="着色"></a>着色</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">applyButtonTint</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mButtonDrawable != <span class="keyword">null</span> &amp;&amp; (mHasButtonTint || mHasButtonTintMode)) &#123;</div><div class="line">        mButtonDrawable = mButtonDrawable.mutate();</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mHasButtonTint) &#123;</div><div class="line">            mButtonDrawable.setTintList(mButtonTintList);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mHasButtonTintMode) &#123;</div><div class="line">            mButtonDrawable.setTintMode(mButtonTintMode);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// The drawable (or one of its children) may not have been</span></div><div class="line">        <span class="comment">// stateful before applying the tint, so let's try again.</span></div><div class="line">        <span class="keyword">if</span> (mButtonDrawable.isStateful()) &#123;</div><div class="line">            mButtonDrawable.setState(getDrawableState());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法主要就是设置mButtonDrawable 的Tint（着色）和TintMode（着色模式），之前在构造方法，setButtonDrawable() 方法中都会调用此方法，因为这两个属性都是基于mButtonDrawable 来设置的，而这个两个属性是根据两个Boolean 属性mHasButtonTint 和mHasButtonTintMode 来识别的，然后为true，就表示设置。而他们两个属性也有setButtonTintList 和setButtonTintMode() 方法来设置两个属性，将两个boolean 属性设置为true，并且调用applyButtonTint() 来设置的。</p>
+<h2 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a><strong>绘制</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDraw</span><span class="params">(Canvas canvas)</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> Drawable buttonDrawable = mButtonDrawable;</div><div class="line">    <span class="keyword">if</span> (buttonDrawable != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> verticalGravity = getGravity() &amp; Gravity.VERTICAL_GRAVITY_MASK;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> drawableHeight = buttonDrawable.getIntrinsicHeight();</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> drawableWidth = buttonDrawable.getIntrinsicWidth();</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> top;</div><div class="line">        <span class="keyword">switch</span> (verticalGravity) &#123;</div><div class="line">            <span class="keyword">case</span> Gravity.BOTTOM:</div><div class="line">                top = getHeight() - drawableHeight;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> Gravity.CENTER_VERTICAL:</div><div class="line">                top = (getHeight() - drawableHeight) / <span class="number">2</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                top = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> bottom = top + drawableHeight;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> left = isLayoutRtl() ? getWidth() - drawableWidth : <span class="number">0</span>;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> right = isLayoutRtl() ? getWidth() : drawableWidth;</div><div class="line"></div><div class="line">        buttonDrawable.setBounds(left, top, right, bottom);</div><div class="line"></div><div class="line">        <span class="keyword">final</span> Drawable background = getBackground();</div><div class="line">        <span class="keyword">if</span> (background != <span class="keyword">null</span>) &#123;</div><div class="line">            background.setHotspotBounds(left, top, right, bottom);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">super</span>.onDraw(canvas);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (buttonDrawable != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> scrollX = mScrollX;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">int</span> scrollY = mScrollY;</div><div class="line">        <span class="keyword">if</span> (scrollX == <span class="number">0</span> &amp;&amp; scrollY == <span class="number">0</span>) &#123;</div><div class="line">            buttonDrawable.draw(canvas);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            canvas.translate(scrollX, scrollY);</div><div class="line">            buttonDrawable.draw(canvas);</div><div class="line">            canvas.translate(-scrollX, -scrollY);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这些属性都初始化好了，那就可以来绘制了，我们都知道自定义重写onDraw() 方法来绘制视图，CompoundButton 也重写了此方法，将我们设置了各种属性的mButtonDrawable 复制给局部变量buttonDrawable，然后根据对其方式（Gravity） 属性来来具体绘制buttonDrawable。然后调用父类的onDraw()，最后在根据时候是滑动通过Canvas 来绘制，如果水平和垂直滑动为0，则直接绘制即可，如果不为零则需要调用translate 对canvas 的重新绘制。</p>
+<h2 id="设置选中-checked-状态"><a href="#设置选中-checked-状态" class="headerlink" title="设置选中(checked)状态"></a><strong>设置选中(checked)状态</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setChecked</span><span class="params">(<span class="keyword">boolean</span> checked)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mChecked != checked) &#123;</div><div class="line">        mChecked = checked;</div><div class="line">        refreshDrawableState();</div><div class="line">        notifyViewAccessibilityStateChangedIfNeeded(</div><div class="line">                AccessibilityEvent.CONTENT_CHANGE_TYPE_UNDEFINED);</div><div class="line"></div><div class="line">        <span class="comment">// 避免多次调用setChecked() 来多次调用回调监听</span></div><div class="line">        <span class="keyword">if</span> (mBroadcasting) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        mBroadcasting = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span> (mOnCheckedChangeListener != <span class="keyword">null</span>) &#123;</div><div class="line">            mOnCheckedChangeListener.onCheckedChanged(<span class="keyword">this</span>, mChecked);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (mOnCheckedChangeWidgetListener != <span class="keyword">null</span>) &#123;</div><div class="line">            mOnCheckedChangeWidgetListener.onCheckedChanged(<span class="keyword">this</span>, mChecked);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        mBroadcasting = <span class="keyword">false</span>;            </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 设置监状态听</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnCheckedChangeListener</span><span class="params">(OnCheckedChangeListener listener)</span> </span>&#123;</div><div class="line">    mOnCheckedChangeListener = listener;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setOnCheckedChangeWidgetListener</span><span class="params">(OnCheckedChangeListener listener)</span> </span>&#123;</div><div class="line">    mOnCheckedChangeWidgetListener = listener;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>设置状态，就是传入一个Boolean 值来设置状态，如果和初始化的mChecked 相反，才会调用，然后调用refreshDrawableState() 来刷新绘制的状态，然后下面就是设置状态改变的监听，通过mBroadcasting 属性来避免多次设置回调，每次调用mBroadcasting，如果为true，则返回。发现有两个监听，我们仔细看下面setXxxListener() 的方法，而下面那个setOnCheckedChangeWidgetListener() 方法不是Public，所以说不是对外开放的，我们是不能调用的，文档中说明是仅供内部使用。因此我们想要监听选中状态，可以使用setOnCheckedChangeListener()。重写onCheckedChanged(CompoundButton buttonView, boolean isChecked) 即可。对了，除了setChecked() 可以设置状态，toggle() 每次也会setChecked() 方法，每次都会讲状态设置为相反的。还有isChecked() 方法，判断当前的选中状态。</p>
+<h2 id="状态保存"><a href="#状态保存" class="headerlink" title="状态保存"></a><strong>状态保存</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SavedState</span> <span class="keyword">extends</span> <span class="title">BaseSavedState</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> checked;</div><div class="line">    SavedState(Parcelable superState) &#123;</div><div class="line">        <span class="keyword">super</span>(superState);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SavedState</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(in);</div><div class="line">        checked = (Boolean)in.readValue(<span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel out, <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.writeToParcel(out, flags);</div><div class="line">        out.writeValue(checked);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Parcelable.Creator&lt;SavedState&gt; CREATOR</div><div class="line">            = <span class="keyword">new</span> Parcelable.Creator&lt;SavedState&gt;() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> SavedState <span class="title">createFromParcel</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SavedState(in);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> SavedState[] newArray(<span class="keyword">int</span> size) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> SavedState[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Parcelable <span class="title">onSaveInstanceState</span><span class="params">()</span> </span>&#123;</div><div class="line">    Parcelable superState = <span class="keyword">super</span>.onSaveInstanceState();</div><div class="line">    SavedState ss = <span class="keyword">new</span> SavedState(superState);</div><div class="line">    ss.checked = isChecked();</div><div class="line">    <span class="keyword">return</span> ss;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRestoreInstanceState</span><span class="params">(Parcelable state)</span> </span>&#123;</div><div class="line">    SavedState ss = (SavedState) state;</div><div class="line"></div><div class="line">    <span class="keyword">super</span>.onRestoreInstanceState(ss.getSuperState());</div><div class="line">    setChecked(ss.checked);</div><div class="line">    requestLayout();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>保存状态是自定义一个SavedState，继承自BaseSavedState，然后Parcelable 将Boobean 类型checked 属性序列化，判断是否选中，在onSaveInstanceState() 中，保存，然后在onRestoreInstanceState() 获取序列化的属性，重新调用setChecked() 设置属性。</p>
+<h2 id="Checkbox-ToggleButton"><a href="#Checkbox-ToggleButton" class="headerlink" title="Checkbox/ToggleButton"></a>Checkbox/ToggleButton</h2><p>Checkbox 和ToggleButton 的实现那都是继承自CompoundButton，可以看下面这两篇文章。</p>
+<ul>
+<li><a href="ToggleButton和CheckBox源码分析.md">ToggleButton/Checkbox 的源码分析</a></li>
+</ul>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T11:53:12.000Z" itemprop="dateUpdated">2017-07-26 19:53:12</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&title=《CompoundButton源码分析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&title=《CompoundButton源码分析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CompoundButton源码分析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/CoordinatorLayout源码分析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CoordinatorLayout源码分析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/bindService源码分析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">bindService源码分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&title=《CompoundButton源码分析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&title=《CompoundButton源码分析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CompoundButton源码分析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/CompoundButton源码分析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqklEQVR42u3aQXIiMRAEQP//096rL0CVWu0dR+ScCBgGpQ6SqO6vr/j6/nEl7/x8/9Wn+RNePfPahYeHhzcYev7D+fV+Otrpy8eMh4eHt817taImr9sNI9k28vF8sODh4eE9gPf+W+/viZby+ECPh4eH97d4ySaR3NluOXh4eHjP4SVRQrthtPg2yLicteDh4eHFvLyK9JzXK/U9PDw8vHFVfdIKkA8lef7haPHw8PAWeG0gmxyg2wJYO3H1OPHw8PB+hXcWCrSFq3kbVlQew8PDw1vmLeYZt1oB2lYGPDw8vAXe/Gv5RtI+IS+5Rb+Fh4eHd4nXLspnDQdtu0A76dG+h4eHhzfmJQv3pDQ1iRXy6Yvqe3h4eHiXeHlxqz6bxxORx8FtzoCHh4e3xzsbShtGtEfwefsXHh4e3u/w2rA1b8PK44n2d4tgAg8PD2/Maxfi/PB9NrjLr/Hw8PCWeXUDU3wcnxzZ8yLZtcoeHh4e3tVhtVFvfsiu/wEk4TIeHh7eGu99lNAOOi9ltXfW48TDw8Nb4LXh6VmL1a24th0VHh4e3gYvH8TZYTpv7conpQhQ8PDw8BZ4yaI8DwvaOLidvijexcPDw7vKa1sE5qHDvFSWN3Lh4eHhbfDOYtm2iao9xLfH9A+TjoeHh3eVd6v56SzaOIsYimYsPDw8vDVeG1K0y/qtw3c9Njw8PLw13qTFKg8R2qJXG/4eZi14eHh4Me+7vM7igLaU1U7Wyy0EDw8Pb4HXLr7tgJIYIgkdzr6Lh4eHt8ebN1q1rQB5Q8CFjQEPDw9vjZcvyjk4b5DKS2J5fIyHh4f3NF577G7B86nEw8PDexpvcoxuy2+jacLDw8Nb4+XRQBteJOW0eaQbNV3h4eHhXeJN/vDnjPb+/1Dfw8PDw/vM+wdXMCIW65C9iQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

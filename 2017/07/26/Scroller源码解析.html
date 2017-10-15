@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/Scroller源码解析.html">
+    
+    
+    <title>Scroller源码解析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。  本文分析版本: Android API 22  1. 简介Android开发中，如果我们希望使一个View滑动的话，除了使用属性动画外。我们还可以使用系统提供给我们的两个类Scroller和OverScrolle">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scroller源码解析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/Scroller源码解析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。  本文分析版本: Android API 22  1. 简介Android开发中，如果我们希望使一个View滑动的话，除了使用属性动画外。我们还可以使用系统提供给我们的两个类Scroller和OverScrolle">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T11:58:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scroller源码解析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。  本文分析版本: Android API 22  1. 简介Android开发中，如果我们希望使一个View滑动的话，除了使用属性动画外。我们还可以使用系统提供给我们的两个类Scroller和OverScrolle">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Scroller源码解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Scroller源码解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:58:31.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-使用方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 使用方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-startScroll-int-startX-int-startY-int-dx-int-dy-int-duration"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.startScroll(int startX, int startY, int dx, int dy, int duration):</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-fling-int-startX-int-startY-int-velocityX-int-velocityY-int-minX-int-maxX-int-minY-int-maxY"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2.fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) :</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-源码分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. 源码分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-构造方法"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1.构造方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-startScroll-方法的实现"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2.startScroll()方法的实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-computeScrollOffset-方法中-SCROLL-MODE-的实现"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3.computeScrollOffset() 方法中 SCROLL_MODE 的实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-fling-方法的实现"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">4.fling()方法的实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-computeScrollOffset-方法中-FLING-MODE-的实现"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">5.computeScrollOffset() 方法中 FLING_MODE 的实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-OverScroller解析"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. OverScroller解析</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Scroller源码解析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Scroller源码解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:58:31" datetime="2017-07-26T11:58:31.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<blockquote>
+<p>本文分析版本: <strong>Android API 22</strong></p>
+</blockquote>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p><code>Android</code>开发中，如果我们希望使一个<code>View</code>滑动的话，除了使用属性动画外。我们还可以使用系统提供给我们的两个类<code>Scroller</code>和<code>OverScroller</code>用来实现弹性滑动。在我以前的一篇<a href="http://www.jianshu.com/p/07d717ef0b28" target="_blank" rel="external">ViewDragHelper源码分析</a>中我们有讲到过<code>Scroller</code>的作用。那么我们今天就来仔细分析一下<code>Scroller</code>的使用方法以及实现方式。</p>
+<h2 id="2-使用方法"><a href="#2-使用方法" class="headerlink" title="2. 使用方法"></a>2. 使用方法</h2><p>在看<code>Scroller</code>的使用方法之前我们需要先了解一下<code>View</code>中的<code>scrollBy()</code>和<code>scrollTo()</code>方法，<code>scrollTo()</code>方法的实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollTo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line"> 	<span class="comment">//如果当前偏移量变化</span></div><div class="line">     <span class="keyword">if</span> (mScrollX != x || mScrollY != y) &#123;</div><div class="line">         <span class="keyword">int</span> oldX = mScrollX;</div><div class="line">         <span class="keyword">int</span> oldY = mScrollY;</div><div class="line"><span class="comment">//赋值偏移量</span></div><div class="line">         mScrollX = x;</div><div class="line">         mScrollY = y;</div><div class="line">         invalidateParentCaches();</div><div class="line">         <span class="comment">//回调onScrollChanged方法</span></div><div class="line">         onScrollChanged(mScrollX, mScrollY, oldX, oldY);</div><div class="line">         <span class="keyword">if</span> (!awakenScrollBars()) &#123;</div><div class="line">             postInvalidateOnAnimation();</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p><code>scrollTo()</code>是指将当前视图内容横向偏移<code>x</code>距离，纵向偏移<code>y</code>距离。注意这里是<code>View</code>的内容的偏移，而不是<code>View</code>本身。而<code>scrollBy()</code>方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scrollBy</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">    scrollTo(mScrollX + x, mScrollY + y);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>scrollBy()</code>方法里直接调用了<code>scrollTo()</code>方法，表示在当前偏移量的基础上继续偏移<code>(x,y)</code>。现在我们来看看<code>Scroller</code>的用法。<a href="https://github.com/Skykai521/SkyScrollerDemo">SkyScrollerDemo</a>是我写的一个<code>Scroller</code>和<code>OverScroller</code>的使用<code>demo</code>。下面的用法都是来自于这个<code>demo</code>里，大家可以<code>clone</code>下来配合本文一起阅读。本文我们主要研究<code>Scroller</code>。对于<code>OverScroller</code>我在<code>demo</code>里也写了相关的使用方法，在本文的最后我们再做讨论。</p>
+<p><code>Scroller</code>一般需要配合重写<code>computeScroll()</code>一起使用，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScrollTextView</span> <span class="keyword">extends</span> <span class="title">TextView</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Context mContext;</div><div class="line">    <span class="keyword">private</span> Scroller mScroller;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScrollTextView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">        <span class="keyword">this</span>.mContext = context;</div><div class="line">        init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        mScroller = <span class="keyword">new</span> Scroller(mContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">computeScroll</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mScroller.computeScrollOffset()) &#123;</div><div class="line">            offsetLeftAndRight(mScroller.getCurrX() - mLeft);</div><div class="line">            offsetTopAndBottom(mScroller.getCurrY() - mTop);</div><div class="line">            invalidate();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//以mLeft,mTop为初始点，在DEFAULT_DURATION的时间内，在Y轴上滑动-400的偏移量</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScrollerScroll</span><span class="params">()</span> </span>&#123;</div><div class="line">        mScroller.startScroll(mLeft, mTop, <span class="number">0</span>, -<span class="number">400</span>, DEFAULT_DURATION);</div><div class="line">        invalidate();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//以mLeft,mTop为初始点，并以Y方向上-5000的加速度滑动，最小Y坐标为200，最大Y坐标为1200</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScrollerFling</span><span class="params">()</span> </span>&#123;</div><div class="line">        mScroller.fling(mLeft, mTop, <span class="number">0</span>, -<span class="number">5000</span>, mLeft, mLeft, <span class="number">200</span>, <span class="number">1200</span>);</div><div class="line">        invalidate();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在上面的代码里，当我们调用<code>startScrollerScroll()</code>与<code>startScrollerFling()</code>方法时我们就发现<code>View</code>滑动了。如果以前没了解过<code>Scroller</code>的同学可能会不理解。这里大致分析一下调用流程，首先我们要知道<code>Scroller</code>其实只负责计算，它并不负责滑动<code>View</code>，当我们调用了<code>Scroller</code>的<code>startScrollerScroll()</code>方法时，我们紧接着调用了<code>invalidate()</code>方法。<code>invalidate()</code>方法会使<code>View</code>重新绘制。因此会调用<code>View</code>的<code>draw()</code>方法，在<code>View</code>的<code>draw()</code>方法中又会去调用<code>computeScroll()</code>方法，<code>computeScroll()</code>方法在<code>View</code>中是一个空实现，所以需要我们自己实现<code>computeScroll()</code>方法。在上面的<code>computeScroll()</code>方法中，我们调用了<code>mScroller.computeScrollOffset()</code>方法来计算当前滑动的偏移量。如果还在滑动过程中就会返回<code>true</code>。所以我们就能在<code>if</code>中通过<code>Scroller</code>拿到当前的滑动坐标从而做任何我们想做的处理。在<code>demo</code>里我们根据滑动的偏移量来改变了<code>View</code>的坐标偏移量。从而形成了滑动动画。下面我们解释一下<code>Scroller</code>的两个方法的具体作用：</p>
+<h3 id="1-startScroll-int-startX-int-startY-int-dx-int-dy-int-duration"><a href="#1-startScroll-int-startX-int-startY-int-dx-int-dy-int-duration" class="headerlink" title="1.startScroll(int startX, int startY, int dx, int dy, int duration):"></a>1.startScroll(int startX, int startY, int dx, int dy, int duration):</h3><p>通过起始点、偏移的距离和滑动的时间来开始滑动。</p>
+<ul>
+<li>startX 起始滑动点的X坐标</li>
+<li>startY 起始滑动点的Y坐标</li>
+<li>dx 滑动的水平偏移量。&gt;0 则表示往左滑动。</li>
+<li>dy 滑动的垂直偏移量。&gt;0 则表示往上滑动。</li>
+<li>duration 滑动执行的时间</li>
+</ul>
+<h3 id="2-fling-int-startX-int-startY-int-velocityX-int-velocityY-int-minX-int-maxX-int-minY-int-maxY"><a href="#2-fling-int-startX-int-startY-int-velocityX-int-velocityY-int-minX-int-maxX-int-minY-int-maxY" class="headerlink" title="2.fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) :"></a>2.fling(int startX, int startY, int velocityX, int velocityY, int minX, int maxX, int minY, int maxY) :</h3><p>基于一个快速滑动手势下的滑动。滑动的距离与这个手势最初的加速度有关。</p>
+<ul>
+<li>startX 起始滑动点的X坐标</li>
+<li>startY 起始滑动点的Y坐标</li>
+<li>velocityX X方向上的加速度</li>
+<li>velocityY Y方向上的加速度</li>
+<li>minX X方向上滑动的最小值，不会滑动超过这个点</li>
+<li>maxX X方向上滑动的最大值，不会滑动超过这个点</li>
+<li>minY Y方向上滑动的最小值，不会滑动超过这个点</li>
+<li>maxY Y方向上滑动的最大值，不会滑动超过这个点</li>
+</ul>
+<h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3. 源码分析"></a>3. 源码分析</h2><p>我们依然通过调用流程来分析<code>Scroller</code>的实现：</p>
+<h3 id="1-构造方法"><a href="#1-构造方法" class="headerlink" title="1.构造方法"></a>1.构造方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Scroller</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Scroller</span><span class="params">(Context context, Interpolator interpolator)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>(context, interpolator,</div><div class="line">            context.getApplicationInfo().targetSdkVersion &gt;= Build.VERSION_CODES.HONEYCOMB);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Scroller</span><span class="params">(Context context, Interpolator interpolator, <span class="keyword">boolean</span> flywheel)</span> </span>&#123;</div><div class="line">    mFinished = <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">if</span> (interpolator == <span class="keyword">null</span>) &#123;</div><div class="line">        mInterpolator = <span class="keyword">new</span> ViscousFluidInterpolator();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        mInterpolator = interpolator;</div><div class="line">    &#125;</div><div class="line">    mPpi = context.getResources().getDisplayMetrics().density * <span class="number">160.0f</span>;</div><div class="line">    mDeceleration = computeDeceleration(ViewConfiguration.getScrollFriction());</div><div class="line">    mFlywheel = flywheel;</div><div class="line"></div><div class="line">    mPhysicalCoeff = computeDeceleration(<span class="number">0.84f</span>); <span class="comment">// look and feel tuning</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最终都会调用最后一个构造方法。必须传入<code>Context</code>对象。可以传入自定义的<code>interpolator</code>和是否支持飞轮<code>flywheel</code>的功能，当然这两个并不是必须的。如果不传入<code>interpolator</code>会默认创建一个<code>ViscousFluidInterpolator</code>，从字面意义上看是一个粘性流体插值器。对于<code>flywheel</code>是指是否支持在滑动过程中，如果有新的<code>fling()</code>方法调用是否累加加速度。如果不传默认在2.3以上都会支持。剩下就是初始化了一些用于计算的参数。这样就完成了<code>Scroller</code>的初始化了。下面我们来看看<code>startScroll()</code>方法的实现：</p>
+<h3 id="2-startScroll-方法的实现"><a href="#2-startScroll-方法的实现" class="headerlink" title="2.startScroll()方法的实现"></a>2.startScroll()方法的实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScroll</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span> duration)</span> </span>&#123;</div><div class="line">  <span class="comment">// mMode 分两种方式 1.滑动:SCROLL_MODE 2. 加速度滑动:FLING_MODE</span></div><div class="line">  mMode = SCROLL_MODE;</div><div class="line">  <span class="comment">// 是否滑动结束 这里是开始所以设置为false</span></div><div class="line">  mFinished = <span class="keyword">false</span>;</div><div class="line">  <span class="comment">// 滑动的时间</span></div><div class="line">  mDuration = duration;</div><div class="line">  <span class="comment">// 开始的时间</span></div><div class="line">  mStartTime = AnimationUtils.currentAnimationTimeMillis();</div><div class="line">  <span class="comment">// 开始滑动点的X坐标</span></div><div class="line">  mStartX = startX;</div><div class="line">  <span class="comment">// 开始滑动点的Y坐标</span></div><div class="line">  mStartY = startY;</div><div class="line">  <span class="comment">// 最终滑动到位置的X坐标</span></div><div class="line">  mFinalX = startX + dx;</div><div class="line">  <span class="comment">// 最终滑动到位置的Y坐标</span></div><div class="line">  mFinalY = startY + dy;</div><div class="line">  <span class="comment">// X方向上滑动的偏移量</span></div><div class="line">  mDeltaX = dx;</div><div class="line">  <span class="comment">// Y方向上滑动的偏移量</span></div><div class="line">  mDeltaY = dy;</div><div class="line">  <span class="comment">// 持续时间的倒数 最终用来计算得到插值器返回的值</span></div><div class="line">  mDurationReciprocal = <span class="number">1.0f</span> / (<span class="keyword">float</span>) mDuration;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很简单只是一些变量的赋值。根据我们前面使用方法里的分析，最终会调用<code>computeScrollOffset()</code>方法：</p>
+<h3 id="3-computeScrollOffset-方法中-SCROLL-MODE-的实现"><a href="#3-computeScrollOffset-方法中-SCROLL-MODE-的实现" class="headerlink" title="3.computeScrollOffset() 方法中 SCROLL_MODE 的实现"></a>3.computeScrollOffset() 方法中 SCROLL_MODE 的实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 当你需要知道新的位置的时候调用这个方法，如果动画还未结束则返回true</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">computeScrollOffset</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//如果已经结束 则直接返回false</span></div><div class="line">    <span class="keyword">if</span> (mFinished) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//得到以及度过的时间</span></div><div class="line">    <span class="keyword">int</span> timePassed = (<span class="keyword">int</span>)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);</div><div class="line"></div><div class="line">    <span class="comment">//如果还在动画时间内</span></div><div class="line">    <span class="keyword">if</span> (timePassed &lt; mDuration) &#123;</div><div class="line">        <span class="keyword">switch</span> (mMode) &#123;</div><div class="line">            <span class="keyword">case</span> SCROLL_MODE:</div><div class="line">                <span class="comment">// 根据timePassed * mDurationReciprocal,从mInterpolator中取出当前需要偏移量的比例</span></div><div class="line">                <span class="keyword">final</span> <span class="keyword">float</span> x = mInterpolator.getInterpolation(timePassed * mDurationReciprocal);</div><div class="line">                <span class="comment">// 赋值给 mCurrX，mCurrY</span></div><div class="line">                mCurrX = mStartX + Math.round(x * mDeltaX);</div><div class="line">                mCurrY = mStartY + Math.round(x * mDeltaY);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> FLING_MODE:</div><div class="line">                ...</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        mCurrX = mFinalX;</div><div class="line">        mCurrY = mFinalY;</div><div class="line">        mFinished = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先的到当前时间与滑动开始时间的时间差，如果还在滑动时间内则通过插值器获得当前的进度并乘以总偏移量并赋值给<code>mCurrX</code>，<code>mCurrY</code>。如果已经结束则直接将<code>mFinalX</code>和<code>mFinalY</code>赋值并将<code>mFinished</code>设置为<code>true</code>。所以这样我们就能通过<code>getCurrX()</code>和<code>getCurrY()</code>来得到对应的<code>mCurrX</code>和<code>mCurrY</code>来做相应的处理了。整个<code>Scroll</code>的过程就是这样了。</p>
+<h3 id="4-fling-方法的实现"><a href="#4-fling-方法的实现" class="headerlink" title="4.fling()方法的实现"></a>4.fling()方法的实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fling</span><span class="params">(<span class="keyword">int</span> startX, <span class="keyword">int</span> startY, <span class="keyword">int</span> velocityX, <span class="keyword">int</span> velocityY,</span></span></div><div class="line"><span class="function"><span class="params">                  <span class="keyword">int</span> minX, <span class="keyword">int</span> maxX, <span class="keyword">int</span> minY, <span class="keyword">int</span> maxY)</span> </span>&#123;</div><div class="line">    <span class="comment">// 如果前一次滑动还未结束，又调用了新的fling()方法时，</span></div><div class="line">    <span class="comment">// 则累加相同方向上加速度</span></div><div class="line">    <span class="keyword">if</span> (mFlywheel &amp;&amp; !mFinished) &#123;</div><div class="line">        <span class="keyword">float</span> oldVel = getCurrVelocity();</div><div class="line"></div><div class="line">        <span class="keyword">float</span> dx = (<span class="keyword">float</span>) (mFinalX - mStartX);</div><div class="line">        <span class="keyword">float</span> dy = (<span class="keyword">float</span>) (mFinalY - mStartY);</div><div class="line">        <span class="keyword">float</span> hyp = FloatMath.sqrt(dx * dx + dy * dy);</div><div class="line"></div><div class="line">        <span class="keyword">float</span> ndx = dx / hyp;</div><div class="line">        <span class="keyword">float</span> ndy = dy / hyp;</div><div class="line"></div><div class="line">        <span class="keyword">float</span> oldVelocityX = ndx * oldVel;</div><div class="line">        <span class="keyword">float</span> oldVelocityY = ndy * oldVel;</div><div class="line">        <span class="keyword">if</span> (Math.signum(velocityX) == Math.signum(oldVelocityX) &amp;&amp;</div><div class="line">                Math.signum(velocityY) == Math.signum(oldVelocityY)) &#123;</div><div class="line">            velocityX += oldVelocityX;</div><div class="line">            velocityY += oldVelocityY;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//设置为FLING_MODE</span></div><div class="line">    mMode = FLING_MODE;</div><div class="line">    mFinished = <span class="keyword">false</span>;</div><div class="line">    <span class="comment">//根据勾股定理获得总加速度</span></div><div class="line">    <span class="keyword">float</span> velocity = FloatMath.sqrt(velocityX * velocityX + velocityY * velocityY);</div><div class="line"></div><div class="line">    mVelocity = velocity;</div><div class="line">    <span class="comment">// 通过加速度得到滑动持续时间</span></div><div class="line">    mDuration = getSplineFlingDuration(velocity);</div><div class="line">    mStartTime = AnimationUtils.currentAnimationTimeMillis();</div><div class="line">    mStartX = startX;</div><div class="line">    mStartY = startY;</div><div class="line"></div><div class="line">    <span class="keyword">float</span> coeffX = velocity == <span class="number">0</span> ? <span class="number">1.0f</span> : velocityX / velocity;</div><div class="line">    <span class="keyword">float</span> coeffY = velocity == <span class="number">0</span> ? <span class="number">1.0f</span> : velocityY / velocity;</div><div class="line"></div><div class="line">    <span class="keyword">double</span> totalDistance = getSplineFlingDistance(velocity);</div><div class="line">    mDistance = (<span class="keyword">int</span>) (totalDistance * Math.signum(velocity));</div><div class="line"></div><div class="line">    mMinX = minX;</div><div class="line">    mMaxX = maxX;</div><div class="line">    mMinY = minY;</div><div class="line">    mMaxY = maxY;</div><div class="line"></div><div class="line">    mFinalX = startX + (<span class="keyword">int</span>) Math.round(totalDistance * coeffX);</div><div class="line">    <span class="comment">// Pin to mMinX &lt;= mFinalX &lt;= mMaxX</span></div><div class="line">    mFinalX = Math.min(mFinalX, mMaxX);</div><div class="line">    mFinalX = Math.max(mFinalX, mMinX);</div><div class="line"></div><div class="line">    mFinalY = startY + (<span class="keyword">int</span>) Math.round(totalDistance * coeffY);</div><div class="line">    <span class="comment">// Pin to mMinY &lt;= mFinalY &lt;= mMaxY</span></div><div class="line">    mFinalY = Math.min(mFinalY, mMaxY);</div><div class="line">    mFinalY = Math.max(mFinalY, mMinY);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>依然是为计算需要的各种变量赋值。因为引入了加速度的概念所以变得相对复杂，首先先判断了如果一次滑动未结束又触发另一次滑动时，是否需要累加加速度。然后是设置<code>mMode</code>为<code>FLING_MODE</code>。然后根据<code>velocityX</code>和<code>velocityY</code>算出总的加速度<code>velocity</code>，紧接着算出这个加速度下可以滑动的距离<code>mDistance</code>。最后再通过<code>x</code>或<code>y</code>方向上的加速度比值以及我们设定的最大值和最小值来给<code>mFinalX</code>或<code>mFinalY</code>赋值。赋值结束后，通过调用<code>invalidate()</code>，最终依然会调用<code>computeScrollOffset()</code>方法：</p>
+<h3 id="5-computeScrollOffset-方法中-FLING-MODE-的实现"><a href="#5-computeScrollOffset-方法中-FLING-MODE-的实现" class="headerlink" title="5.computeScrollOffset() 方法中 FLING_MODE 的实现"></a>5.computeScrollOffset() 方法中 FLING_MODE 的实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">computeScrollOffset</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mFinished) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> timePassed = (<span class="keyword">int</span>)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (timePassed &lt; mDuration) &#123;</div><div class="line">        <span class="keyword">switch</span> (mMode) &#123;</div><div class="line">            <span class="keyword">case</span> SCROLL_MODE:</div><div class="line">                ...</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> FLING_MODE:</div><div class="line">                <span class="comment">// 当前已滑动的时间与总滑动时间的比值</span></div><div class="line">                <span class="keyword">final</span> <span class="keyword">float</span> t = (<span class="keyword">float</span>) timePassed / mDuration;</div><div class="line">                <span class="keyword">final</span> <span class="keyword">int</span> index = (<span class="keyword">int</span>) (NB_SAMPLES * t);</div><div class="line">                <span class="comment">// 距离系数</span></div><div class="line">                <span class="keyword">float</span> distanceCoef = <span class="number">1</span>.f;</div><div class="line">                <span class="comment">// 加速度系数</span></div><div class="line">                <span class="keyword">float</span> velocityCoef = <span class="number">0</span>.f;</div><div class="line">                <span class="keyword">if</span> (index &lt; NB_SAMPLES) &#123;</div><div class="line">                    <span class="keyword">final</span> <span class="keyword">float</span> t_inf = (<span class="keyword">float</span>) index / NB_SAMPLES;</div><div class="line">                    <span class="keyword">final</span> <span class="keyword">float</span> t_sup = (<span class="keyword">float</span>) (index + <span class="number">1</span>) / NB_SAMPLES;</div><div class="line">                    <span class="keyword">final</span> <span class="keyword">float</span> d_inf = SPLINE_POSITION[index];</div><div class="line">                    <span class="keyword">final</span> <span class="keyword">float</span> d_sup = SPLINE_POSITION[index + <span class="number">1</span>];</div><div class="line">                    velocityCoef = (d_sup - d_inf) / (t_sup - t_inf);</div><div class="line">                    distanceCoef = d_inf + (t - t_inf) * velocityCoef;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="comment">// 计算出当前的加速度</span></div><div class="line">                mCurrVelocity = velocityCoef * mDistance / mDuration * <span class="number">1000.0f</span>;</div><div class="line">                <span class="comment">// 计算出当前的mCurrX 与mCurrY</span></div><div class="line">                mCurrX = mStartX + Math.round(distanceCoef * (mFinalX - mStartX));</div><div class="line">                <span class="comment">// Pin to mMinX &lt;= mCurrX &lt;= mMaxX</span></div><div class="line">                mCurrX = Math.min(mCurrX, mMaxX);</div><div class="line">                mCurrX = Math.max(mCurrX, mMinX);</div><div class="line"></div><div class="line">                mCurrY = mStartY + Math.round(distanceCoef * (mFinalY - mStartY));</div><div class="line">                <span class="comment">// Pin to mMinY &lt;= mCurrY &lt;= mMaxY</span></div><div class="line">                mCurrY = Math.min(mCurrY, mMaxY);</div><div class="line">                mCurrY = Math.max(mCurrY, mMinY);</div><div class="line"></div><div class="line">                <span class="comment">// 如果到达了终点 则结束</span></div><div class="line">                <span class="keyword">if</span> (mCurrX == mFinalX &amp;&amp; mCurrY == mFinalY) &#123;</div><div class="line">                    mFinished = <span class="keyword">true</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        mCurrX = mFinalX;</div><div class="line">        mCurrY = mFinalY;</div><div class="line">        mFinished = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于<code>fling()</code>方法中将<code>mMode</code>赋值为<code>FLING_MODE</code>。所以我们直接来看<code>FLING_MODE</code>中的代码。可以看出根据当前滑动时间与总滑动时间的比例。再根据一个<code>SPLINE_POSITION</code>数组计算出了距离系数<code>distanceCoef</code>与加速度系数<code>velocityCoef</code>。再根据这两个系数计算出当前加速度与当前的<code>mCurrX</code>与<code>mCurrY</code>。关于<code>SPLINE_POSITION</code>的初始化是在下面的静态代码块里赋值的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> &#123;</div><div class="line">    <span class="keyword">float</span> x_min = <span class="number">0.0f</span>;</div><div class="line">    <span class="keyword">float</span> y_min = <span class="number">0.0f</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; NB_SAMPLES; i++) &#123;</div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> alpha = (<span class="keyword">float</span>) i / NB_SAMPLES;</div><div class="line"></div><div class="line">        <span class="keyword">float</span> x_max = <span class="number">1.0f</span>;</div><div class="line">        <span class="keyword">float</span> x, tx, coef;</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            x = x_min + (x_max - x_min) / <span class="number">2.0f</span>;</div><div class="line">            coef = <span class="number">3.0f</span> * x * (<span class="number">1.0f</span> - x);</div><div class="line">            tx = coef * ((<span class="number">1.0f</span> - x) * P1 + x * P2) + x * x * x;</div><div class="line">            <span class="keyword">if</span> (Math.abs(tx - alpha) &lt; <span class="number">1E-5</span>) <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">if</span> (tx &gt; alpha) x_max = x;</div><div class="line">            <span class="keyword">else</span> x_min = x;</div><div class="line">        &#125;</div><div class="line">        SPLINE_POSITION[i] = coef * ((<span class="number">1.0f</span> - x) * START_TENSION + x) + x * x * x;</div><div class="line"></div><div class="line">        <span class="keyword">float</span> y_max = <span class="number">1.0f</span>;</div><div class="line">        <span class="keyword">float</span> y, dy;</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            y = y_min + (y_max - y_min) / <span class="number">2.0f</span>;</div><div class="line">            coef = <span class="number">3.0f</span> * y * (<span class="number">1.0f</span> - y);</div><div class="line">            dy = coef * ((<span class="number">1.0f</span> - y) * START_TENSION + y) + y * y * y;</div><div class="line">            <span class="keyword">if</span> (Math.abs(dy - alpha) &lt; <span class="number">1E-5</span>) <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">if</span> (dy &gt; alpha) y_max = y;</div><div class="line">            <span class="keyword">else</span> y_min = y;</div><div class="line">        &#125;</div><div class="line">        SPLINE_TIME[i] = coef * ((<span class="number">1.0f</span> - y) * P1 + y * P2) + y * y * y;</div><div class="line">    &#125;</div><div class="line">    SPLINE_POSITION[NB_SAMPLES] = SPLINE_TIME[NB_SAMPLES] = <span class="number">1.0f</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我并没有看懂这段代码的实际意义。网上也没有找到比较清晰的解释。通过<code>debug</code>得知<code>SPLINE_POSITION</code>是一个长度为<code>101</code>并且从<code>0-1</code>递增数组。猜想这应该是一个函数模型并且最终用于计算出滑动过程中的加速度与位置。至此<code>Scroller</code>的两个主要方法的实现我们就分析完了。</p>
+<h2 id="4-OverScroller解析"><a href="#4-OverScroller解析" class="headerlink" title="4. OverScroller解析"></a>4. OverScroller解析</h2><p><code>OverScroller</code>是对<code>Scroller</code>的拓展，它在<code>Scroller</code>的基础上拓展出了更多的方法。<code>OverScroller</code>的<code>fling</code>方法支持滑动到终点之后并超出一段距离并返回，类似于弹性效果。另外一个<code>springBack()</code>方法是指将指定的点平滑滚动到指定的终点上。这个终点由设置的参数决定。原理我们就不再探究了，大家可以自行研究这两个类的差别。最后具体的使用方法在文章最上面的<code>demo</code>里都有提供。可以<code>clone</code>下来帮助理解。</p>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T11:58:54.000Z" itemprop="dateUpdated">2017-07-26 19:58:54</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&title=《Scroller源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&title=《Scroller源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Scroller源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/SearchView源码解析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SearchView源码解析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/LruCache源码解析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">LruCache源码解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&title=《Scroller源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&title=《Scroller源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Scroller源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/Scroller源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACG0lEQVR42u3a227CQAwFQP7/p+lrpQp6bG+p4kyeUAiJJ0ir9eXxiI/nt+Pn+d6Z/PyxAwMD47KM59vjZyivPr+///snvro+iQ0DA+M+jPePT2BJcNVvk9gwMDAwqkHkweXPxcDAwDh1u2pSmlyPgYGBUU1iT4X1z7k4BgbGBRl51f3zn/+kv4GBgXEpxnNwTN5cvqGMIsHAwFjNqC6Cp9LRauhRiouBgXFLxjw1TV5EkpRG6SsGBsZqxiStrZbDystosWGAgYGxmzEZ50rK+r0hjGpzAgMDYx+j2qrMm5FnC3O/3AcDA2M1o1eOTwa2kldTLfOVt4YYGBiLGNUyVg9ZbTmURzEwMDBWMyYpaG9177Uiyv8MBgbGCsakeVkNMS/YlV8ZBgbGaka1GTlJZZv9iqC0h4GBcTdGNSustjZ7KeuxchsGBsbFGWeT2N7yPWpnYmBgLGVUS/n5UjsvuuUYDAyMOzDmrcf8V/mZA9NtGBgYKxjVxe7APjRIkpNyGwYGxn0Y1fZhPsGRF+/moxgYGBi7GUn5bF7WnwxbFJAYGBhLGWcL+qfuVi3nYWBg7Gb0UtPeWFg02nVo64mBgbGPMV8W50Mb+SjYL0U3DAyM1YzJMMT82+qwxctcHAMD4/aMPKXMF81eujtacDEwMFYzeglnvnHEwMDA+EwS2xyVaA1bFLocGBgYF2f0UsdeuNUrk+0pBgbGasYXYsjWLPu2ZigAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

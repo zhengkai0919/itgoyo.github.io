@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/LruCache源码解析.html">
+    
+    
+    <title>LruCache源码解析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 1. 简介 LRU 是 Least Recently Used 最近最少使用算法。 曾经，在各大缓存图片的框架没流行的时候。有一种很常用的内存缓存技术：SoftReference 和 WeakReference（软">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LruCache源码解析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/LruCache源码解析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 1. 简介 LRU 是 Least Recently Used 最近最少使用算法。 曾经，在各大缓存图片的框架没流行的时候。有一种很常用的内存缓存技术：SoftReference 和 WeakReference（软">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006lPEc9jw1f36m59c4tgj31kw2c7tgn.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006lPEc9jw1f36m68rkisj31kw1eswnd.jpg">
+<meta property="og:image" content="https://github.com/itgoyo/2017/07/26/images/lrucache.png">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T11:58:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LruCache源码解析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 1. 简介 LRU 是 Least Recently Used 最近最少使用算法。 曾经，在各大缓存图片的框架没流行的时候。有一种很常用的内存缓存技术：SoftReference 和 WeakReference（软">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">LruCache源码解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">LruCache源码解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:57:39.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-使用方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 使用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-效果展示"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. 效果展示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-源码分析"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. 源码分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-1-LruCache-原理概要解析"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">4.1 LruCache 原理概要解析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-LruCache-的唯一构造方法"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">4.2 LruCache 的唯一构造方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-3-LruCache-get-K-key"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">4.3 LruCache.get(K key)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-4-LinkedHashMap-get-Object-key"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">4.4 LinkedHashMap.get(Object key)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-5-LinkedHashMap-makeTail-LinkedEntry-lt-K-V-gt-e"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">4.5 LinkedHashMap.makeTail(LinkedEntry<K, V> e)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-6-LruCache-put-K-key-V-value"><span class="post-toc-number">4.6.</span> <span class="post-toc-text">4.6 LruCache.put(K key, V value)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-7-LruCache-trimToSize-int-maxSize"><span class="post-toc-number">4.7.</span> <span class="post-toc-text">4.7 LruCache.trimToSize(int maxSize)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-8-覆写-entryRemoved-的作用"><span class="post-toc-number">4.8.</span> <span class="post-toc-text">4.8 覆写 entryRemoved 的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-9-LruCache-局部同步锁"><span class="post-toc-number">4.9.</span> <span class="post-toc-text">4.9 LruCache 局部同步锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-开源项目中的使用"><span class="post-toc-number">5.</span> <span class="post-toc-text">5. 开源项目中的使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-总结"><span class="post-toc-number">6.</span> <span class="post-toc-text">6. 总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#7-资源"><span class="post-toc-number">7.</span> <span class="post-toc-text">7. 资源</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-LruCache源码解析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">LruCache源码解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:57:39" datetime="2017-07-26T11:57:39.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><blockquote>
+<p>LRU 是 Least Recently Used 最近最少使用算法。</p>
+<p>曾经，在各大缓存图片的框架没流行的时候。有一种很常用的内存缓存技术：SoftReference 和 WeakReference（软引用和弱引用）。但是走到了 Android 2.3（Level 9）时代，垃圾回收机制更倾向于回收 SoftReference 或 WeakReference 的对象。后来，又来到了 Android3.0，图片缓存在内容中，因为不知道要在是什么时候释放内存，没有策略，没用一种可以预见的场合去将其释放。这就造成了内存溢出。</p>
+</blockquote>
+<h2 id="2-使用方法"><a href="#2-使用方法" class="headerlink" title="2. 使用方法"></a>2. 使用方法</h2><p><strong>当成一个 Map 用就可以了，只不过实现了 LRU 缓存策略</strong>。</p>
+<p>使用的时候记住几点即可：</p>
+<ul>
+<li><strong>1.（必填）</strong>你需要提供一个缓存容量作为构造参数。</li>
+<li><strong>2.（必填）</strong>  覆写  <code>sizeOf</code> 方法 ，自定义设计一条数据放进来的容量计算，如果不覆写就无法预知数据的容量，不能保证缓存容量限定在最大容量以内。</li>
+<li><strong>3.（选填）</strong> 覆写 <code>entryRemoved</code> 方法 ，你可以知道最少使用的缓存被清除时的数据（ evicted, key, oldValue, newVaule ）。</li>
+<li><strong>4.（记住）</strong>LruCache是线程安全的，在内部的 get、put、remove 包括 trimToSize 都是安全的（因为都上锁了）。</li>
+<li><strong>5.（选填）</strong> 还有就是覆写 <code>create</code> 方法 。</li>
+</ul>
+<p>一般做到 <strong>1、2、3、4就足够了，5可以无视</strong> 。</p>
+<p>以下是 一个 <strong>LruCache 实现 Bitmap 小缓存的案例</strong>, <code>entryRemoved</code> 里的自定义逻辑可以无视，想看的可以去到我的我的展示 <a href="https://github.com/CaMnter/AndroidLife/blob/master/app/src/main/java/com/camnter/newlife/views/activity/lrucache/LruCacheActivity.java">demo</a> 里的看自定义 <code>entryRemoved</code> 逻辑。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> ONE_MIB = <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line"><span class="comment">// 7MB</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CACHE_SIZE = (<span class="keyword">int</span>) (<span class="number">7</span> * ONE_MIB);</div><div class="line"><span class="keyword">private</span> LruCache&lt;String, Bitmap&gt; bitmapCache;</div><div class="line"><span class="keyword">this</span>.bitmapCache = <span class="keyword">new</span> LruCache&lt;String, Bitmap&gt;(CACHE_SIZE) &#123;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> value.getByteCount();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">entryRemoved</span><span class="params">(<span class="keyword">boolean</span> evicted, String key, Bitmap oldValue, Bitmap newValue)</span> </span>&#123;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h2 id="3-效果展示"><a href="#3-效果展示" class="headerlink" title="3. 效果展示"></a>3. 效果展示</h2><p><a href="https://github.com/CaMnter/AndroidLife/blob/master/article/LruCache%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90_%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA.md">LruCache 效果展示</a>  </p>
+<h2 id="4-源码分析"><a href="#4-源码分析" class="headerlink" title="4. 源码分析"></a>4. 源码分析</h2><h3 id="4-1-LruCache-原理概要解析"><a href="#4-1-LruCache-原理概要解析" class="headerlink" title="4.1 LruCache 原理概要解析"></a>4.1 LruCache 原理概要解析</h3><p>LruCache 就是 <strong>利用 LinkedHashMap 的一个特性（ accessOrder＝true 基于访问顺序 ）再加上对 LinkedHashMap 的数据操作上锁实现的缓存策略</strong>。</p>
+<p><strong>LruCache 的数据缓存是内存中的</strong>。  </p>
+<ul>
+<li><p>1.首先设置了内部 <code>LinkedHashMap</code> 构造参数 <code>accessOrder=true</code>， 实现了数据排序按照访问顺序。</p>
+</li>
+<li><p>2.然后在每次 <code>LruCache.get(K key)</code> 方法里都会调用 <code>LinkedHashMap.get(Object key)</code>。</p>
+</li>
+<li><p>3.如上述设置了 <code>accessOrder=true</code> 后，每次 <code>LinkedHashMap.get(Object key)</code> 都会进行 <code>LinkedHashMap.makeTail(LinkedEntry&amp;lt;K, V&gt; e)</code>。</p>
+</li>
+<li><p>4.<code>LinkedHashMap</code> 是双向循环链表，然后每次 <code>LruCache.get</code> -&gt; <code>LinkedHashMap.get</code> 的数据就被放到最末尾了。</p>
+</li>
+<li><p>5.在 <code>put</code> 和 <code>trimToSize</code> 的方法执行下，如果发生数据量移除，会优先移除掉最前面的数据（因为最新访问的数据在尾部）。</p>
+</li>
+</ul>
+<p><strong>具体解析在：</strong> 4.2、4.3、4.4、4.5</p>
+<h3 id="4-2-LruCache-的唯一构造方法"><a href="#4-2-LruCache-的唯一构造方法" class="headerlink" title="4.2 LruCache 的唯一构造方法"></a>4.2 LruCache 的唯一构造方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * LruCache的构造方法：需要传入最大缓存个数</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">LruCache</span><span class="params">(<span class="keyword">int</span> maxSize)</span> </span>&#123;</div><div class="line"></div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.maxSize = maxSize;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * 初始化LinkedHashMap</span></div><div class="line"><span class="comment">     * 第一个参数：initialCapacity，初始大小</span></div><div class="line"><span class="comment">     * 第二个参数：loadFactor，负载因子=0.75f</span></div><div class="line"><span class="comment">     * 第三个参数：accessOrder=true，基于访问顺序；accessOrder=false，基于插入顺序</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">this</span>.map = <span class="keyword">new</span> LinkedHashMap&lt;K, V&gt;(<span class="number">0</span>, <span class="number">0.75f</span>, <span class="keyword">true</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一个参数 <code>initialCapacity</code> 用于初始化该 LinkedHashMap 的大小。</p>
+<p>先简单介绍一下 第二个参数 <code>loadFactor</code>，这个其实的 HashMap 里的构造参数，涉及到<strong>扩容问题</strong>，比如  HashMap 的最大容量是100，那么这里设置0.75f的话，到75容量的时候就会扩容。</p>
+<p>主要是第三个参数 <code>accessOrder=true</code> ，<strong>这样的话 LinkedHashMap 数据排序就会基于数据的访问顺序，从而实现了 LruCache 核心工作原理</strong>。</p>
+<h3 id="4-3-LruCache-get-K-key"><a href="#4-3-LruCache-get-K-key" class="headerlink" title="4.3 LruCache.get(K key)"></a>4.3 LruCache.get(K key)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 根据 key 查询缓存，如果存在于缓存或者被 create 方法创建了。</span></div><div class="line"><span class="comment"> * 如果值返回了，那么它将被移动到双向循环链表的的尾部。</span></div><div class="line"><span class="comment"> * 如果没有缓存的值，则返回 null。</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">get</span><span class="params">(K key)</span> </span>&#123;</div><div class="line"></div><div class="line">    ...  </div><div class="line"></div><div class="line">    V mapValue;</div><div class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="comment">// 关键点：LinkedHashMap每次get都会基于访问顺序来重整数据顺序</span></div><div class="line">        mapValue = map.get(key);</div><div class="line">        <span class="comment">// 计算 命中次数</span></div><div class="line">        <span class="keyword">if</span> (mapValue != <span class="keyword">null</span>) &#123;</div><div class="line">            hitCount++;</div><div class="line">            <span class="keyword">return</span> mapValue;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 计算 丢失次数</span></div><div class="line">        missCount++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * 官方解释：</span></div><div class="line"><span class="comment">     * 尝试创建一个值，这可能需要很长时间，并且Map可能在create()返回的值时有所不同。如果在create()执行的时</span></div><div class="line"><span class="comment">     * 候，一个冲突的值被添加到Map，我们在Map中删除这个值，释放被创造的值。</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    V createdValue = create(key);</div><div class="line">    <span class="keyword">if</span> (createdValue == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/***************************</span></div><div class="line"><span class="comment">     * 不覆写create方法走不到下面 *</span></div><div class="line"><span class="comment">     ***************************/</span></div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * 正常情况走不到这里</span></div><div class="line"><span class="comment">     * 走到这里的话 说明 实现了自定义的 create(K key) 逻辑</span></div><div class="line"><span class="comment">     * 因为默认的 create(K key) 逻辑为null</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="comment">// 记录 create 的次数</span></div><div class="line">        createCount++;</div><div class="line">        <span class="comment">// 将自定义create创建的值，放入LinkedHashMap中，如果key已经存在，会返回 之前相同key 的值</span></div><div class="line">        mapValue = map.put(key, createdValue);</div><div class="line"></div><div class="line">        <span class="comment">// 如果之前存在相同key的value，即有冲突。</span></div><div class="line">        <span class="keyword">if</span> (mapValue != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">/*</span></div><div class="line"><span class="comment">             * 有冲突</span></div><div class="line"><span class="comment">             * 所以 撤销 刚才的 操作</span></div><div class="line"><span class="comment">             * 将 之前相同key 的值 重新放回去</span></div><div class="line"><span class="comment">             */</span></div><div class="line">            map.put(key, mapValue);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// 拿到键值对，计算出在容量中的相对长度，然后加上</span></div><div class="line">            size += safeSizeOf(key, createdValue);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 如果上面 判断出了 将要放入的值发生冲突</span></div><div class="line">    <span class="keyword">if</span> (mapValue != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">/*</span></div><div class="line"><span class="comment">         * 刚才create的值被删除了，原来的 之前相同key 的值被重新添加回去了</span></div><div class="line"><span class="comment">         * 告诉 自定义 的 entryRemoved 方法</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        entryRemoved(<span class="keyword">false</span>, key, createdValue, mapValue);</div><div class="line">        <span class="keyword">return</span> mapValue;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// 上面 进行了 size += 操作 所以这里要重整长度</span></div><div class="line">        trimToSize(maxSize);</div><div class="line">        <span class="keyword">return</span> createdValue;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述的 <code>get</code> 方法表面并没有看出哪里有实现了 LRU 的缓存策略。主要在 <code>mapValue = map.get(key)</code>;里，<strong>调用了 LinkedHashMap 的 get 方法，再加上 LruCache 构造里默认设置 LinkedHashMap 的 accessOrder=true</strong>。</p>
+<h3 id="4-4-LinkedHashMap-get-Object-key"><a href="#4-4-LinkedHashMap-get-Object-key" class="headerlink" title="4.4 LinkedHashMap.get(Object key)"></a>4.4 LinkedHashMap.get(Object key)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Returns the value of the mapping with the specified key.</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> key</span></div><div class="line"><span class="comment"> *            the key.</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> the value of the mapping with the specified key, or &#123;<span class="doctag">@code</span> null&#125;</span></div><div class="line"><span class="comment"> *         if no mapping for the specified key is found.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * This method is overridden to eliminate the need for a polymorphic</span></div><div class="line"><span class="comment">     * invocation in superclass at the expense of code duplication.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>) &#123;</div><div class="line">        HashMapEntry&lt;K, V&gt; e = entryForNullKey;</div><div class="line">        <span class="keyword">if</span> (e == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span> (accessOrder)</div><div class="line">            makeTail((LinkedEntry&lt;K, V&gt;) e);</div><div class="line">        <span class="keyword">return</span> e.value;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> hash = Collections.secondaryHash(key);</div><div class="line">    HashMapEntry&lt;K, V&gt;[] tab = table;</div><div class="line">    <span class="keyword">for</span> (HashMapEntry&lt;K, V&gt; e = tab[hash &amp; (tab.length - <span class="number">1</span>)];</div><div class="line">         e != <span class="keyword">null</span>; e = e.next) &#123;</div><div class="line">        K eKey = e.key;</div><div class="line">        <span class="keyword">if</span> (eKey == key || (e.hash == hash &amp;&amp; key.equals(eKey))) &#123;</div><div class="line">            <span class="keyword">if</span> (accessOrder)</div><div class="line">                makeTail((LinkedEntry&lt;K, V&gt;) e);</div><div class="line">            <span class="keyword">return</span> e.value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实仔细看 <code>if (accessOrder)</code> 的逻辑即可，如果  <code>accessOrder=true</code> 那么每次 <code>get</code> 都会执行 N 次  <code>makeTail(LinkedEntry&amp;lt;K, V&gt; e)</code> 。</p>
+<p>接下来看看：</p>
+<h3 id="4-5-LinkedHashMap-makeTail-LinkedEntry-lt-K-V-gt-e"><a href="#4-5-LinkedHashMap-makeTail-LinkedEntry-lt-K-V-gt-e" class="headerlink" title="4.5 LinkedHashMap.makeTail(LinkedEntry&lt;K, V&gt; e)"></a>4.5 LinkedHashMap.makeTail(LinkedEntry&lt;K, V&gt; e)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Relinks the given entry to the tail of the list. Under access ordering,</span></div><div class="line"><span class="comment"> * this method is invoked whenever the value of a  pre-existing entry is</span></div><div class="line"><span class="comment"> * read by Map.get or modified by Map.put.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">makeTail</span><span class="params">(LinkedEntry&lt;K, V&gt; e)</span> </span>&#123;</div><div class="line">    <span class="comment">// Unlink e</span></div><div class="line">    e.prv.nxt = e.nxt;</div><div class="line">    e.nxt.prv = e.prv;</div><div class="line"></div><div class="line">    <span class="comment">// Relink e as tail</span></div><div class="line">    LinkedEntry&lt;K, V&gt; header = <span class="keyword">this</span>.header;</div><div class="line">    LinkedEntry&lt;K, V&gt; oldTail = header.prv;</div><div class="line">    e.nxt = header;</div><div class="line">    e.prv = oldTail;</div><div class="line">    oldTail.nxt = header.prv = e;</div><div class="line">    modCount++;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// Unlink e</p>
+<p><img src="http://ww2.sinaimg.cn/large/006lPEc9jw1f36m59c4tgj31kw2c7tgn.jpg" width="500x">  </p>
+<p>// Relink e as tail</p>
+<p><img src="http://ww3.sinaimg.cn/large/006lPEc9jw1f36m68rkisj31kw1eswnd.jpg" width="500x">  </p>
+<p><img src="images/lrucache.png" alt=""></p>
+<p>LinkedHashMap 是双向循环链表，然后此次 <strong>LruCache.get -&gt; LinkedHashMap.get</strong> 的数据就被放到最末尾了。</p>
+<p><strong>以上就是 LruCache 核心工作原理</strong>。</p>
+<p>接下来介绍 <strong>LruCache 的容量溢出策略</strong>。</p>
+<h3 id="4-6-LruCache-put-K-key-V-value"><a href="#4-6-LruCache-put-K-key-V-value" class="headerlink" title="4.6 LruCache.put(K key, V value)"></a>4.6 LruCache.put(K key, V value)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">        ...</div><div class="line">        <span class="comment">// 拿到键值对，计算出在容量中的相对长度，然后加上</span></div><div class="line">        size += safeSizeOf(key, value);</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">	...</div><div class="line">    trimToSize(maxSize);</div><div class="line">    <span class="keyword">return</span> previous;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>记住几点：</p>
+<ul>
+<li><strong>1.</strong>put 开始的时候确实是把值放入 LinkedHashMap 了，<strong>不管超不超过你设定的缓存容量</strong>。</li>
+<li><strong>2.</strong>然后根据 <code>safeSizeOf</code> 方法计算 此次添加数据的容量是多少，并且加到 <code>size</code> 里 。</li>
+<li><strong>3.</strong>说到 <code>safeSizeOf</code> 就要讲到 <code>sizeOf(K key, V value)</code> 会计算出此次添加数据的大小 。</li>
+<li><strong>4.</strong>直到 put 要结束时，进行了 <code>trimToSize</code> 才判断 <code>size</code> 是否 大于 <code>maxSize</code> 然后进行最近很少访问数据的移除。</li>
+</ul>
+<h3 id="4-7-LruCache-trimToSize-int-maxSize"><a href="#4-7-LruCache-trimToSize-int-maxSize" class="headerlink" title="4.7 LruCache.trimToSize(int maxSize)"></a>4.7 LruCache.trimToSize(int maxSize)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">trimToSize</span><span class="params">(<span class="keyword">int</span> maxSize)</span> </span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line"><span class="comment">     * 这是一个死循环，</span></div><div class="line"><span class="comment">     * 1.只有 扩容 的情况下能立即跳出</span></div><div class="line"><span class="comment">     * 2.非扩容的情况下，map的数据会一个一个删除，直到map里没有值了，就会跳出</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">        K key;</div><div class="line">        V value;</div><div class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</div><div class="line">            <span class="comment">// 在重新调整容量大小前，本身容量就为空的话，会出异常的。</span></div><div class="line">            <span class="keyword">if</span> (size &lt; <span class="number">0</span> || (map.isEmpty() &amp;&amp; size != <span class="number">0</span>)) &#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</div><div class="line">                        getClass().getName() + <span class="string">".sizeOf() is reporting inconsistent results!"</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 如果是 扩容 或者 map为空了，就会中断，因为扩容不会涉及到丢弃数据的情况</span></div><div class="line">            <span class="keyword">if</span> (size &lt;= maxSize || map.isEmpty()) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            Map.Entry&lt;K, V&gt; toEvict = map.entrySet().iterator().next();</div><div class="line">            key = toEvict.getKey();</div><div class="line">            value = toEvict.getValue();</div><div class="line">            map.remove(key);</div><div class="line">            <span class="comment">// 拿到键值对，计算出在容量中的相对长度，然后减去。</span></div><div class="line">            size -= safeSizeOf(key, value);</div><div class="line">            <span class="comment">// 添加一次收回次数</span></div><div class="line">            evictionCount++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">/*</span></div><div class="line"><span class="comment">         * 将最后一次删除的最少访问数据回调出去</span></div><div class="line"><span class="comment">         */</span></div><div class="line">        entryRemoved(<span class="keyword">true</span>, key, value, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简单描述：会判断之前 <code>size</code> 是否大于 <code>maxSize</code> 。是的话，直接跳出后什么也不做。不是的话，证明已经溢出容量了。由 <code>makeTail</code> 图已知，最近经常访问的数据在最末尾。拿到一个存放 key 的 Set，然后一直一直从头开始删除，删一个判断是否溢出，直到没有溢出。</p>
+<p>最后看看：</p>
+<h3 id="4-8-覆写-entryRemoved-的作用"><a href="#4-8-覆写-entryRemoved-的作用" class="headerlink" title="4.8 覆写 entryRemoved 的作用"></a>4.8 覆写 entryRemoved 的作用</h3><p>entryRemoved被LruCache调用的场景：</p>
+<ul>
+<li><strong>1.（put）</strong> put 发生 key 冲突时被调用，<strong>evicted=false，key=此次 put 的 key，oldValue=被覆盖的冲突 value，newValue=此次 put 的 value</strong>。</li>
+<li><strong>2.（trimToSize）</strong> trimToSize 的时候，只会被调用一次，就是最后一次被删除的最少访问数据带回来。<strong>evicted=true，key=最后一次被删除的 key，oldValue=最后一次被删除的 value，newValue=null（此次没有冲突，只是 remove）</strong>。</li>
+<li><strong>3.（remove）</strong> remove的时候，存在对应 key，并且被成功删除后被调用。<strong>evicted=false，key=此次 put的 key，oldValue=此次删除的 value，newValue=null（此次没有冲突，只是 remove）</strong>。</li>
+<li><strong>4.（get后半段，查询丢失后处理情景，不过建议忽略）</strong> get 的时候，正常的话不实现自定义 <code>create</code> 的话，代码上看 get 方法只会走一半，如果你实现了自定义的 <code>create(K key)</code> 方法，并且在 你 create 后的值放入 LruCache 中发生 key 冲突时被调用，<strong>evicted=false，key=此次 get 的 key，oldValue=被你自定义 create(key)后的 value，newValue=原本存在 map 里的 key-value</strong>。</li>
+</ul>
+<p>解释一下第四点吧：</p>
+<ul>
+<li>第四点是这样的，先 get(key)，然后没拿到，丢失。</li>
+<li>如果你提供了 自定义的 <code>create(key)</code> 方法，那么 LruCache 会根据你的逻辑自造一个 value，但是当放入的时候发现冲突了，但是已经放入了。</li>
+<li>此时，会将那个冲突的值再让回去覆盖，此时调用上述4.的 entryRemoved。</li>
+</ul>
+<p>因为 HashMap 在数据量大情况下，拿数据可能造成丢失，导致前半段查不到，你自定义的 <code>create(key)</code> 放入的时候发现又查到了<strong>（有冲突）</strong>。然后又急忙把原来的值放回去，此时你就白白create一趟，无所作为，还要走一遍entryRemoved。</p>
+<p>综上就如同注释写的一样：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 1.当被回收或者删掉时调用。该方法当value被回收释放存储空间时被remove调用</span></div><div class="line"><span class="comment"> * 或者替换条目值时put调用，默认实现什么都没做。</span></div><div class="line"><span class="comment"> * 2.该方法没用同步调用，如果其他线程访问缓存时，该方法也会执行。</span></div><div class="line"><span class="comment"> * 3.evicted=true：如果该条目被删除空间 （表示 进行了trimToSize or remove）  evicted=false：put冲突后 或 get里成功create后</span></div><div class="line"><span class="comment"> * 导致</span></div><div class="line"><span class="comment"> * 4.newValue!=null，那么则被put()或get()调用。</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">entryRemoved</span><span class="params">(<span class="keyword">boolean</span> evicted, K key, V oldValue, V newValue)</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以参考我的 <a href="https://github.com/CaMnter/AndroidLife/blob/master/app/src/main/java/com/camnter/newlife/views/activity/lrucache/LruCacheActivity.java">demo</a> 里的 <code>entryRemoved</code> 。   </p>
+<h3 id="4-9-LruCache-局部同步锁"><a href="#4-9-LruCache-局部同步锁" class="headerlink" title="4.9 LruCache 局部同步锁"></a>4.9 LruCache 局部同步锁</h3><p>在 <code>get</code>, <code>put</code>, <code>trimToSize</code>, <code>remove</code> 四个方法里的 <code>entryRemoved</code> 方法都不在同步块里。因为 <code>entryRemoved</code> 回调的参数都属于方法域参数，不会线程不安全。</p>
+<blockquote>
+<p>本地方法栈和程序计数器是线程隔离的数据区  </p>
+</blockquote>
+<h2 id="5-开源项目中的使用"><a href="#5-开源项目中的使用" class="headerlink" title="5. 开源项目中的使用"></a>5. 开源项目中的使用</h2><p><a href="https://github.com/square/picasso">square/picasso</a></p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p>LruCache重要的几点：</p>
+<ul>
+<li><p><strong>1.</strong>LruCache 是通过 LinkedHashMap 构造方法的第三个参数的 <code>accessOrder=true</code> 实现了 <code>LinkedHashMap</code> 的数据排序<strong>基于访问顺序</strong> （最近访问的数据会在链表尾部），在容量溢出的时候，将链表头部的数据移除。从而，实现了 LRU 数据缓存机制。</p>
+</li>
+<li><p><strong>2.</strong>LruCache 在内部的get、put、remove包括 trimToSize 都是安全的（因为都上锁了）。</p>
+</li>
+<li><p><strong>3.</strong>LruCache 自身并没有释放内存，将 LinkedHashMap 的数据移除了，如果数据还在别的地方被引用了，还是有泄漏问题，还需要手动释放内存。</p>
+</li>
+<li><p><strong>4.</strong>覆写 <code>entryRemoved</code> 方法能知道 LruCache 数据移除是是否发生了冲突，也可以去手动释放资源。</p>
+</li>
+<li><p><strong>5.</strong><code>maxSize</code> 和 <code>sizeOf(K key, V value)</code> 方法的覆写息息相关，必须相同单位。（ 比如 maxSize 是7MB，自定义的 sizeOf 计算每个数据大小的时候必须能算出与MB之间有联系的单位 ）</p>
+</li>
+</ul>
+<h2 id="7-资源"><a href="#7-资源" class="headerlink" title="7. 资源"></a>7. 资源</h2><p><a href="https://github.com/CaMnter/AndroidLife/blob/master/app/src/main/java/com/camnter/newlife/views/activity/lrucache/LruCacheActivity.java">LruCacheActivity</a>    </p>
+<p><a href="https://github.com/CaMnter/AndroidLife/blob/master/app/src/main/java/com/camnter/newlife/utils/cache/LruCache.java">LruCache 注释源码</a>   </p>
+<p><a href="https://github.com/LittleFriendsGroup/AndroidSdkSourceAnalysis/blob/master/article/LruCache%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.md">原文链接</a></p>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T11:58:00.000Z" itemprop="dateUpdated">2017-07-26 19:58:00</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&title=《LruCache源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&title=《LruCache源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LruCache源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/Scroller源码解析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Scroller源码解析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/FloatingActionButton源码解析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">FloatingActionButton源码解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&title=《LruCache源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&title=《LruCache源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《LruCache源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/LruCache源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACGklEQVR42u3a0W6DMAwF0P7/T7PXSVPptQ2Tak6eJgZpDpXcOPbrFY/j1/h7vXclv37ZwMDA+FrGcTqqS3k3//mVd/9N1oaBgfEcRj5dHuvO70meTdaGgYGBUWVUl34+DwYGBkaVcVWymt+PgYGBUU1izz8mX1YeiG/JxTEwML6QkZ+6///ft9Q3MDAwvopxDMZ9L6W8EgwMjNWMahCctE3kqWl144iBgfFMxlWp6eRFJAWGQh0DAwNjEaPX8pVvH8thNC8YYGBgrGb0GiaSQmavCSOZDQMD45mMeYNFNYzOj+cwMDCew0gCYn58Nm/UqD6LgYHxNEY1ce0F63yhSdDHwMB4AqMXKJthMW6wqL4ODAyMrYykcFgtAFzVrlF4ZRgYGKsZvcA6X3T1oD8qkWJgYCxlTPaSk/avPDWNtowYGBirGb3SY962lSSo+Wax/J1gYGCsYEwO1Hqp7OSet0gMDIxHMuatXb2QPdoUYmBgLGVUF5cDrmrgKBzMYWBgLGX0Du7noblasPzwLAYGxmpGkrJW77y22aKw6cTAwFjKOIqjWqTszVZNrTEwMHYzeqlp/jFJaSH/Zegd/GFgYOxgzMPifFOYJ88fDt0wMDBWM3qBL2+P6JUEyrk4BgbG4xmTVLaX6N4ScDEwMFYz8jaIpDiawzAwMDAmSexlrRLxljGqxGJgYKxj9FLHpDwwSXHzzSgGBsZqxg/7S4Sark9awwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

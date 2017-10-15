@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/SearchView源码解析.html">
+    
+    
+    <title>SearchView源码解析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 SearchView源码解析SearchView是一个搜索框控件，样式也挺好看的。这次解析主要围绕android.support.v7.widget包下的SearchView（API &amp;gt;= 7）,androi">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SearchView源码解析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/SearchView源码解析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 SearchView源码解析SearchView是一个搜索框控件，样式也挺好看的。这次解析主要围绕android.support.v7.widget包下的SearchView（API &amp;gt;= 7）,androi">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="https://raw.githubusercontent.com/nukc/SearchViewAnalysis/master/art/searchview.mov.gif">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T12:03:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SearchView源码解析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 SearchView源码解析SearchView是一个搜索框控件，样式也挺好看的。这次解析主要围绕android.support.v7.widget包下的SearchView（API &amp;gt;= 7）,androi">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SearchView源码解析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SearchView源码解析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:59:27.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#SearchView源码解析"><span class="post-toc-number">1.</span> <span class="post-toc-text">SearchView源码解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-源码解析"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1. 源码解析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-继承关系"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">1.1 继承关系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-主要组件"><span class="post-toc-number">1.1.2.</span> <span class="post-toc-text">1.2 主要组件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-构造方法和自定义"><span class="post-toc-number">1.1.3.</span> <span class="post-toc-text">1.3 构造方法和自定义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-Listener"><span class="post-toc-number">1.1.4.</span> <span class="post-toc-text">1.4 Listener</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-5-CollapsibleActionView接口"><span class="post-toc-number">1.1.5.</span> <span class="post-toc-text">1.5 CollapsibleActionView接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-6-状态的保存和恢复"><span class="post-toc-number">1.1.6.</span> <span class="post-toc-text">1.6 状态的保存和恢复</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-7-关于Suggestions和Searchable"><span class="post-toc-number">1.1.7.</span> <span class="post-toc-text">1.7 关于Suggestions和Searchable</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-8-语音搜索功能"><span class="post-toc-number">1.1.8.</span> <span class="post-toc-text">1.8 语音搜索功能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-9-AutoCompleteTextViewReflector"><span class="post-toc-number">1.1.9.</span> <span class="post-toc-text">1.9 AutoCompleteTextViewReflector</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-10-onMeasure-测量"><span class="post-toc-number">1.1.10.</span> <span class="post-toc-text">1.10 onMeasure 测量</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-展望未来"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2. 展望未来</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-SearchView源码解析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SearchView源码解析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:59:27" datetime="2017-07-26T11:59:27.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<h1 id="SearchView源码解析"><a href="#SearchView源码解析" class="headerlink" title="SearchView源码解析"></a>SearchView源码解析</h1><p>SearchView是一个搜索框控件，样式也挺好看的。这次解析主要围绕<code>android.support.v7.widget</code>包下的SearchView（API &gt;= 7）,<code>android.widget.SearchView</code>支持API &gt;= 11，<br>另外有个<code>android.support.v4.widget.SearchViewCompat</code></p>
+<p><img src="https://raw.githubusercontent.com/nukc/SearchViewAnalysis/master/art/searchview.mov.gif"></p>
+<h2 id="1-源码解析"><a href="#1-源码解析" class="headerlink" title="1. 源码解析"></a>1. 源码解析</h2><p>v7版本：23.2.1</p>
+<h3 id="1-1-继承关系"><a href="#1-1-继承关系" class="headerlink" title="1.1 继承关系"></a>1.1 继承关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">java.lang.Object</div><div class="line">	↳ android.view.View</div><div class="line">		↳ android.view.ViewGroup</div><div class="line">			↳ android.support.v7.widget.LinearLayoutCompat</div><div class="line">				↳ android.support.v7.widget.SearchView</div></pre></td></tr></table></figure>
+<h3 id="1-2-主要组件"><a href="#1-2-主要组件" class="headerlink" title="1.2 主要组件"></a>1.2 主要组件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> SearchAutoComplete mSearchSrcTextView;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> View mSearchEditFrame;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> View mSearchPlate;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> View mSubmitArea;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> ImageView mSearchButton;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> ImageView mGoButton;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> ImageView mCloseButton;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> ImageView mVoiceButton;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> View mDropDownAnchor;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> ImageView mCollapsedIcon;</div></pre></td></tr></table></figure>
+<p>看命名也能大概知道控件各自充当了什么角色了。</p>
+<h3 id="1-3-构造方法和自定义"><a href="#1-3-构造方法和自定义" class="headerlink" title="1.3 构造方法和自定义"></a>1.3 构造方法和自定义</h3><p>接下来看构造方法<code>public SearchView(Context context, AttributeSet attrs, int defStyleAttr)</code>,<code>v7</code>的<code>SearchView</code>并不是用<code>TypedArray</code>而是使用<code>TintTypedArray</code>，看了源码发现<code>TintTypedArray</code>里有个：<figure class="highlight plain"><figcaption><span>final TypedArray mWrapped; ```所以主要还是`TypedArray`，不同点是`getDrawable(int index)`和新加的`getDrawableIfKnown(int index)`方法，</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">并在满足条件下会调用`AppCompatDrawableManager.get().getDrawable(mContext, resourceId)`。</div><div class="line"></div><div class="line">为了能更好的自定义，`SearchView`的layout也是可以指定的，不过自定义的layout必须包括上面那些控件，同时id也是指定的，</div><div class="line">不然后面会报错，因为`findViewById(id)`无法找到各自控件，然后调用控件方法的时候就。。。</div><div class="line"></div><div class="line">构造方法最后是更新控件状态，`mIconifiedByDefault`默认是`true`的，`setIconifiedByDefault(boolean iconified)`改变值后也会执行如下方法：</div><div class="line"></div><div class="line">```java</div><div class="line">    public void setIconifiedByDefault(boolean iconified) &#123;</div><div class="line">        if (mIconifiedByDefault == iconified) return;</div><div class="line">        mIconifiedByDefault = iconified;</div><div class="line">        //更新组件</div><div class="line">        updateViewsVisibility(iconified);</div><div class="line">        updateQueryHint();</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>所以<code>setIconifiedByDefault(false)</code>会让SearchView一直呈现展开状态，并且输入框内icon也会不显示。具体方法如下，该方法在<code>updateQueryHint()</code>中被调用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> CharSequence <span class="title">getDecoratedHint</span><span class="params">(CharSequence hintText)</span> </span>&#123;</div><div class="line">    <span class="comment">//如果mIconifiedByDefault为false或者mSearchHintIcon为null</span></div><div class="line">    <span class="comment">//将不会添加搜索icon到提示hint中</span></div><div class="line">    <span class="keyword">if</span> (!mIconifiedByDefault || mSearchHintIcon == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> hintText;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> textSize = (<span class="keyword">int</span>) (mSearchSrcTextView.getTextSize() * <span class="number">1.25</span>);</div><div class="line">    mSearchHintIcon.setBounds(<span class="number">0</span>, <span class="number">0</span>, textSize, textSize);</div><div class="line"></div><div class="line">    <span class="keyword">final</span> SpannableStringBuilder ssb = <span class="keyword">new</span> SpannableStringBuilder(<span class="string">"   "</span>);</div><div class="line">    ssb.setSpan(<span class="keyword">new</span> ImageSpan(mSearchHintIcon), <span class="number">1</span>, <span class="number">2</span>, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);</div><div class="line">    ssb.append(hintText);</div><div class="line">    <span class="keyword">return</span> ssb;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="1-4-Listener"><a href="#1-4-Listener" class="headerlink" title="1.4 Listener"></a>1.4 Listener</h3><p>然后，我们来看看<code>SearchView</code>里面有哪些Listener：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//里面有2个方法：</span></div><div class="line">    <span class="comment">//onQueryTextSubmit(String query)：当用户提交查询的时候会调用</span></div><div class="line">    <span class="comment">//onQueryTextChange(String newText)：当查询文字改变的时候会调用</span></div><div class="line"><span class="keyword">private</span> OnQueryTextListener mOnQueryChangeListener;</div><div class="line"></div><div class="line"><span class="comment">//里面有1个方法：boolean onClose();</span></div><div class="line">    <span class="comment">//onClose()：当mCloseButton被点击和setIconified(true)会判断是否调用</span></div><div class="line">    <span class="comment">//是否调用是在onCloseClicked()里判断，后面会进行分析</span></div><div class="line"><span class="keyword">private</span> OnCloseListener mOnCloseListener;</div><div class="line"></div><div class="line"><span class="comment">//View类里定义的接口</span></div><div class="line"><span class="keyword">private</span> OnFocusChangeListener mOnQueryTextFocusChangeListener;</div><div class="line"></div><div class="line"><span class="comment">//里面有2个方法：</span></div><div class="line">    <span class="comment">//onSuggestionSelect(int position)：选择建议可选项（搜索框下方出现的）后触发</span></div><div class="line">    <span class="comment">//onSuggestionClick(int position)：点击建议可选项后触发</span></div><div class="line"><span class="keyword">private</span> OnSuggestionListener mOnSuggestionListener;</div><div class="line"></div><div class="line"><span class="comment">//View类里定义的接口</span></div><div class="line"><span class="keyword">private</span> OnClickListener mOnSearchClickListener;</div><div class="line"></div><div class="line"><span class="comment">//还有其他mOnClickListener，mTextKeyListener等</span></div></pre></td></tr></table></figure>
+<p>我们看看OnQueryTextListener是怎样进行监听的：</p>
+<ul>
+<li>onQueryTextChange(String newText)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在构造方法里添加了监听</span></div><div class="line">mSearchSrcTextView.addTextChangedListener(mTextWatcher);</div></pre></td></tr></table></figure>
+<p>然后在<code>mTextWatcher</code>的<code>onTextChanged()</code>方法里调用了SearchView的<code>onTextChanged(CharSequence newText)</code>方法，<br>也就是在这里进行了判断触发:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">onTextChanged</span><span class="params">(CharSequence newText)</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 省略代码,主要是更新组件</span></div><div class="line"><span class="comment">     */</span></div><div class="line"></div><div class="line">    <span class="comment">//当listener!=null和当文本不一样的时候会触发。</span></div><div class="line">    <span class="keyword">if</span> (mOnQueryChangeListener != <span class="keyword">null</span> &amp;&amp; !TextUtils.equals(newText, mOldQueryText)) &#123;</div><div class="line">        mOnQueryChangeListener.onQueryTextChange(newText.toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//省略代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>onQueryTextSubmit(String query)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//同在构造方法里添加了监听</span></div><div class="line">mSearchSrcTextView.setOnEditorActionListener(mOnEditorActionListener);</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> OnEditorActionListener mOnEditorActionListener = <span class="keyword">new</span> OnEditorActionListener() &#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * Called when the input method default action key is pressed.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onEditorAction</span><span class="params">(TextView v, <span class="keyword">int</span> actionId, KeyEvent event)</span> </span>&#123;</div><div class="line">        onSubmitQuery();</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">onSubmitQuery</span><span class="params">()</span> </span>&#123;</div><div class="line">    CharSequence query = mSearchSrcTextView.getText();</div><div class="line">    <span class="keyword">if</span> (query != <span class="keyword">null</span> &amp;&amp; TextUtils.getTrimmedLength(query) &gt; <span class="number">0</span>) &#123;</div><div class="line"></div><div class="line">        <span class="comment">//当监听OnQueryChangeListener了之后，</span></div><div class="line">        <span class="comment">//当onQueryTextSubmit() return true的话，是不会执行下面操作的</span></div><div class="line">        <span class="keyword">if</span> (mOnQueryChangeListener == <span class="keyword">null</span></div><div class="line">                || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) &#123;</div><div class="line"></div><div class="line">            <span class="comment">//设置了Searchable后，会startActivity到配置指定的Activity    </span></div><div class="line">            <span class="keyword">if</span> (mSearchable != <span class="keyword">null</span>) &#123;</div><div class="line">                launchQuerySearch(KeyEvent.KEYCODE_UNKNOWN, <span class="keyword">null</span>, query.toString());</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//设置键盘是否显示</span></div><div class="line">            setImeVisibility(<span class="keyword">false</span>);</div><div class="line"></div><div class="line">            <span class="comment">//下拉可选项是用ListPopupWindow显示的，具体可看 AutoCompleteTextView 源码</span></div><div class="line">            <span class="comment">//搜索提交后，dismiss后就不会继续显示而挡住内容什么的</span></div><div class="line">            dismissSuggestions();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在if里加入<code>!mOnQueryChangeListener.onQueryTextSubmit(query.toString())</code>，这样做就可以让使用者自己决定是否完全自己处理，灵活性也更高。</p>
+<p>其他Listener差不多也是这样，那接下来看看其他的。</p>
+<h3 id="1-5-CollapsibleActionView接口"><a href="#1-5-CollapsibleActionView接口" class="headerlink" title="1.5 CollapsibleActionView接口"></a>1.5 CollapsibleActionView接口</h3><p>SearchView实现了CollapsibleActionView接口：onActionViewExpanded()和onActionViewCollapsed(),具体操作就是<br>设置键盘及控件，并使用全局变量<code>mExpandedInActionView</code>记录ActionView是否伸展。只有当SearchView作为MenuItem的时候才会触发，如果是使用v7包的话，想要通过menu获取SearchView就需要使用MenuItemCompat类，具体可以看demo。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MenuItemCompat.getActionView(android.view.MenuItem item);</div></pre></td></tr></table></figure></p>
+<h3 id="1-6-状态的保存和恢复"><a href="#1-6-状态的保存和恢复" class="headerlink" title="1.6 状态的保存和恢复"></a>1.6 状态的保存和恢复</h3><p>SearchView覆写了onSaveInstanceState()和onRestoreInstanceState(Parcelable state)用来保存和恢复状态，为什么要覆写呢？<br>因为需要额外保存<code>boolean mIconified</code>，为此还建了个内部静态类SavedState用来保存mIconified。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//实现了Parcelable序列化</span></div><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SavedState</span> <span class="keyword">extends</span> <span class="title">BaseSavedState</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> isIconified;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 省略其他代码</span></div><div class="line"><span class="comment">     */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-7-关于Suggestions和Searchable"><a href="#1-7-关于Suggestions和Searchable" class="headerlink" title="1.7 关于Suggestions和Searchable"></a>1.7 关于Suggestions和Searchable</h3><p>如果你使用了Suggestions，而且没有setSearchableInfo，那么当你点击建议可选项的时候会log：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">W/SearchView: Search suggestions cursor at row <span class="number">0</span> returned exception.</div><div class="line">              java.lang.NullPointerException</div><div class="line">                  at android.support.v7.widget.SearchView.createIntentFromSuggestion(SearchView.java:<span class="number">1620</span>)</div><div class="line">                  at android.support.v7.widget.SearchView.launchSuggestion(SearchView.java:<span class="number">1436</span>)</div><div class="line">                  at android.support.v7.widget.SearchView.onItemClicked(SearchView.java:<span class="number">1349</span>)</div><div class="line">                  at android.support.v7.widget.SearchView.access$<span class="number">1800</span>(SearchView.java:<span class="number">103</span>)</div><div class="line">                  at android.support.v7.widget.SearchView$<span class="number">10</span>.onItemClick(SearchView.java:<span class="number">1373</span>)</div><div class="line">                  ......</div></pre></td></tr></table></figure>
+<p>定位到第1620行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> Intent <span class="title">createIntentFromSuggestion</span><span class="params">(Cursor c, <span class="keyword">int</span> actionKey, String actionMsg)</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line"></div><div class="line">        <span class="comment">// use specific action if supplied, or default action if supplied, or fixed default</span></div><div class="line">        String action = getColumnString(c, SearchManager.SUGGEST_COLUMN_INTENT_ACTION);</div><div class="line"></div><div class="line">        <span class="comment">//在这里并没有检查mSearchable是否为null</span></div><div class="line">        <span class="keyword">if</span> (action == <span class="keyword">null</span> &amp;&amp; Build.VERSION.SDK_INT &gt;= <span class="number">8</span>) &#123;</div><div class="line">            action = mSearchable.getSuggestIntentAction();  <span class="comment">//第1620行</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         *省略部分代码</span></div><div class="line"><span class="comment">         */</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> createIntent(action, dataUri, extraData, query, actionKey, actionMsg);</div><div class="line">    &#125; <span class="keyword">catch</span> (RuntimeException e ) &#123;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         *省略部分代码</span></div><div class="line"><span class="comment">         */</span></div><div class="line"></div><div class="line">        Log.w(LOG_TAG, <span class="string">"Search suggestions cursor at row "</span> + rowNum +</div><div class="line">                                <span class="string">" returned exception."</span>, e);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>发现调用mSearchable的方法之前并没有检查mSearchable是否为null，其他地方是有判断的，由于做了catch所以不会crash，也不影响使用，另外，如果setOnSuggestionListener：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mSearchView.setOnQueryTextListener(<span class="keyword">new</span> SearchView.OnQueryTextListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onQueryTextSubmit</span><span class="params">(String query)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onQueryTextChange</span><span class="params">(String newText)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>; <span class="comment">//返回true</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>onSuggestionClick(int position) 返回 true 就不会执行<code>createIntentFromSuggestion(~)</code>，<br>也就不会log了，但这样，键盘的隐藏和可选项pop的dismiss也不会执行，需要自己处理，使用SearchView的<code>clearFocus()</code>方法就能达到同样的效果。</p>
+<p>那既然是报null，那就设置Searchable吧，设置后是会startActivity的(执行完createIntentFromSuggestion(~)后就会执行)。<br>然后效果就是当你点击了可选项就会startActivity，看需求做选择吧。。</p>
+<h3 id="1-8-语音搜索功能"><a href="#1-8-语音搜索功能" class="headerlink" title="1.8 语音搜索功能"></a>1.8 语音搜索功能</h3><p>SearchView还有语音搜索功能(API &gt;= 8)，需要通过配置Searchable来开启，在xml配置文件中加入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"</div></pre></td></tr></table></figure>
+<p><code>showVoiceSearchButton</code>显示语音搜索按钮，<code>launchRecognizer</code>表示要启动一个语音识别器来转换成文字传给指定的searchable activity。<br>有个全局变量<code>boolean mVoiceButtonEnabled</code>表示是否启用，在<code>setSearchableInfo(~)</code>方法里进行了设置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mVoiceButtonEnabled = IS_AT_LEAST_FROYO &amp;&amp; hasVoiceSearch();</div></pre></td></tr></table></figure>
+<p>IS_AT_LEAST_FROYO是Build.VERSION.SDK_INT &gt;= 8，为了确保正确性，我试了下，结果并没有显示语言搜索按钮，<br>debug后发现在hasVoiceSearch()里：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ResolveInfo ri = getContext().getPackageManager().resolveActivity(testIntent,</div><div class="line">        PackageManager.MATCH_DEFAULT_ONLY);</div><div class="line"><span class="keyword">return</span> ri != <span class="keyword">null</span>;</div></pre></td></tr></table></figure>
+<p>在这里并没有resolve到Activity，结果return false，mVoiceButtonEnabled也就变成false了</p>
+<p>终于知道为什么了，原来阉割版的系统都不会出现语音搜索按钮，华为/魅族/Genymotion试过都不行(没有试过全版本系统)，AS自带模拟器可以(有Google服务)，具体应该就是没有resolve到Google语音识别Activity。对语音识别有兴趣的同学可以搜索RecognizerIntent。</p>
+<h3 id="1-9-AutoCompleteTextViewReflector"><a href="#1-9-AutoCompleteTextViewReflector" class="headerlink" title="1.9 AutoCompleteTextViewReflector"></a>1.9 AutoCompleteTextViewReflector</h3><p>v7包的SearchView使用了反射机制，通过反射拿到AutoCompleteTextView和InputMethodManager隐藏的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> AutoCompleteTextViewReflector HIDDEN_METHOD_INVOKER = <span class="keyword">new</span> AutoCompleteTextViewReflector();</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoCompleteTextViewReflector</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Method doBeforeTextChanged, doAfterTextChanged;</div><div class="line">    <span class="keyword">private</span> Method ensureImeVisible;</div><div class="line">    <span class="keyword">private</span> Method showSoftInputUnchecked;</div><div class="line"></div><div class="line">    AutoCompleteTextViewReflector() &#123;</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line"><span class="comment">         * 省略部分代码</span></div><div class="line"><span class="comment">         */</span></div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            showSoftInputUnchecked = InputMethodManager.class.getMethod(</div><div class="line">                    <span class="string">"showSoftInputUnchecked"</span>, <span class="keyword">int</span>.class, ResultReceiver.class);</div><div class="line">            showSoftInputUnchecked.setAccessible(<span class="keyword">true</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</div><div class="line">            <span class="comment">// Ah well.</span></div><div class="line">        &#125;</div><div class="line">    &#125;    </div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 省略部分代码</span></div><div class="line"><span class="comment">     */</span>        </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showSoftInputUnchecked</span><span class="params">(InputMethodManager imm, View view, <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (showSoftInputUnchecked != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                showSoftInputUnchecked.invoke(imm, flags, <span class="keyword">null</span>);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//只有这个方法才有在if后面做处理</span></div><div class="line">        <span class="comment">// Hidden method failed, call public version instead</span></div><div class="line">        imm.showSoftInput(view, flags);</div><div class="line">    &#125;        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-10-onMeasure-测量"><a href="#1-10-onMeasure-测量" class="headerlink" title="1.10 onMeasure 测量"></a>1.10 onMeasure 测量</h3><p>查看了下<code>onMeasure</code>，发现有个地方还是比较在意的。 当<code>isIconified()</code>返回<code>false</code>的时候，width的mode在最后都会被设置成<code>MeasureSpec.EXACTLY</code>。</p>
+<p>在SearchView伸展收缩的时候，<code>onMeasure</code>会被执行多次，width根据其mode改变, 之后mode设置为EXACTLY再调用父类super方法进行测量。</p>
+<p>设置为EXACTLY，这样父控件就能确切的决定view的大小，那为什么只对width而不对height进行设置呢?</p>
+<p>通过查看默认的 <a href="https://github.com/nukc/SearchViewAnalysis/blob/master/app%2Fsrc%2Fmain%2Fres%2Flayout%2Flayout_search.xml">layout</a>，可以看到主要组件的layout_height的大多都是match_parent(对应EXACTLY模式)，而layout_width基本都是wrap_content(对应AT_MOST模式)。</p>
+<p>另外，不是只有伸展收缩的时候，<code>onMeasure</code>才会被执行, 点击语音搜索按钮/输入框获取焦点的时候/…也会执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</div><div class="line">    <span class="comment">// Let the standard measurements take effect in iconified state.</span></div><div class="line">    <span class="keyword">if</span> (isIconified()) &#123;</div><div class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> widthMode = MeasureSpec.getMode(widthMeasureSpec);</div><div class="line">    <span class="keyword">int</span> width = MeasureSpec.getSize(widthMeasureSpec);</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (widthMode) &#123;</div><div class="line">        <span class="keyword">case</span> MeasureSpec.AT_MOST:</div><div class="line">            <span class="comment">// If there is an upper limit, don't exceed maximum width (explicit or implicit)</span></div><div class="line">            <span class="keyword">if</span> (mMaxWidth &gt; <span class="number">0</span>) &#123;</div><div class="line">                width = Math.min(mMaxWidth, width);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                width = Math.min(getPreferredWidth(), width);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MeasureSpec.EXACTLY:</div><div class="line">            <span class="comment">// If an exact width is specified, still don't exceed any specified maximum width</span></div><div class="line">            <span class="keyword">if</span> (mMaxWidth &gt; <span class="number">0</span>) &#123;</div><div class="line">                width = Math.min(mMaxWidth, width);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MeasureSpec.UNSPECIFIED:</div><div class="line">            <span class="comment">// Use maximum width, if specified, else preferred width</span></div><div class="line">            width = mMaxWidth &gt; <span class="number">0</span> ? mMaxWidth : getPreferredWidth();</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    widthMode = MeasureSpec.EXACTLY;</div><div class="line">    <span class="keyword">super</span>.onMeasure(MeasureSpec.makeMeasureSpec(width, widthMode), heightMeasureSpec);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-展望未来"><a href="#2-展望未来" class="headerlink" title="2. 展望未来"></a>2. 展望未来</h2><p>在v7包的SearchView里，有一个声明并初始化了的变量，但并没有用到过:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> AppCompatDrawableManager mDrawableManager;</div><div class="line"></div><div class="line"><span class="comment">//在构造方法里初始化</span></div><div class="line">mDrawableManager = AppCompatDrawableManager.get();</div></pre></td></tr></table></figure>
+<p>或许后续版本会用到吧! 抱着好奇的心去看了<code>AppCompatDrawableManager</code>源码，但并没有注释说明这个类是干什么用的，看名字只知道是管理Drawable的。</p>
+<p>既然这样，那就来看下<code>AppCompatDrawableManager</code>能干些什么吧。</p>
+<p>一步一步来，先看看它初始化的时候干了些什么，查看<code>get()</code>方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AppCompatDrawableManager <span class="title">get</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//使用了懒汉式</span></div><div class="line">    <span class="keyword">if</span> (INSTANCE == <span class="keyword">null</span>) &#123;</div><div class="line">        INSTANCE = <span class="keyword">new</span> AppCompatDrawableManager();</div><div class="line">        installDefaultInflateDelegates(INSTANCE);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> INSTANCE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">installDefaultInflateDelegates</span><span class="params">(@NonNull AppCompatDrawableManager manager)</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> sdk = Build.VERSION.SDK_INT;</div><div class="line">    <span class="comment">// 只在Android 5.0以下的系统</span></div><div class="line">    <span class="keyword">if</span> (sdk &lt; <span class="number">21</span>) &#123;</div><div class="line">        <span class="comment">// 在需要的时候使用 VectorDrawableCompat 进行自动处理</span></div><div class="line">        manager.addDelegate(<span class="string">"vector"</span>, <span class="keyword">new</span> VdcInflateDelegate());</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (sdk &gt;= <span class="number">11</span>) &#123;</div><div class="line">            <span class="comment">// AnimatedVectorDrawableCompat 只能在 API v11+ 使用</span></div><div class="line">            manager.addDelegate(<span class="string">"animated-vector"</span>, <span class="keyword">new</span> AvdcInflateDelegate());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从这里, 我们可以看出跟<code>Vector</code>(矢量)有关。</p>
+<ul>
+<li><a href="https://github.com/android/platform_frameworks_base/blob/4535e11fb7010f2b104d3f8b3954407b9f330e0f/graphics/java/android/graphics/drawable/VectorDrawable.java">VectorDrawable</a><br>能创建一个基于xml描述的矢量图;</li>
+<li><a href="https://github.com/android/platform_frameworks_base/blob/4535e11fb7010f2b104d3f8b3954407b9f330e0f/graphics/java/android/graphics/drawable/AnimatedVectorDrawable.java">AnimatedVectorDrawable</a><br>使用<code>ObjectAnimator</code>和<code>AnimatorSet</code>为VectorDrawable创建动画。</li>
+</ul>
+<p>然后我粗略的看了方法名，有几个关键词: <code>Tint</code>着色，<code>Cache</code>，……</p>
+<p>有兴趣的同学可以搜下相关资料，这里就不再深入了。</p>
+<p>如果我哪里分析错了，请大家及时纠正我，谢谢。</p>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T12:03:12.000Z" itemprop="dateUpdated">2017-07-26 20:03:12</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&title=《SearchView源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&title=《SearchView源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SearchView源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/SwipeRefreshLayout源码分析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">SwipeRefreshLayout源码分析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/Scroller源码解析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Scroller源码解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&title=《SearchView源码解析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&title=《SearchView源码解析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SearchView源码解析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/SearchView源码解析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3awY6jQAwE0Pz/T8+eR9mwVTaNstLjNJoA6ccBO+V+veLj5+14/7S9w/Xx6drXiQMPDw9vvfT3223+k3yarypfMx4eHt5p3qcvaJeSl4H8Pvl68PDw8L6Td/01OSBplK8LAx4eHt7/wstb3tnDSu6Jh4eH9w28drl5Gbg+cx+F3Ja14OHh4XU5QDRF+p6/j8z38PDw8NZT9by1nW0mSEpIGw3/ugoPDw/vAG+2ZWoWHLQRQ7vV4OPjxsPDwzvMm8UQSdAwG6RtxmZ4eHh4T/JazP71nT+gNkrGw8PDu5eXj5pmG6HyodSRgoGHh4f3RC/62pSH/D7t3fYxMR4eHt5pXnLrfSA7e+nfvPUKDw8Pr+Rthk/tsL89cxZJFH06Hh4e3pq33/w02xrVXlu05nh4eHgHePlP/X3MugkR8vFb8ZsADw8Pb8TbvNDzxrctBpvtX7/OxMPDwzvAawf8bYx7V5i7abjx8PDw7uXlXzbDt012+wiKGAIPDw/vAC/fJnVdHpL2Nx96zcKRKKXGw8PDG/HakDRvgusx/6hQFWEuHh4e3q28zQgqb7hXzXFZtPDw8PDO8WYboZKWd/ZE20f2j6vw8PDwjvFmW6/aBrpt02fRw8esBQ8PD+8mXj6evyvMbUvIrHTh4eHhPclrY9ZNRNuOwdqV4OHh4T3JywdjSVOeANrIo4hF8PDw8A7zZq/1NmCdxbV5pIuHh4d3jvdTHm1JKMLWshRFRQgPDw/vAG821J+Vh2f+XtUTPDw8vDLnvDcUSLYXbApSUorw8PDwTvPaIVO+yWAzNmsDiDqlxsPDw3uEl8DOjbiS9eDh4eF9J6/9vX/XtXVci4eHh3eM1wYB+Qhqc+3sHDw8PLzTvNlerbzhzjcQ7Adpt21Fw8PDw/v7VX8ANqHaT31Mv3QAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

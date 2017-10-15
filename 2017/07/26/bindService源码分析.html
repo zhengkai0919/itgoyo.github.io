@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    
+
+    
+
+    
+
+
+<!-- Baidu Push -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!-- End Baidu Push -->
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    <meta name="baidu-site-verification" content="97dbRVWfVh" />
+    <meta name="sogou_site_verification" content="AIePRXkUI4"/>
+    
+    
+    <link rel="canonical" href="http://www.kotlinandroid.net/2017/07/26/bindService源码分析.html">
+    
+    
+    <title>bindService源码分析 | KotlinAndroid | 一个专注发布KotlinAndroid相关资源与优秀文章的技术网站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Android">
+    <meta name="description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 bindService 源码分析 【进行中】简介客户端通过 ContextWrapper.bindService() 方法来绑定服务，本地对 bindService 的过程进行源码分析。 整体时序图  源码分析1.">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bindService源码分析">
+<meta property="og:url" content="https://github.com/itgoyo/2017/07/26/bindService源码分析.html">
+<meta property="og:site_name" content="KotlinAndroid">
+<meta property="og:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 bindService 源码分析 【进行中】简介客户端通过 ContextWrapper.bindService() 方法来绑定服务，本地对 bindService 的过程进行源码分析。 整体时序图  源码分析1.">
+<meta property="og:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+<meta property="og:image" content="https://github.com/xxx">
+<meta property="og:image" content="https://github.com/arts/kotlin_group.jpg">
+<meta property="og:updated_time" content="2017-07-26T11:52:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bindService源码分析">
+<meta name="twitter:description" content="项目地址： https://github.com/itgoyo/AndroidSource-Analysis 简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。 bindService 源码分析 【进行中】简介客户端通过 ContextWrapper.bindService() 方法来绑定服务，本地对 bindService 的过程进行源码分析。 整体时序图  源码分析1.">
+<meta name="twitter:image" content="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&label=Star">
+    
+        <link rel="alternative" href="/atom.xml" title="KotlinAndroid" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/img/kotlin.png">
+    <link rel="stylesheet" href="/css/style.css?v=1.5.2">
+    <script>window.lazyScripts=[]</script>
+
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c16d3c10c9ea6c6fe749d9926d52b0d6";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" style="
+    width: 300px;"class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/kotlin_250x250.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">itgoyo</h5>
+          <a href="mailto:kotlinandroid@kotlinandroid.net" title="kotlinandroid@kotlinandroid.net" class="mail">kotlinandroid@kotlinandroid.net</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/website"  >
+                <i class="icon icon-lg icon-html5"></i>
+                官网
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="Mailto:itgoyo@kotlinandroid.net"  >
+                <i class="icon icon-lg icon-envelope"></i>
+                邮件
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/itgoyo"  >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.kotlinandroid.net/resume"  >
+                <i class="icon icon-lg icon-file-text"></i>
+                Résumé
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://hukai.me/android-training-course-in-chinese/index.html"  >
+                <i class="icon icon-lg icon-android"></i>
+                官方培训课程
+              </a>
+            </li>
+        
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=1&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="http://open.weixin.qq.com/qr/code/?username=kotlinandroid">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">bindService源码分析</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">bindService源码分析</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-26T11:46:44.000Z" itemprop="datePublished" class="page-time">
+  2017-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#bindService-源码分析-【进行中】"><span class="post-toc-number">1.</span> <span class="post-toc-text">bindService 源码分析 【进行中】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码分析"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">源码分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">参考</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-bindService源码分析"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">bindService源码分析</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-26 19:46:44" datetime="2017-07-26T11:46:44.000Z"  itemprop="datePublished">2017-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码分析/">源码分析</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><img src="https://img.shields.io/github/stars/itgoyo/AndroidSource-Analysis.svg?style=social&amp;label=Star" alt=""></p>
+<p>项目地址： <a href="https://github.com/itgoyo/AndroidSource-Analysis">https://github.com/itgoyo/AndroidSource-Analysis</a></p>
+<p>简介： Android源码分析，让你更清楚的理解每一个组件的功能与用法。</p>
+<h1 id="bindService-源码分析-【进行中】"><a href="#bindService-源码分析-【进行中】" class="headerlink" title="bindService 源码分析 【进行中】"></a>bindService 源码分析 【进行中】</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>客户端通过 ContextWrapper.bindService() 方法来绑定服务，本地对 bindService 的过程进行源码分析。</p>
+<p><strong>整体时序图</strong></p>
+<p><img src="https://github.com/xxx" alt="bindService 时序图"></p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>1. 客户端调用 <a href="https://github.com/xdtianyu/AidlExample/blob/master/app/src/main/java/org/xdty/aidlexample/MainActivity.java#L45">bindService()</a> 绑定服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MainActivity.java</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">    Intent intent = <span class="keyword">new</span> Intent().setComponent(<span class="keyword">new</span> ComponentName(</div><div class="line">            <span class="string">"org.xdty.remoteservice"</span>,</div><div class="line">            <span class="string">"org.xdty.remoteservice.RemoteService"</span>));</div><div class="line">    bindService(intent, mConnection, Context.BIND_AUTO_CREATE);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>Activity.bindService()</code> 最终调用的是 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ContextImpl.java#L1283">ContextImpl.bindService()</a> 方法</p>
+<p>2. ContextImpl.bindService()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ContextImpl.java</span></div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">bindService</span><span class="params">(Intent service, ServiceConnection conn,</span></span></div><div class="line"><span class="function"><span class="params">        <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">    warnIfCallingFromSystemProcess();</div><div class="line">    <span class="keyword">return</span> bindServiceCommon(service, conn, flags, Process.myUserHandle());</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">bindServiceCommon</span><span class="params">(Intent service, ServiceConnection conn, <span class="keyword">int</span> flags,</span></span></div><div class="line"><span class="function"><span class="params">        UserHandle user)</span> </span>&#123;</div><div class="line">    IServiceConnection sd;</div><div class="line"></div><div class="line">    sd = mPackageInfo.getServiceDispatcher(conn, getOuterContext(),</div><div class="line">                mMainThread.getHandler(), flags);</div><div class="line">    ...</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        IBinder token = getActivityToken();</div><div class="line">        ...</div><div class="line">        <span class="keyword">int</span> res = ActivityManagerNative.getDefault().bindService(</div><div class="line">            mMainThread.getApplicationThread(), getActivityToken(), service,</div><div class="line">            service.resolveTypeIfNeeded(getContentResolver()),</div><div class="line">            sd, flags, getOpPackageName(), user.getIdentifier());</div><div class="line">        ...</div><div class="line">        <span class="keyword">return</span> res != <span class="number">0</span>;</div><div class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可见接着调用了 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L3740">ActivityManagerNative.getDefault().bindService()</a> 方法</p>
+<p>这里的 <code>mPackageInfo</code> 是一个 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/LoadedApk.java#L977">LoadedApk</a> 实例。<code>mMainThread</code> 则是一个 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityThread.java#L1705">ActivityThread</a>。</p>
+<p>3. ActivityManagerNative.getDefault().bindService()</p>
+<p>注意 <code>ActivityManagerNative.java</code> 文件中有两个类 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L61">ActivityManagerNative</a> <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L2619">ActivityManagerProxy</a>, 他们都实现了 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/IActivityManager.java#L66">IActivityManager</a>接口，而 <a href="">ActivityManagerNative</a> 则继承了 <code>Binder</code> 对象，相当于 AIDL 中的 Stub，<code>`ActivityManagerProxy</code> 则相当于 Proxy。</p>
+<p>首先看 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L84">ActivityManagerNative.getDefault()</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">getDefault</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> gDefault.get();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再找 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L2610">gDefault</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> Singleton&lt;IActivityManager&gt;() &#123;</div><div class="line">    <span class="function"><span class="keyword">protected</span> IActivityManager <span class="title">create</span><span class="params">()</span> </span>&#123;</div><div class="line">        IBinder b = ServiceManager.getService(<span class="string">"activity"</span>);</div><div class="line">        IActivityManager am = asInterface(b);</div><div class="line">        <span class="keyword">return</span> am;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>再来看 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L67">asInterface()</a> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">asInterface</span><span class="params">(IBinder obj)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    IActivityManager in =</div><div class="line">        (IActivityManager)obj.queryLocalInterface(descriptor);</div><div class="line">    <span class="keyword">if</span> (in != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> in;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActivityManagerProxy(obj);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很容易发现其返回了一个 <code>ActivityManagerProxy</code> 对象，所以调用的 <code>bindService()</code> 方法实现在 <code>ActivityManagerProxy</code> 类中。注意这里不要和抽象类 <code>ActivityManagerNative.class</code> 继承的 <code>bindService()</code> 方法混淆，它的实现在子类 ActivityManagerService 中。接下来我们继续看 Proxy 中的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ActivityManagerNative.java</span></div><div class="line"></div><div class="line"><span class="comment">// ActivityManagerProxy.class</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bindService</span><span class="params">(IApplicationThread caller, IBinder token,</span></span></div><div class="line"><span class="function"><span class="params">        Intent service, String resolvedType, IServiceConnection connection,</span></span></div><div class="line"><span class="function"><span class="params">        <span class="keyword">int</span> flags,  String callingPackage, <span class="keyword">int</span> userId)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">    Parcel data = Parcel.obtain();</div><div class="line">    Parcel reply = Parcel.obtain();</div><div class="line">    data.writeInterfaceToken(IActivityManager.descriptor);</div><div class="line">    data.writeStrongBinder(caller != <span class="keyword">null</span> ? caller.asBinder() : <span class="keyword">null</span>);</div><div class="line">    data.writeStrongBinder(token);</div><div class="line">    service.writeToParcel(data, <span class="number">0</span>);</div><div class="line">    data.writeString(resolvedType);</div><div class="line">    data.writeStrongBinder(connection.asBinder());</div><div class="line">    data.writeInt(flags);</div><div class="line">    data.writeString(callingPackage);</div><div class="line">    data.writeInt(userId);</div><div class="line">    mRemote.transact(BIND_SERVICE_TRANSACTION, data, reply, <span class="number">0</span>);</div><div class="line">    reply.readException();</div><div class="line">    <span class="keyword">int</span> res = reply.readInt();</div><div class="line">    data.recycle();</div><div class="line">    reply.recycle();</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可见这里将要绑定的服务信息打包，通过一个 binder 对象，发送了 <code>BIND_SERVICE_TRANSACTION</code> 命令给 <code>ActivityManager</code> 的服务端。而 <code>ActivityManager</code> 的服务端就是 <code>ActivityManagerNative</code>，所以接着命令会被 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L143">ActivityManagerNative.onTransact()</a> 处理</p>
+<p>4. ActivityManagerNative.onTransact()</p>
+<p><code>ActivityManagerNative</code> 对 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/core/java/android/app/ActivityManagerNative.java#L973">BIND_SERVICE_TRANSACTION</a> 命令重新解包并通过子类实现的 <a href="">ActivityManagerNative.bindService()</a> 处理，注意这里的 <code>bindService()</code> 和上文的 <code>ActivityManagerProxy.bindService()</code> 不同。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityManagerNative</span> <span class="keyword">extends</span> <span class="title">Binder</span> <span class="keyword">implements</span> <span class="title">IActivityManager</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTransact</span><span class="params">(<span class="keyword">int</span> code, Parcel data, Parcel reply, <span class="keyword">int</span> flags)</span></span></div><div class="line"><span class="function">            <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">        ...</div><div class="line">        <span class="keyword">case</span> BIND_SERVICE_TRANSACTION: &#123;</div><div class="line">            data.enforceInterface(IActivityManager.descriptor);</div><div class="line">            IBinder b = data.readStrongBinder();</div><div class="line">            IApplicationThread app = ApplicationThreadNative.asInterface(b);</div><div class="line">            IBinder token = data.readStrongBinder();</div><div class="line">            Intent service = Intent.CREATOR.createFromParcel(data);</div><div class="line">            String resolvedType = data.readString();</div><div class="line">            b = data.readStrongBinder();</div><div class="line">            <span class="keyword">int</span> fl = data.readInt();</div><div class="line">            String callingPackage = data.readString();</div><div class="line">            <span class="keyword">int</span> userId = data.readInt();</div><div class="line">            IServiceConnection conn = IServiceConnection.Stub.asInterface(b);</div><div class="line">            <span class="keyword">int</span> res = bindService(app, token, service, resolvedType, conn, fl,</div><div class="line">                    callingPackage, userId);</div><div class="line">            reply.writeNoException();</div><div class="line">            reply.writeInt(res);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>5. ActivityManagerService.bindService()</p>
+<p>我们继续看 <code>ActivityManagerNative</code> 的子类 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java#L15897">ActivityManagerService</a> 对 <code>bindService()</code> 方法的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">bindService</span><span class="params">(IApplicationThread caller, IBinder token, Intent service,</span></span></div><div class="line"><span class="function"><span class="params">        String resolvedType, IServiceConnection connection, <span class="keyword">int</span> flags, String callingPackage,</span></span></div><div class="line"><span class="function"><span class="params">        <span class="keyword">int</span> userId)</span> <span class="keyword">throws</span> TransactionTooLargeException </span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="keyword">return</span> mServices.bindServiceLocked(caller, token, service,</div><div class="line">                resolvedType, connection, flags, callingPackage, userId);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可见通过 <code>mServices.bindServiceLocked()</code> 方法又传递给了下一层，这里的 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java#L2309">mServices</a> 则是一个 <code>ActiveServices</code> 实例。我们继续追踪 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/services/core/java/com/android/server/am/ActiveServices.java#L697">ActiveServices.bindServiceLocked()</a></p>
+<p>6. ActiveServices.bindServiceLocked()</p>
+<p>接下来看 bindServiceLocked() 关键代码片断。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">bindServiceLocked</span><span class="params">(IApplicationThread caller, IBinder token, Intent service,</span></span></div><div class="line"><span class="function"><span class="params">        String resolvedType, IServiceConnection connection, <span class="keyword">int</span> flags,</span></span></div><div class="line"><span class="function"><span class="params">        String callingPackage, <span class="keyword">int</span> userId)</span> <span class="keyword">throws</span> TransactionTooLargeException </span>&#123;</div><div class="line">    <span class="comment">// 获取当前应用的进程记录</span></div><div class="line">    <span class="keyword">final</span> ProcessRecord callerApp = mAm.getRecordForAppLocked(caller);</div><div class="line"></div><div class="line">    <span class="comment">// 获取当前 Activity 记录</span></div><div class="line">    ActivityRecord activity = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</div><div class="line">        activity = ActivityRecord.isInStackLocked(token);</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="comment">// 获取 ServiceLookupResult，其中 res.record 就是我们要启动的 service</span></div><div class="line">    ServiceLookupResult res =</div><div class="line">        retrieveServiceLocked(service, resolvedType, callingPackage,</div><div class="line">                Binder.getCallingPid(), Binder.getCallingUid(), userId, <span class="keyword">true</span>, callerFg);</div><div class="line">    ServiceRecord s = res.record;</div><div class="line"></div><div class="line">    mAm.startAssociationLocked(callerApp.uid, callerApp.processName,</div><div class="line">            s.appInfo.uid, s.name, s.processName);</div><div class="line"></div><div class="line">    AppBindRecord b = s.retrieveAppBindingLocked(service, callerApp);</div><div class="line">    </div><div class="line">    <span class="comment">// 封装客户端传入的 IServiceConnection，用于绑定后回调</span></div><div class="line">    ConnectionRecord c = <span class="keyword">new</span> ConnectionRecord(b, activity,</div><div class="line">            connection, flags, clientLabel, clientIntent);</div><div class="line"></div><div class="line">    <span class="comment">// 保存 connection 记录到列表中</span></div><div class="line">    IBinder binder = connection.asBinder();</div><div class="line">    ArrayList&lt;ConnectionRecord&gt; clist = s.connections.get(binder);</div><div class="line">    <span class="keyword">if</span> (clist == <span class="keyword">null</span>) &#123;</div><div class="line">        clist = <span class="keyword">new</span> ArrayList&lt;ConnectionRecord&gt;();</div><div class="line">        s.connections.put(binder, clist);</div><div class="line">    &#125;</div><div class="line">    clist.add(c);</div><div class="line">    b.connections.add(c);</div><div class="line">    <span class="keyword">if</span> (activity != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (activity.connections == <span class="keyword">null</span>) &#123;</div><div class="line">            activity.connections = <span class="keyword">new</span> HashSet&lt;ConnectionRecord&gt;();</div><div class="line">        &#125;</div><div class="line">        activity.connections.add(c);</div><div class="line">    &#125;</div><div class="line">    b.client.connections.add(c);</div><div class="line">    <span class="keyword">if</span> ((c.flags&amp;Context.BIND_ABOVE_CLIENT) != <span class="number">0</span>) &#123;</div><div class="line">        b.client.hasAboveClient = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (s.app != <span class="keyword">null</span>) &#123;</div><div class="line">        updateServiceClientActivitiesLocked(s.app, c, <span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line">    clist = mServiceConnections.get(binder);</div><div class="line">    <span class="keyword">if</span> (clist == <span class="keyword">null</span>) &#123;</div><div class="line">        clist = <span class="keyword">new</span> ArrayList&lt;ConnectionRecord&gt;();</div><div class="line">        mServiceConnections.put(binder, clist);</div><div class="line">    &#125;</div><div class="line">    clist.add(c);</div><div class="line"></div><div class="line">    <span class="comment">// 继续进入 bringUpServiceLocked() 处理</span></div><div class="line">    <span class="keyword">if</span> ((flags&amp;Context.BIND_AUTO_CREATE) != <span class="number">0</span>) &#123;</div><div class="line">        s.lastActivity = SystemClock.uptimeMillis();</div><div class="line">        <span class="keyword">if</span> (bringUpServiceLocked(s, service.getFlags(), callerFg, <span class="keyword">false</span>) != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>7. ActiveServices.bringUpServiceLocked()</p>
+<p>继续查看 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/services/core/java/com/android/server/am/ActiveServices.java#L1362">bringUpServiceLocked()</a> 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">final</span> String <span class="title">bringUpServiceLocked</span><span class="params">(ServiceRecord r, <span class="keyword">int</span> intentFlags, <span class="keyword">boolean</span> execInFg,</span></span></div><div class="line"><span class="function"><span class="params">        <span class="keyword">boolean</span> whileRestarting)</span> <span class="keyword">throws</span> TransactionTooLargeException </span>&#123;</div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> isolated = (r.serviceInfo.flags&amp;ServiceInfo.FLAG_ISOLATED_PROCESS) != <span class="number">0</span>;</div><div class="line">    <span class="keyword">final</span> String procName = r.processName;</div><div class="line">    ProcessRecord app;</div><div class="line"></div><div class="line">    <span class="comment">// 获取进程记录</span></div><div class="line">    app = mAm.getProcessRecordLocked(procName, r.appInfo.uid, <span class="keyword">false</span>);</div><div class="line">    <span class="keyword">if</span> (app != <span class="keyword">null</span> &amp;&amp; app.thread != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            app.addPackage(r.appInfo.packageName, r.appInfo.versionCode, mAm.mProcessStats);</div><div class="line">            <span class="comment">// 启动服务</span></div><div class="line">            realStartServiceLocked(r, app, execInFg);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">catch</span> (TransactionTooLargeException e) &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>8. ActiveServices.realStartServiceLocked()</p>
+<p>继续追踪 <a href="https://github.com/xdtianyu/android-6.0.0_r1/blob/master/frameworks/base/services/core/java/com/android/server/am/ActiveServices.java#L1492">ActiveServices.realStartServiceLocked()</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">realStartServiceLocked</span><span class="params">(ServiceRecord r,</span></span></div><div class="line"><span class="function"><span class="params">        ProcessRecord app, <span class="keyword">boolean</span> execInFg)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        ...</div><div class="line">        <span class="comment">// 创建服务，服务端最终会响应 onCreate() 方法。</span></div><div class="line">        app.thread.scheduleCreateService(r, r.serviceInfo,</div><div class="line">                mAm.compatibilityInfoForPackageLocked(r.serviceInfo.applicationInfo),</div><div class="line">                app.repProcState);</div><div class="line">        ...</div><div class="line">    &#125; <span class="keyword">catch</span> (DeadObjectException e) &#123;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 绑定服务， 服务最终端会响应 onBind() 方法</span></div><div class="line">    requestServiceBindingsLocked(r, execInFg);</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/luoshengyang/article/details/6745181" target="_blank" rel="external">Android应用程序绑定服务（bindService）的过程源代码分析</a></p>
+<hr>
+<p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p>
+<p><img src="/arts/kotlin_group.jpg" alt=""></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-07-26T11:52:06.000Z" itemprop="dateUpdated">2017-07-26 19:52:06</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://github.com/itgoyo">
+            <img src="/img/kotlin_250x250.jpg" alt="itgoyo">
+            itgoyo
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&title=《bindService源码分析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&title=《bindService源码分析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/bindService源码分析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《bindService源码分析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/26/CompoundButton源码分析.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CompoundButton源码分析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/07/26/Binder源码分析.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Binder源码分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'itgoyo';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        奖励一杯咖啡!
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/assets/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/assets/img/wechat.jpg" data-alipay="/assets/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+
+    <div class="bottom">
+  
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span>itgoyo &copy; 2017</span>  &nbsp&nbsp&nbsp 作者Github地址 欢迎关注 <a href="https://github.com/itgoyo" target="_blank">itgoyo</a>
+              <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a>
+        </p>
+        <p>
+        感谢西部数码提供<a href="http://www.west.cn/index.asp?ReferenceID=1232730"
+        target="_blank">虚拟主机</a>
+        </p>
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&title=《bindService源码分析》 — KotlinAndroid&pic=https://github.com/itgoyo/img/kotlin_250x250.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&title=《bindService源码分析》 — KotlinAndroid&source=talk is cheap,show me the girl." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/itgoyo/2017/07/26/bindService源码分析.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《bindService源码分析》 — KotlinAndroid&url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html&via=https://github.com/itgoyo" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://github.com/itgoyo/2017/07/26/bindService源码分析.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3awa7CMAwEwP7/T/OuSLyWtZ1URZqeEEVNpofYbHIc8fX6uN6/P/v8/k3y+8/P109bduHh4eGNp37GOBugB8u/ye/+M0M8PDy8bbxk0nmRqC7r1YKRzBkPDw/vObxk6kkh+bKgXz4NDw8P77d41SU+aYjzthsPDw/vObzkz3+el/ba5bz8bMla8PDw8GJevov0nM9b9vfw8PDwxrvq1c2wSWCRxBnl2eLh4eFt4PXa5byRnbfm1XYZDw8P7x7e2cD5Qav8OdXXlBekLy8RDw8P70ZeYfGNG+VV0XAhnsDDw8NbxEtI1xOaHwioLvGjGAIPDw9vzJvsJSVDJhtpvaNUi/f68PDw8Iq8Hcek8sMHvdgiL0V4eHh4a3n5Mj2PU/MpTrbNmlUIDw8PL+b1Bs6nPo+AJ/EEHh4e3j5eb/j80b1Fv1pUohKCh4eHt4E3ITWPQ7W21pLyg4eHh7ePlxyQSt5KfnfSrCfloXBuCw8PD6/F6z2oF+zm407KBh4eHt5uXi+EnTTQvUg3KUKFlBoPDw+vxevFBJNjB3kTn4fCpyPi4eHhbeBVo9tqp5pPYp49L0im8fDw8IK71SBgUiTyFnzBvwQ8PDy8zbzecp8PmVSkeQgSPRQPDw9vzMuX6d5Rg0mIkIcd5W0wPDw8vDGvF4xWD0JVY9lqE3+seq94eHh4MW9tebiOGPK78z8AeHh4eLt5eVhQfSmvy+tYdEVhLh4eHt6A9ypeeRjROwRQfUFfigQeHh7eBl51wc3b4nyDP39aHpQ06wkeHh7eIMbNN5zyhb73+npHsgqNNR4eHt6ANz9cNY9x5wFEIWvBw8PDu52XN75rQ4rrUfDw8PCeyZtnHquOZ42ODuDh4eGNedXGt9dw52HE/HXj4eHh7eNVl/J5OUlCilUBMR4eHt5S3h/9OzXKJYDsrwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261686164&web_id=1261686164')
+
+</script>
+
+<script src="/js/main.min.js?v=1.5.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.5.2" async></script>
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
