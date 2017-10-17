@@ -52,6 +52,7 @@
 <meta property="og:description" content=".hexo-douban-clearfix{     clear:both;   }   #tabs{     margin-bottom: 15px;     margin-top:15px;   }   #tabs a {     padding: 5px;   }   #tabs a.hexo-douban-active{     background: #657b83;     co">
 <meta property="og:image" content="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2400201631.jpg">
 <meta property="og:image" content="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2494940865.jpg">
+<meta property="og:image" content="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p462657443.jpg">
 <meta property="og:image" content="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2483150767.jpg">
 <meta property="og:image" content="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2462245619.jpg">
 <meta property="og:image" content="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2400956536.jpg">
@@ -316,7 +317,7 @@ var _hmt = _hmt || [];
 <div id="douban">
     <div id="tabs">
       <a id="wish-tab" href="javascript:show('wish')" target="_blank" rel="external">想看(2)</a>
-      <a id="read-tab" href="javascript:show('read')" target="_blank" rel="external">已看(5)</a>
+      <a id="read-tab" href="javascript:show('read')" target="_blank" rel="external">已看(6)</a>
     </div>
 
     <div id="collections">
@@ -345,10 +346,23 @@ var _hmt = _hmt || [];
 </div>
 
 
-         
+        
       </div>
       <div class="hexo-douban-clearfix"></div>
       <div id="read" class="hexo-douban-hide">
+        
+          <div class="hexo-douban-book">
+  <div class="hexo-douban-picture"><img src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p462657443.jpg"/></div>
+  <div class="hexo-douban-info">
+    <div class="hexo-douban-title">
+      <a target="_blank" href="https://movie.douban.com/subject/1851857/">蝙蝠侠：黑暗骑士 / The Dark Knight</a>
+    </div>
+    <div class="hexo-douban-meta">2017-10-17 /  漫画改编 动作 诺兰 2008 小丑希斯·莱杰 / ★★★★★ 力荐 </div>
+    <div class="hexo-douban-comments"> 希斯·莱杰的小丑才是真正的小丑</div>
+  </div>
+</div>
+
+
         
           <div class="hexo-douban-book">
   <div class="hexo-douban-picture"><img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2483150767.jpg"/></div>
@@ -414,7 +428,7 @@ var _hmt = _hmt || [];
 </div>
 
 
-         
+        
       </div>
       <div class="hexo-douban-clearfix"></div>
     </div>
@@ -435,9 +449,8 @@ function show(id){
   document.getElementById('wish-tab').classList.remove('hexo-douban-active');
   document.getElementById(id+'-tab').classList.add('hexo-douban-active');
   };
- show("read")
+ show("wish")
 </script>
-
 
         </div>
 
