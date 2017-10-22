@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/itgoyo/"/>
-  <updated>2017-10-15T07:53:03.000Z</updated>
+  <updated>2017-10-22T05:31:38.000Z</updated>
   <id>https://github.com/itgoyo/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决Alfred每次都访问通讯录的问题</title>
+    <link href="https://github.com/itgoyo/2017/10/22/%E8%A7%A3%E5%86%B3Alfred%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%AE%BF%E9%97%AE%E9%80%9A%E8%AE%AF%E5%BD%95%E7%9A%84%E9%97%AE%E9%A2%98.html"/>
+    <id>https://github.com/itgoyo/2017/10/22/解决Alfred每次都访问通讯录的问题.html</id>
+    <published>2017-10-22T05:30:02.000Z</published>
+    <updated>2017-10-22T05:31:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>打开终端或者iterm2，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo codesign -f -d -s - /Applications/Alfred\ 3.app/Contents/Frameworks/Alfred\ Framework.framework/Versions/A/Alfred\ Framework</div></pre></td></tr></table></figure></p><hr><p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p><p><img src="/arts/kotlin_group.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;解决方法&quot;&gt;&lt;a href=&quot;#解决方法&quot; class=&quot;headerlink&quot; title=&quot;解决方法&quot;&gt;&lt;/a&gt;解决方法&lt;/h3&gt;&lt;p&gt;打开终端或者iterm2，输入&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;
+      
+    
+    </summary>
+    
+      <category term="Mac" scheme="https://github.com/itgoyo/categories/Mac/"/>
+    
+    
+      <category term="Mac" scheme="https://github.com/itgoyo/tags/Mac/"/>
+    
+  </entry>
   
   <entry>
     <title>常用的Markdown编辑器推荐</title>
