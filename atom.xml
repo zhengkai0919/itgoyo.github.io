@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/itgoyo/"/>
-  <updated>2017-10-22T05:31:38.000Z</updated>
+  <updated>2017-10-27T07:33:49.000Z</updated>
   <id>https://github.com/itgoyo/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java多态的理解</title>
+    <link href="https://github.com/itgoyo/2017/10/27/Java%E5%A4%9A%E6%80%81%E7%9A%84%E7%90%86%E8%A7%A3.html"/>
+    <id>https://github.com/itgoyo/2017/10/27/Java多态的理解.html</id>
+    <published>2017-10-27T06:56:56.000Z</published>
+    <updated>2017-10-27T07:33:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>文章是参照博客园的一篇文章<a href="http://www.cnblogs.com/jack204/archive/2012/10/29/2745150.html" target="_blank" rel="external">博文链接</a>来做的笔记。</p><h3 id="什么是多态？"><a href="#什么是多态？" class="headerlink" title="什么是多态？"></a>什么是多态？</h3><p>多态是同一个行为具有多个不同表现形式或形态的能力。<a href="http://www.runoob.com/java/java-polymorphism.html" target="_blank" rel="external">菜鸟教程</a></p><p>多态就是同一个接口，使用不同的实例而执行不同操作，如图所示：</p><p><img src="http://omvbl46i3.bkt.clouddn.com/17-10-27/8493448.jpg" alt=""></p><p>多态性是对象多种表现形式的体现。</p><blockquote><p>现实中，比如我们按下 F1 键这个动作：</p><ul><li>如果当前在 Flash 界面下弹出的就是 AS 3 的帮助文档；</li><li>如果当前在 Word 下弹出的就是 Word 帮助；</li><li>在 Windows 下弹出的就是 Windows 帮助和支持。</li></ul></blockquote><p>同一个事件发生在不同的对象上会产生不同的结果。</p><h3 id="多态的优点"><a href="#多态的优点" class="headerlink" title="多态的优点"></a>多态的优点</h3><ol><li>消除类型之间的耦合关系</li><li>可替换性</li><li>可扩充性</li><li>接口性</li><li>灵活性</li><li>简化性</li></ol><h3 id="多态存在的三个必要条件"><a href="#多态存在的三个必要条件" class="headerlink" title="多态存在的三个必要条件"></a>多态存在的三个必要条件</h3><ul><li>继承</li><li>重写</li><li>父类引用指向子类对象</li></ul><p>当子类对象调用重写的方法时，调用的是子类的方法，而不是父类中被重写的方法。<br>要想调用父类中被重写的方法，则必须使用关键字super。</p><p>简单的Demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class A ...&#123;  </div><div class="line">         public String show(D obj)...&#123;  </div><div class="line">                return (&quot;A and D&quot;);  </div><div class="line">         &#125;   </div><div class="line">         public String show(A obj)...&#123;  </div><div class="line">                return (&quot;A and A&quot;);  </div><div class="line">         &#125;   </div><div class="line">&#125;   </div><div class="line">class B extends A...&#123;  </div><div class="line">         public String show(B obj)...&#123;  </div><div class="line">                return (&quot;B and B&quot;);  </div><div class="line">         &#125;  </div><div class="line">         public String show(A obj)...&#123;  </div><div class="line">                return (&quot;B and A&quot;);  </div><div class="line">         &#125;   </div><div class="line">&#125;  </div><div class="line">class C extends B...&#123;&#125;   </div><div class="line">class D extends B...&#123;&#125;</div></pre></td></tr></table></figure></p><p>问题：以下输出结果是什么？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">A a1 = new A();  </div><div class="line">A a2 = new B();  </div><div class="line">B b = new B();  </div><div class="line">C c = new C();   </div><div class="line">D d = new D();   </div><div class="line">System.out.println(a1.show(b));   ①  </div><div class="line">System.out.println(a1.show(c));   ②  </div><div class="line">System.out.println(a1.show(d));   ③  </div><div class="line">System.out.println(a2.show(b));   ④  </div><div class="line">System.out.println(a2.show(c));   ⑤  </div><div class="line">System.out.println(a2.show(d));   ⑥  </div><div class="line">System.out.println(b.show(b));    ⑦  </div><div class="line">System.out.println(b.show(c));    ⑧  </div><div class="line">System.out.println(b.show(d));    ⑨</div></pre></td></tr></table></figure></p><p>答案<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">①   A and A</div><div class="line">②   A and A</div><div class="line">③   A and D</div><div class="line">④   B and A</div><div class="line">⑤   B and A</div><div class="line">⑥   A and D</div><div class="line">⑦   B and B</div><div class="line">⑧   B and B</div><div class="line">⑨   A and D</div></pre></td></tr></table></figure></p><p>答案解析<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">1.实例对象为A，参数为对象B，B为A的子类。执行A.class中show(A obj)</div><div class="line">2.同上</div><div class="line">3.实例对象为A，参数为对象D，执行A.class中show(D obj)</div><div class="line">4.实例对象依然为A，参数为B，本应执行A.class中show(A obj)，但是，B.class重写了show(A obj),所以执行B.class show(A obj)</div><div class="line">5.同上</div><div class="line">6.执行A.class show(D obj) B中并没有重写。</div><div class="line">7，8.实例对象为B，参数为B或者B的子类，执行show(B obj)</div><div class="line">9.实例对象为B，参数为D，因为B继承自A，也可以执行A中的show(D obj)</div></pre></td></tr></table></figure></p><hr><p>如果你有兴趣加入我们，请直接关注公众号 Kotlinandroid ，或者加 QQ 群：465280882</p><p><img src="/arts/kotlin_group.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文章是参照博客园的一篇文章&lt;a href=&quot;http://www.cnblogs.com/jack204/archive/2012/10/29/2745150.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;博文链接&lt;/a&gt;来做的笔记。&lt;/p&gt;
+&lt;
+      
+    
+    </summary>
+    
+      <category term="编程相关" scheme="https://github.com/itgoyo/categories/%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3/"/>
+    
+    
+      <category term="Program" scheme="https://github.com/itgoyo/tags/Program/"/>
+    
+      <category term="Java" scheme="https://github.com/itgoyo/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>解决Alfred每次都访问通讯录的问题</title>
